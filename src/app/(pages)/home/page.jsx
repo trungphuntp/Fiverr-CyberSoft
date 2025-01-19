@@ -1,3 +1,4 @@
+import ReduxProvider from "@/app/components/ReduxProvider/page";
 import Scexplore from "./(components)/scexplore";
 import Scfreelance from "./(components)/scfreelance";
 import Schero from "./(components)/schero";

@@ -1,0 +1,153 @@
+@use "./mixins" as m;
+
+.header {
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    background: var(--white-color);
+    font-size: var(--fz-header);
+    line-height: var(--lh-header);
+    letter-spacing: var(--ls-header);
+    color: var(--text-color-header);
+    svg {
+        @include m.transition(0.3s);
+    }
+    // header top
+    &__top {
+        &-right {
+            .actions {
+                .item {
+                    white-space: nowrap;
+                    font-family: m600;
+                    @include m.mid(true);
+                    gap: 4px;
+                    padding: 0 10px;
+                    cursor: pointer;
+                    @include m.transition(0.3s);
+                    svg {
+                        width: 16px;
+                        height: 16px;
+                    }
+                    &:hover {
+                        color: var(--primary-color);
+                        svg {
+                            color: var(--primary-color);
+                        }
+                    }
+                    &.active {
+                        color: #1e1692;
+                    }
+                }
+            }
+        }
+    }
+    .headerBottomLine {
+        height: 1px;
+        width: calc(100% + var(--pd-container) * 2);
+        margin-left: calc(-1 * var(--pd-container));
+        background: var(--text-color-header);
+        opacity: 0.1;
+    }
+    // header bottom
+    &__bottom {
+        --color-textbox: #404145;
+        &-wrapper {
+            height: 100%;
+            width: 100%;
+            position: relative;
+            &:hover {
+                .header__bottom-textbox {
+                    display: block;
+                }
+            }
+
+            &:nth-last-of-type(1) {
+                .header__bottom-textbox {
+                    left: initial;
+                    right: 0;
+                }
+            }
+        }
+
+        &-textbox {
+            display: none;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            transform: translateY(100%);
+            width: 320px;
+            padding: 20px 30px;
+            background: var(--white-color);
+        }
+
+        &-item {
+            height: 100%;
+            position: relative;
+            @include m.mid(true);
+            @include m.transition(0.3s);
+            font-family: m500;
+            &::after {
+                content: "";
+                display: block;
+                position: absolute;
+                background: var(--primary-color);
+                width: 0;
+                height: 3px;
+                bottom: 0;
+                left: 0;
+                @include m.transition(0.3s);
+            }
+            @keyframes slideIn {
+                from {
+                    width: 0;
+                }
+                to {
+                    width: 100%;
+                }
+            }
+
+            @keyframes slideOut {
+                from {
+                    left: 0;
+                    width: 100%;
+                }
+                to {
+                    left: 100%;
+                    width: 0;
+                }
+            }
+            &:hover {
+                color: var(--primary-color);
+
+                &::after {
+                    animation: slideIn 0.5s forwards;
+                }
+            }
+            &:not(:hover)::after {
+                animation: slideOut 0.5s forwards;
+            }
+        }
+
+        &-textbox {
+            .item + .item {
+                margin-top: 25px;
+            }
+            .item {
+                font-size: 1.6rem;
+                &__title {
+                    font-family: m600;
+                    line-height: 1.5;
+                    color: var(--color-textbox);
+                }
+                &__text {
+                    margin-top: 10px;
+                    display: block;
+                    @include m.transition(0.3s);
+                    &:hover {
+                        color: var(--primary-color);
+                    }
+                }
+            }
+        }
+    }
+}

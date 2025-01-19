@@ -1,0 +1,41 @@
+html {
+    font-size: 62.5%; // 1rem = 10px
+}
+body {
+    width: 100%;
+    margin: 0 auto;
+    max-width: var(--max-width-page);
+    background: var(--bg-page);
+    scroll-behavior: smooth;
+    font-family: var(--font-regular);
+    font-size: var(--fz-body-1);
+    line-height: var(--lh-body-1);
+    letter-spacing: var(--ls-body-1);
+    color: var(--text-color-body);
+
+    // @include customscroll(4px, var(--blue-color), var(--primary-color));
+
+    &.--disable-scroll {
+        height: 100vh;
+        overflow: hidden;
+    }
+    .container {
+        width: 100%;
+        max-width: var(--max-width-container);
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: var(--pd-container);
+        padding-right: var(--pd-container);
+    }
+    .container-fluid {
+        width: 100%;
+        max-width: var(--max-width-container-fluid);
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: var(--pd-container);
+        padding-right: var(--pd-container);
+    }
+    // .main {
+    //     position: relative;
+    // }
+}

@@ -1,0 +1,161 @@
+@use "./mixins" as m;
+
+// common
+
+// button
+.btn {
+    @apply font-[m600] max-lg:h-[40px] h-[48px] px-[24px] bg-[var(--btn-primary-color)] rounded-[4px] text-[var(--white-color)] whitespace-nowrap;
+    @include m.transition(0.3s);
+
+    &.outlineBtn {
+        @apply bg-[var(--white-color)] text-[var(--btn-primary-color)] border border-[var(--btn-primary-color)] border-solid hover:bg-[var(--btn-primary-color)] hover:text-[var(--white-color)];
+    }
+
+    &.textBtn {
+        @apply bg-transparent border-none text-inherit hover:text-[var(--btn-primary-color)];
+    }
+    &.smallBtn {
+        @apply h-[42px] px-[15px] max-lg:h-[38px];
+    }
+}
+
+// input search
+.inputSearch {
+    --radius-search: 4px;
+
+    width: 100%;
+    height: 100%;
+    @include m.mid(true);
+    overflow: hidden;
+    &__search {
+        width: 100%;
+        height: 100%;
+        border-radius: var(--radius-search) 0 0 var(--radius-search);
+        border: 1px solid #c5c6c9;
+        padding: 10px 16px;
+        border-right-width: 0px;
+        @include m.transition(0.3s);
+        &:hover {
+            border-color: var(--primary-color);
+        }
+        &:focus {
+            border-color: var(--primary-color);
+        }
+    }
+    .btn {
+        border-radius: 0px var(--radius-search) var(--radius-search) 0;
+    }
+}
+
+// heading
+
+.heading {
+    font-size: var(--fz-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    color: var(--text-color-body);
+    font-family: m600;
+    &.heading_2 {
+        font-family: m500;
+        font-size: var(--fz-h2);
+        line-height: var(--lh-h2);
+        letter-spacing: var(--ls-h2);
+    }
+    &.textWhite {
+        color: var(--white-color);
+    }
+    &.boldText {
+        font-family: m700;
+    }
+    & .italicHeading {
+        background: linear-gradient(
+            90deg,
+            rgba(108, 180, 58, 1) 0%,
+            rgba(150, 253, 29, 1) 49%,
+            rgba(69, 252, 84, 1) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-fill-color: transparent;
+
+        font-family: m600i;
+    }
+}
+
+// swiper next prev button
+.carouselPrev {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background-color: rgba($color: #000, $alpha: 0.5);
+    color: #fff;
+    cursor: pointer;
+    z-index: 50;
+    svg {
+        width: 60%;
+        height: 60%;
+    }
+}
+.carouselNext {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    top: 50%;
+    right: 0%;
+    transform: translateY(-50%);
+    background-color: rgba($color: #000, $alpha: 0.5);
+    color: #fff;
+    cursor: pointer;
+    z-index: 50;
+    svg {
+        width: 60%;
+        height: 60%;
+    }
+}
+
+// Icon Marketplace
+.IconMarketplace {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    &:hover .IconMarketplace__content::after {
+        width: calc(var(--w-line) * 2);
+        background: var(--primary-color);
+    }
+    &__content {
+        --w-line: 48px;
+        padding-top: 12px;
+        position: relative;
+
+        &:hover::after {
+            width: calc(var(--w-line) * 2);
+            background: var(--primary-color);
+        }
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            transform: translateX(-50%);
+            left: 50%;
+            width: var(--w-line);
+            height: 2px;
+            border-radius: 999px;
+            background: #c5c6c9;
+            @include m.transition(0.3s);
+        }
+    }
+}

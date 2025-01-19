@@ -1,0 +1,156 @@
+@use "../core/mixins" as m;
+
+.mainHome {
+    // section hero
+    .schero {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 80vh;
+
+        @include m.lg {
+            height: 70vh;
+        }
+        @include m.md {
+            height: 60vh;
+        }
+        @include m.sm {
+            height: 80vh;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-slide {
+            width: 100%;
+            img {
+                display: flex;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        &__content {
+            top: 50%;
+            left: 8%;
+            z-index: 2;
+        }
+    }
+
+    // section popular
+    .scpopular {
+        &__carousels {
+            height: 305px;
+            .swiper {
+                height: 100%;
+            }
+            .swiper-slide {
+                width: 226px;
+                height: 100% !important;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+
+    // section freelance
+    .scfreelance {
+        &__video {
+            position: relative;
+            z-index: 2;
+            user-select: none;
+            overflow: hidden;
+
+            .iconPlayVideo:hover + .scfreelance__video-icon {
+                width: 100px;
+                height: 100px;
+            }
+            &:hover::after {
+                background: rgba($color: #000000, $alpha: 0.3);
+            }
+            &::after {
+                content: "";
+                display: block;
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                background: transparent;
+                top: 0;
+                left: 0;
+                z-index: 1;
+                cursor: pointer;
+                @include m.transition(0.3s);
+            }
+        }
+    }
+
+    // section testimonials
+    .sctestimonials {
+        &__item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            &-video {
+                aspect-ratio: 560/315;
+                position: relative;
+                max-width: 560px;
+                width: 100%;
+                overflow: hidden;
+                cursor: pointer;
+
+                &:hover::after {
+                    background: rgba($color: #000000, $alpha: 0.3);
+                }
+
+                &::after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    background: transparent;
+                    z-index: 1;
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    @include m.transition(0.3s);
+                }
+            }
+
+            &-content {
+                width: 100%;
+                max-width: 625px;
+                .headContent {
+                    display: flex;
+                    align-items: center;
+                    &__title {
+                        font-size: 2rem;
+                        color: var(--text-color-body-2);
+                    }
+                    &__branch {
+                        border-left: 1px solid var(--text-color-body-2);
+                        height: 36px;
+                        margin-left: 10px;
+
+                        img {
+                            object-fit: contain;
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                }
+                .bodyContent {
+                    margin-top: 15px;
+                    font-size: 2.5rem;
+                    font-family: m500i;
+                }
+            }
+        }
+    }
+}

@@ -1,8 +1,8 @@
 const HOME_PATH = "/";
-const WORKS_PATH = "/works";
+const WORKS_CATEGORY_PATH = "/workscategory";
 
 const PATH = {
     HOME: HOME_PATH,
-    WORKS: WORKS_PATH,
+    WORKS_CATEGORY: WORKS_CATEGORY_PATH,
 };
 export default PATH;

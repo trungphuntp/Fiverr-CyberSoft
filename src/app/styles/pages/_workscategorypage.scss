@@ -1,0 +1,21 @@
+.mainWorksCategory {
+    .titleSection {
+        font-size: 2.4rem;
+        line-height: 1.2;
+        color: var(--text-color-body-3);
+        font-family: m600;
+    }
+    .scTextbox {
+        &__title {
+            font-size: 3.3rem;
+            font-family: m600;
+            line-height: 1.2;
+        }
+        &__desc {
+            margin-top: 8px;
+            font-size: 2rem;
+            font-family: m500;
+            line-height: 1.2;
+        }
+    }
+}

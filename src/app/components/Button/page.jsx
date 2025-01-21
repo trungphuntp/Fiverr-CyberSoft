@@ -18,6 +18,9 @@ const Button = ({ children, sizeBtn = "normal", variant = "primary", className =
         case "outline":
             classVarant = "btn outlineBtn";
             break;
+        case "outlineWhite":
+            classVarant = "btn outlineWhiteBtn";
+            break;
         case "text":
             classVarant = "btn textBtn";
             break;

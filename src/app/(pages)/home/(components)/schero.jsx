@@ -18,10 +18,10 @@ const Schero = () => {
                     </div>
                     <div className="mt-[22px] flex flex-wrap items-center gap-[12px] text-[var(--white-color)] ">
                         Popular:
-                        <Tag>Website Design</Tag>
-                        <Tag>WordPress</Tag>
-                        <Tag>Logo Design</Tag>
-                        <Tag>Video Editing</Tag>
+                        <Tag variant="outline">Website Design</Tag>
+                        <Tag variant="outline">WordPress</Tag>
+                        <Tag variant="outline">Logo Design</Tag>
+                        <Tag variant="outline">Video Editing</Tag>
                     </div>
                 </div>
             </div>

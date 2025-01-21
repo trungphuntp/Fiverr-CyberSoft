@@ -31,7 +31,7 @@ const Scfreelance = () => {
             <section className="scfreelance py-[80px] bg-[var(--bg-page-2)]">
                 <div className="container flex items-center justify-between gap-8 max-lg:gap-12 max-lg:flex-col ">
                     <div className="scfreelance__left max-w-[530px] max-lg:max-w-full ">
-                        <h2 className="heading heading_2 boldText !text-[#404145]">
+                        <h2 className="heading heading_2 boldText !text-[var(--text-color-body-3)]">
                             A whole world of freelance talent at your fingertips
                         </h2>
                         <div className="scfreelance__left-content ">

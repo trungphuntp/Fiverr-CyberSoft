@@ -10,7 +10,7 @@
     --pd-container: 28px; //
     --gutter: 26px;
 
-    --max-width-container: calc(1196px + var(--pd-container) * 2);
+    --max-width-container: calc(1310px + var(--pd-container) * 2);
     --max-width-container-fluid: 1920px;
 
     /* Colors Variable Demo*/
@@ -26,6 +26,7 @@
     // text
     --text-color-body: rgba(0, 0, 0, 0.85);
     --text-color-body-2: #74767e;
+    --text-color-body-3: #404145;
 
     --text-color-header: #74767e;
     // // Fontsize - Lineheight Variable Demo
@@ -84,17 +85,26 @@
     // --cubic: cubic-bezier(0.59, 0.29, 0.15, 0.93);
 
     // // Responsive
+    @include m.maxW(1400px) {
+        --max-width-container: calc(1130px + calc(var(--pd-container) * 2));
+    }
+
     @include m.md {
         // --container-max-width: 1140px;
         --fz-h1: 3.8rem;
     }
+
+    @include m.lg {
+        --pd-container: 24px;
+    }
+
     @include m.sm {
-        --max-width-container: 960px;
+        --max-width-container: 100%;
+        --pd-container: 16px;
+
         // --container-max-width: 960px; // hoặc max-width: 100% tuỳ yêu cầu
     }
     @include m.xs {
-        --max-width-container: 100%;
-        --pd-container: 16px;
         // --height-header: 80px;
 
         //     --container-max-width: 100%; // hoặc max-width: 100% tuỳ yêu cầu

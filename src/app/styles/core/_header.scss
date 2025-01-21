@@ -50,7 +50,6 @@
     }
     // header bottom
     &__bottom {
-        --color-textbox: #404145;
         &-wrapper {
             height: 100%;
             width: 100%;
@@ -137,7 +136,7 @@
                 &__title {
                     font-family: m600;
                     line-height: 1.5;
-                    color: var(--color-textbox);
+                    color: var(--text-color-body-3);
                 }
                 &__text {
                     margin-top: 10px;

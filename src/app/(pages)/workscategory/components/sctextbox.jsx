@@ -1,9 +1,11 @@
 import Button from "@/app/components/Button/page";
+import ComponentLoading from "@/app/components/Loading/page";
 import React from "react";
 
-const Sctextbox = ({ title }) => {
+const Sctextbox = ({ title, loading }) => {
     return (
-        <section className="scTextbox py-[50px]  bg-[#0C3B24] text-[var(--white-color)]">
+        <section className="scTextbox relative py-[50px]  bg-[#0C3B24] text-[var(--white-color)]">
+            {!!loading && <ComponentLoading spin={true} />}
             <div className="container flex justify-center items-center flex-col">
                 <h1 className="scTextbox__title ">{title || ""}</h1>
                 <p className="scTextbox__desc">Designs to make you stand out.</p>

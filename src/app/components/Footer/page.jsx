@@ -6,10 +6,10 @@ const Footer = () => {
     return (
         <footer className="footer pt-[65px] border border-[#e4e5e7] border-solid">
             <div className="container">
-                <div className="footer__content flex justify-between  pb-[55px]">
+                <div className="footer__content grid grid-cols-5 pb-[55px] max-lg:grid-cols-3 max-xs:grid-cols-2 max-xs:gap-8 max-xxs:grid-cols-1">
                     <div className="footer__content-list">
                         <h3 className="title">Categories</h3>
-                        <ul className="list">
+                        <ul className="list ">
                             <li>
                                 <Link className="item" href="#">
                                     Graphics & Design
@@ -62,7 +62,6 @@ const Footer = () => {
                             </li>
                         </ul>
                     </div>
-
                     <div className="footer__content-list">
                         <h3 className="title">About</h3>
                         <ul className="list">
@@ -237,8 +236,8 @@ const Footer = () => {
                         </ul>
                     </div>
                 </div>
-                <div className="footer__bottom flex justify-between items-center">
-                    <div className="footer__bottom-left flex items-center gap-10 pt-[20px] pb-[40px] border border-solid border-[#e4e5e7]">
+                <div className="footer__bottom flex justify-between items-center max-lg:flex-col">
+                    <div className="footer__bottom-left flex items-center gap-10 pt-[20px] pb-[40px] border border-solid border-[#e4e5e7] max-lg:flex-col">
                         <Link href={PATH.HOME}>
                             <img className="w-[90px]" src="/logo.svg" alt="logo fiverr" />
                         </Link>
@@ -246,7 +245,7 @@ const Footer = () => {
                             © Fiverr International Ltd. 2024
                         </p>
                     </div>
-                    <div className="footer__bottom-right flex items-center gap-[65px]">
+                    <div className="footer__bottom-right flex items-center gap-[65px] max-lg:flex-col  max-lg:pb-[30px]">
                         <div className="socialIcons">
                             <a href="#" className="socialIcons__item">
                                 <svg

@@ -1,0 +1,102 @@
+@use "./mixins" as m;
+
+.navbar {
+    z-index: 9999;
+    position: fixed;
+    inset: 0;
+    height: 100vh;
+    width: 100vw;
+    opacity: 0;
+    visibility: hidden;
+    @include m.transition(0.3s);
+    &.active {
+        opacity: 1;
+        visibility: visible;
+        .navbar__overlay {
+            opacity: 0.5;
+            visibility: visible;
+        }
+        .navbar__content {
+            left: 0;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+    &__overlay {
+        position: absolute;
+        z-index: 2;
+        left: 0;
+        top: 0;
+        background: #000;
+        opacity: 0;
+        visibility: hidden;
+        height: 100%;
+        width: 100%;
+        @include m.transition(0.3s);
+    }
+    &__content {
+        --width-nav: 400px;
+        position: absolute;
+        left: calc(-1 * var(--width-nav));
+        top: 0;
+        z-index: 3;
+        opacity: 0;
+        visibility: hidden;
+        width: var(--width-nav);
+        background: var(--white-color);
+        height: 100%;
+        padding: 80px 30px 20px;
+        @include m.transition(0.3s);
+
+        &-list {
+            .item {
+                &.active,
+                &:hover {
+                    color: var(--primary-color);
+                }
+                @include m.transition(0.3s);
+                font-family: m600;
+                font-size: 2rem;
+                color: #62646a;
+                display: block;
+                padding: 14px 0;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+            .itemDropdown {
+                position: relative;
+                padding-left: 10px;
+                overflow: hidden;
+                @include m.transition(0.3s);
+                &__item {
+                    font-size: 1.8rem;
+                    font-family: m500;
+                    padding: 4px 0;
+                    padding-left: 10px;
+
+                    cursor: pointer;
+                    @include m.transition(0.3s);
+
+                    &:hover {
+                        background: rgba($color: #000, $alpha: 0.1);
+                    }
+                }
+            }
+        }
+
+        &-close {
+            position: absolute;
+            color: var(--text-color-body-2);
+            top: 20px;
+            right: 20px;
+            height: 30px;
+            width: 30px;
+            cursor: pointer;
+            @include m.transition(0.3s);
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+    }
+}

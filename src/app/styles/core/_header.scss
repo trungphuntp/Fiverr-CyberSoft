@@ -16,7 +16,11 @@
     &__top {
         &-right {
             .actions {
+                li {
+                    position: relative;
+                }
                 .item {
+                    height: 100%;
                     white-space: nowrap;
                     font-family: m600;
                     @include m.mid(true);
@@ -36,6 +40,36 @@
                     }
                     &.active {
                         color: #1e1692;
+                    }
+                }
+                .itemDropdown {
+                    padding: 15px 0;
+                    background: var(--white-color);
+                    visibility: hidden;
+                    opacity: 0;
+                    width: 100%;
+                    top: 50%;
+                    left: 0;
+                    position: absolute;
+                    z-index: 1000;
+                    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+                    @include m.transition(0.3s);
+
+                    &_item {
+                        width: 100%;
+                        cursor: pointer;
+                        padding: 8px 10px;
+                        @include m.transition(0.3s);
+
+                        &:hover {
+                            color: var(--primary-color);
+                        }
+                    }
+
+                    &.active {
+                        visibility: visible;
+                        opacity: 1;
+                        top: 100%;
                     }
                 }
             }

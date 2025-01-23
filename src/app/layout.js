@@ -1,5 +1,8 @@
 import Footer from "./components/Footer/page";
 import Header from "./components/Header/page";
+import Navbar from "./components/Navbar/page";
+import ProviderReactQuery from "./components/ProviderReactQuery/page";
+import { NavContextProvider } from "./contexts/NavContext/page";
 import "./globals.css";
 import "./styles/main.scss";
 
@@ -14,9 +17,14 @@ export default function RootLayout({ children }) {
                 <link rel="icon" href="/favicon.svg" />
             </head>
             <body>
-                <Header />
-                {children}
-                <Footer />
+                <ProviderReactQuery>
+                    <NavContextProvider>
+                        <Header />
+                        <Navbar />
+                    </NavContextProvider>
+                    {children}
+                    <Footer />
+                </ProviderReactQuery>
             </body>
         </html>
     );

@@ -1,20 +1,40 @@
 import WorksServices from "../services/WorksServices";
-import axiosInstance from "../utils/axiosInstance";
 
 export const getMenuCategory = async () => {
+    let isLoading = true;
     try {
         const res = await WorksServices.getMenuCategoryWorks();
-        return res.data.content;
+        let isLoading = false;
+
+        return {
+            data: res.data.content,
+            loading: isLoading,
+        };
     } catch (error) {
         console.log("error", error);
+        return {
+            error,
+            loading: isLoading,
+        };
     }
 };
 
 export const getDetailCategoryWorks = async (id) => {
+    let isLoading = true;
+
     try {
         const res = await WorksServices.getDetailCategoryWorks(id);
-        return res.data.content;
+        let isLoading = false;
+
+        return {
+            data: res.data.content,
+            loading: isLoading,
+        };
     } catch (error) {
         console.log("error", error);
+        return {
+            error,
+            loading: isLoading,
+        };
     }
 };

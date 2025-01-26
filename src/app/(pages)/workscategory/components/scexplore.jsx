@@ -1,7 +1,6 @@
 "use client";
 import CardCategory from "@/app/components/CardCategory/page";
 import { Skeleton } from "antd";
-import React from "react";
 
 const Scexplore = ({ loading, categoryWorks }) => {
     return (

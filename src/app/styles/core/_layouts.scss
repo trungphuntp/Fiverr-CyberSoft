@@ -12,6 +12,7 @@ body {
     line-height: var(--lh-body-1);
     letter-spacing: var(--ls-body-1);
     color: var(--text-color-body);
+    position: relative;
 
     // @include customscroll(4px, var(--blue-color), var(--primary-color));
 

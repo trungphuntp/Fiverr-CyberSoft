@@ -3,7 +3,7 @@ import React from "react";
 
 const Scpopular = () => {
     return (
-        <section className="scpopular py-[50px]">
+        <section className="scpopular pb-[50px] pt-[20px]">
             <div className="container">
                 <h2 className="titleSection">Most popular in Writing & Translation</h2>
                 <div className="flex gap-4 flex-wrap items-center">

@@ -1,3 +1,4 @@
+import PATH from "@/app/constants/path";
 import Link from "next/link";
 import React from "react";
 
@@ -12,11 +13,12 @@ const CardCategory = ({ imgCate, title, detailCategorys }) => {
                 <div className="CardCategory__list ">
                     {!!detailCategorys?.length > 0 &&
                         detailCategorys.map((item, index) => {
+                            const linkWorks = PATH.WORKS + `/${item.id}`;
                             return (
                                 <Link
                                     className="CardCategory__list-item"
                                     key={item?.id || index}
-                                    href={"#"}
+                                    href={linkWorks || "#"}
                                 >
                                     {item?.tenChiTiet || ""}
                                 </Link>

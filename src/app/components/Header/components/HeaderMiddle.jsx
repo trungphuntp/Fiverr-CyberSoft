@@ -39,10 +39,12 @@ const HeaderMiddle = async () => {
 
                                                 {NhomChiTietLoai?.dsChiTietLoai?.map(
                                                     (chiTietLoai, index) => {
+                                                        const linkWorks =
+                                                            PATH.WORKS + `/${chiTietLoai.id}`;
                                                         return (
                                                             <Link
                                                                 className="item__text"
-                                                                href="#"
+                                                                href={linkWorks || "#"}
                                                                 key={
                                                                     chiTietLoai?.id ||
                                                                     new Date.getTime() + index

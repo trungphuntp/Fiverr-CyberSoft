@@ -1,0 +1,12 @@
+.mainDetailWork {
+    --max-w-mainContent: 750px;
+    --max-w-aside: 430px;
+
+    .mainContent {
+        max-width: var(--max-w-mainContent);
+    }
+
+    .asideDetailWork {
+        max-width: var(--max-w-aside);
+    }
+}

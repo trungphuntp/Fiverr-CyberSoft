@@ -1,36 +1,27 @@
-import React from "react";
-import Sctextbox from "../components/sctextbox";
-import Scpopular from "../components/scpopular";
-import Scexplore from "../components/scexplore";
-import Scservices from "../components/scservices";
 import { getDetailCategoryWorksByIdCate } from "@/app/actions/WorksActions";
 import BreadcumbComponent from "@/app/components/Breadcumb/page";
 import Link from "next/link";
-import { PageName } from "@/app/constants/general";
+import Scpopular from "../components/scpopular";
+import Scservices from "../components/scservices";
+import Sctextbox from "../components/sctextbox";
+import Scexplore from "../components/scexplore";
 
 const WorksCategoryPage = async (props) => {
     const { idCategory } = await props.params;
-
-    const { data, loading: detailCategoryLoading } = await getDetailCategoryWorksByIdCate(
-        idCategory
-    );
-    const detailCategoryWorks = data?.[0] || {};
+    const res = await getDetailCategoryWorksByIdCate(idCategory);
+    const detailCategoryWorks = res?.[0] || {};
 
     const sctextboxProps = {
         title: detailCategoryWorks?.tenLoaiCongViec || "",
-        loading: detailCategoryLoading,
     };
     const scexploreProps = {
-        categoryWorks: detailCategoryWorks?.dsNhomChiTietLoai || [],
-        loading: detailCategoryLoading,
+        idWorks: idCategory,
     };
-    console.log(detailCategoryWorks);
 
     return (
-        <main className="mainWorksCategory pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)]">
+        <main className="mainWorksCategory relative pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)]">
             {/* section textbox */}
             <Sctextbox {...sctextboxProps} />
-
             <BreadcumbComponent>
                 <BreadcumbComponent.item>
                     <Link href={"/"}>{"Home"}</Link>

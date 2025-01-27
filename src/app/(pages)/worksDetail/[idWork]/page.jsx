@@ -1,15 +1,26 @@
 import { getCategoryWorksById } from "@/app/actions/CategoryWorksAction";
 import { getDetailWorkById } from "@/app/actions/WorksActions";
+import AvatarCard from "@/app/components/AvatarCard/page";
 import BreadcumbComponent from "@/app/components/Breadcumb/page";
-import { PageName } from "@/app/constants/general";
+import Rating from "@/app/components/Rating/page";
+import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import ScContentWork from "../components/scContentWork";
 
 const WorksDetailPage = async (props) => {
     const { idWork } = await props.params;
     const { data: detailWorkData, loading: detailWorkLoading } = await getDetailWorkById(idWork);
 
     const { data: categoryWorkData, loading: categoryWorkLoading } = await getCategoryWorksById();
+
+    const { congViec, tenNguoiTao } = detailWorkData?.[0] || {};
+    const { hinhAnh, moTa } = congViec || {};
+
+    const propsScContentWorks = {
+        tenNguoiTao,
+        hinhAnh,
+        moTa,
+    };
 
     console.log(detailWorkData);
 
@@ -24,7 +35,7 @@ const WorksDetailPage = async (props) => {
 
             <div className="container">
                 <div className="mainContent">
-                    <section className="scContentWork"></section>
+                    <ScContentWork {...propsScContentWorks} />
                     <section className="scSeller"></section>
                     <section className="scFAQ"></section>
                     <section className="scReviews"></section>

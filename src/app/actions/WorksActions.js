@@ -1,3 +1,4 @@
+"use server";
 import WorksServices from "../services/WorksServices";
 
 export const getMenuCategory = async () => {
@@ -20,40 +21,22 @@ export const getMenuCategory = async () => {
 };
 
 export const getDetailCategoryWorksByIdCate = async (id) => {
-    let isLoading = true;
-
     try {
         const res = await WorksServices.getDetailCategoryWorksByIdCate(id);
-        let isLoading = false;
-
-        return {
-            data: res.data.content,
-            loading: isLoading,
-        };
+        return res.data.content;
     } catch (error) {
         console.log("error", error);
-        return {
-            error,
-            loading: isLoading,
-        };
+        return error;
     }
 };
 
 export const getWorksByIdCategoryWork = async (id) => {
-    let isLoading = true;
     try {
         const res = await WorksServices.getWorksByIdCategoryWork(id);
-        let isLoading = false;
-        return {
-            data: res.data.content,
-            loading: isLoading,
-        };
+        return res.data.content;
     } catch (error) {
         console.log("error", error);
-        return {
-            error,
-            loading: isLoading,
-        };
+        return error;
     }
 };
 export const getDetailWorkById = async (id) => {

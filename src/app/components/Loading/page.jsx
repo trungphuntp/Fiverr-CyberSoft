@@ -1,3 +1,5 @@
+"use client";
+import useDebounce from "@/app/hooks/useDebounce";
 import { Spin } from "antd";
 
 const ComponentLoading = ({ spin, children }) => {

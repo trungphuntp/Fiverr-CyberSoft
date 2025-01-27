@@ -1,18 +1,39 @@
 "use client";
+import { getDetailCategoryWorksByIdCate } from "@/app/actions/WorksActions";
 import CardCategory from "@/app/components/CardCategory/page";
+import useDebounce from "@/app/hooks/useDebounce";
 import { Skeleton } from "antd";
+import { useEffect, useState } from "react";
 
-const Scexplore = ({ loading, categoryWorks }) => {
+const Scexplore = ({ idWorks }) => {
+    const [categoryWorks, setCategoryWorks] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const handleGetCategoryWorks = async () => {
+        try {
+            const data = await getDetailCategoryWorksByIdCate(idWorks);
+            setCategoryWorks(data);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    useEffect(() => {
+        handleGetCategoryWorks();
+    }, []);
+
+    const loadingAPI = useDebounce(loading, 500);
+    const categoryWorksData = categoryWorks?.[0]?.dsNhomChiTietLoai;
     return (
         <section className="scexplore">
             <div className="container">
                 <h2 className="titleSection">Explore Writing & Translation</h2>
                 <div className="rela grid grid-cols-4 gap-8 mt-[22px] max-lg:grid-cols-2 max-xs:grid-cols-1    ">
-                    {!!loading &&
+                    {!!loadingAPI &&
                         new Array(4).fill("").map((_, index) => {
                             return (
                                 <div
-                                    className="loadingPost col-6 col-md-4 col-lg-4"
+                                    className="loadingPost"
                                     key={index}
                                     style={{
                                         display: "flex",
@@ -32,9 +53,9 @@ const Scexplore = ({ loading, categoryWorks }) => {
                                 </div>
                             );
                         })}
-                    {!loading &&
-                        categoryWorks?.length > 0 &&
-                        categoryWorks?.map((item, index) => {
+                    {!loadingAPI &&
+                        categoryWorksData?.length > 0 &&
+                        categoryWorksData?.map((item, index) => {
                             return (
                                 <CardCategory
                                     key={item?.id || new Date.getTime() + index}

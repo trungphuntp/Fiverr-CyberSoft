@@ -10,16 +10,13 @@ import ScToolkit from "./components/scToolkit";
 const WorksPage = async (props) => {
     const { idWorks } = await props.params;
 
-    const { data: worksData, loading: worksLoading } = await getWorksByIdCategoryWork(idWorks);
-    const { data: categoryWorkData, loading: categoryWorkLoading } = await getCategoryWorksById();
-    const propsListWorks = {
-        works: worksData,
-        loading: worksLoading,
-    };
+    const worksData = await getWorksByIdCategoryWork(idWorks);
+    const categoryWorkData = await getCategoryWorksById();
 
     // cache categoryWorks
     const workCate = worksData?.[0] || {};
 
+    // cache Category Moment
     const categoryWorkMomentCache = cache((listCategoryWork, nameCategoryWork) => {
         let result = {};
         if (listCategoryWork && nameCategoryWork) {
@@ -29,14 +26,17 @@ const WorksPage = async (props) => {
         }
         return result;
     });
+    // get Category Moment
     const categoryWorkMoment = await categoryWorkMomentCache(
         categoryWorkData,
         workCate?.tenLoaiCongViec
     );
-    console.log(worksData);
-
+    // props section list works
+    const propsListWorks = {
+        idWorks,
+    };
     return (
-        <main className="mainWorks pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)]">
+        <main className="mainWorks pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)] relative">
             <BreadcumbComponent>
                 <BreadcumbComponent.item>
                     <Link href={"/"}>{"Home"}</Link>
@@ -47,7 +47,7 @@ const WorksPage = async (props) => {
                     </Link>
                 </BreadcumbComponent.item>
                 <BreadcumbComponent.item>
-                    {categoryWorkMoment?.[0]?.tenLoaiCongViec || ""}
+                    {worksData?.[0]?.tenChiTietLoai || ""}
                 </BreadcumbComponent.item>
             </BreadcumbComponent>
             <div className="container">

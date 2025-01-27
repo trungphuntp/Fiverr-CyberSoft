@@ -4,16 +4,18 @@ import BreadcumbComponent from "@/app/components/Breadcumb/page";
 import PATH from "@/app/constants/path";
 import Link from "next/link";
 import { cache } from "react";
-import ScListworks from "./components/scListworks";
-import ScToolkit from "./components/scToolkit";
+import ScListworks from "../components/scListworks";
+import ScToolkit from "../components/scToolkit";
 
 const WorksPage = async (props) => {
     const { idWorks } = await props.params;
 
+    // get list works
     const worksData = await getWorksByIdCategoryWork(idWorks);
+    // get catogory works
     const categoryWorkData = await getCategoryWorksById();
 
-    // cache categoryWorks
+    // get 1 infor categoryWorks
     const workCate = worksData?.[0] || {};
 
     // cache Category Moment
@@ -26,6 +28,7 @@ const WorksPage = async (props) => {
         }
         return result;
     });
+
     // get Category Moment
     const categoryWorkMoment = await categoryWorkMomentCache(
         categoryWorkData,

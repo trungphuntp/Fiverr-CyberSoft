@@ -3,7 +3,8 @@ import AvatarCard from "../AvatarCard/page";
 import Link from "next/link";
 import PATH from "@/app/constants/path";
 
-const WorksCard = ({ avatar, tenNguoiTao, congViec }) => {
+const WorksCard = ({ user, congViec }) => {
+    const { avatar, name, role } = user || {};
     const { tenCongViec, moTaNgan, giaTien, saoCongViec, danhGia, id } = congViec || {};
     const linkDetailWorks = PATH.WORKS_DETAIL + `/${id}`;
     return (
@@ -14,7 +15,7 @@ const WorksCard = ({ avatar, tenNguoiTao, congViec }) => {
                 </Link>
             </div>
             <div className="WorksCard__content">
-                <AvatarCard avt={avatar || ""} name={tenNguoiTao || ""} />
+                <AvatarCard avt={avatar || ""} name={name || ""} role={role} />
                 <div className="WorksCard__content-wrapperText">
                     <Link href={linkDetailWorks}>
                         <h3 className="WorksCard__content-title">{tenCongViec || ""}</h3>

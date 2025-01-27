@@ -1,4 +1,5 @@
 "use client";
+import { getUserById } from "@/app/actions/UserActions";
 import { getWorksByIdCategoryWork } from "@/app/actions/WorksActions";
 import WorksCard from "@/app/components/WorksCard/page";
 import useDebounce from "@/app/hooks/useDebounce";
@@ -7,27 +8,61 @@ import React, { useEffect, useState } from "react";
 
 const ScListworks = ({ idWorks }) => {
     const [works, setWorks] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [worksLoading, setworksLoading] = useState(true);
+
+    const [user, setUser] = useState([]);
+    const [userloading, setUserLoading] = useState(true);
 
     const handleGetWorks = async () => {
         try {
             const data = await getWorksByIdCategoryWork(idWorks);
-
             setWorks(data);
         } catch (error) {
             console.error(error);
         } finally {
-            setLoading(false);
+            setworksLoading(false);
         }
     };
+
+    const handleGetUser = async (idUser = "") => {
+        try {
+            const data = await getUserById(idUser);
+            console.log("data", data);
+
+            setUser((prev) => {
+                return [...prev, data];
+            });
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setUserLoading(false);
+        }
+    };
+
+    const handleGetUserByWork = () => {
+        if (works) {
+            works?.forEach((work) => {
+                handleGetUser(work?.congViec?.nguoiTao || "");
+            });
+        }
+    };
+
     useEffect(() => {
         handleGetWorks();
-    }, []);
-    const loadingAPI = useDebounce(loading, 500);
+    }, [idWorks]);
+
+    // get user when work active
+    useEffect(() => {
+        handleGetUserByWork();
+    }, [works]);
+
+    const loadingAPI = worksLoading || userloading;
+    const loadingPage = useDebounce(loadingAPI, 500);
+
     return (
         <section className="scListworks ">
             <div className="container grid grid-cols-4 gap-[20px] max-lg:grid-cols-2 max-xs:grid-cols-1">
-                {!!loadingAPI &&
+                {!!loadingPage &&
                     new Array(4).fill("").map((_, index) => {
                         return (
                             <div
@@ -51,10 +86,10 @@ const ScListworks = ({ idWorks }) => {
                             </div>
                         );
                     })}
-                {!loadingAPI &&
+                {!loadingPage &&
                     works?.length > 0 &&
                     works?.map((work, index) => {
-                        return <WorksCard {...work} key={work?.id || index} />;
+                        return <WorksCard {...work} user={user[index]} key={work?.id || index} />;
                     })}
             </div>
         </section>

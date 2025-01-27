@@ -16,6 +16,7 @@ const WorksDetailPage = async (props) => {
     const { congViec, tenNguoiTao } = detailWorkData?.[0] || {};
     const { hinhAnh, moTa } = congViec || {};
 
+    // props section content works
     const propsScContentWorks = {
         tenNguoiTao,
         hinhAnh,

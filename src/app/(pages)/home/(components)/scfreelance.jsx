@@ -72,19 +72,14 @@ const Scfreelance = () => {
                         </div>
                     </div>
                     <div
-                        className="scfreelance__video relative aspect-[655/420] w-full max-w-[50%] max-lg:max-w-full "
+                        className="scfreelance__video relative aspect-[655/420] object-cover w-full max-w-[50%] max-lg:max-w-full "
                         onClick={() => {
                             handleShowVideo(
                                 "https://fiverr-res.cloudinary.com/video/upload/t_fiverr_hd/vmvv3czyk2ifedefkau7"
                             );
                         }}
                     >
-                        <Image
-                            src="/videoImage.png"
-                            layout="fill"
-                            objectFit="cover"
-                            alt="video image"
-                        />
+                        <Image src="/videoImage.png" fill={true} alt="video image" sizes="100%" />
                         <IconPlayVideo />
                     </div>
                 </div>

@@ -1,12 +1,219 @@
+@use "../core/mixins" as m;
+
 .mainDetailWork {
     --max-w-mainContent: 750px;
     --max-w-aside: 430px;
 
     .mainContent {
         max-width: var(--max-w-mainContent);
+        .title_2 {
+            color: var(--text-color-body-3);
+            font-size: 2rem;
+            font-family: m700;
+        }
+        .scContentWork {
+            color: var(--text-color-body-4);
+            &__title {
+                font-size: 2.8rem;
+                font-family: m700;
+                line-height: 1.2;
+            }
+            &__author {
+                margin-top: 15px;
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                &-rating {
+                    display: flex;
+                    align-items: center;
+                }
+                &-queue {
+                    color: #95979d;
+                    font-family: m500;
+                    letter-spacing: normal;
+                }
+            }
+            &__item {
+                display: flex;
+                align-items: center;
+                &::after {
+                    margin-left: 15px;
+                    content: "";
+                    display: block;
+                    width: 1px;
+                    height: 14px;
+                    background: var(--text-color-body-2) !important;
+                    opacity: 0.5;
+                }
+                &:nth-last-of-type(1)::after {
+                    display: none;
+                }
+            }
+
+            &__img {
+                margin-top: 16px;
+            }
+            &__gig {
+                margin-top: 45px;
+                padding-bottom: 22px;
+                border-bottom: 2px solid #c5c6c9;
+                .desc {
+                    margin-top: 25px;
+                    font-size: 1.8rem;
+                    font-family: m500;
+                }
+            }
+        }
+        .scReviews {
+            &__rateInfo {
+                &-top {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 20px;
+                    .reviews {
+                        display: flex;
+                        align-items: center;
+                        .ratingComponent {
+                            margin-left: 15px;
+                        }
+                    }
+                    .sorts {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+                &-bottom {
+                    margin-top: 12px;
+                    display: flex;
+                    .rateBars {
+                        width: 60%;
+                    }
+                    .rateTexts {
+                        display: flex;
+                        flex-direction: column;
+                        font-family: m600;
+                        font-size: 1.6rem;
+                        width: 40%;
+                        &__title {
+                            height: 36px;
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        &__item {
+                            height: 36px;
+                            color: #95979d;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            .ant-rate-star-zero {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+            &__filters {
+                padding-top: 40px;
+            }
+        }
     }
 
     .asideDetailWork {
         max-width: var(--max-w-aside);
+        position: relative;
+        width: 100%;
+        .ant-tabs-nav-list {
+            width: 100%;
+
+            .ant-tabs-tab {
+                border: 2px solid #dadbdd;
+                border-bottom: 0;
+                border-right: 0;
+                margin-left: 0 !important;
+                border-radius: 0;
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                height: 55px;
+                color: var(--text-color-body-2);
+                font-family: m700;
+            }
+            .ant-tabs-tab:nth-child(3) {
+                border-right: 2px solid #dadbdd;
+            }
+            .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+                color: var(--primary-color) !important;
+            }
+        }
+        .checkoutDetailWork {
+            position: sticky;
+            top: calc(var(--height-header) + 40px + 20px);
+            @include m.xl {
+                top: calc(var(--height-header) + 20px);
+            }
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            .ant-tabs-nav {
+                margin-bottom: 0;
+            }
+            &__pane {
+                border: 2px solid #dadbdd;
+                padding: 24px;
+                font-family: m600;
+
+                &-top {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    font-size: 2.4rem;
+                }
+                &-desc {
+                    margin-top: 25px;
+                    letter-spacing: 1px;
+                    line-height: 1.6;
+                    color: var(--text-color-body-4);
+                    font-family: m;
+                }
+                &-days {
+                    margin-top: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    .text {
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                    }
+                }
+                &-feature {
+                    margin-top: 24px;
+                    color: #95979d;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    .text {
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                    }
+                }
+                .btnPrimary {
+                    margin-top: 25px;
+                    width: 100%;
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+                .btnText {
+                    margin-top: 5px;
+                    width: 100%;
+                    color: var(--primary-color);
+                    &:hover {
+                        opacity: 0.6;
+                    }
+                }
+            }
+        }
     }
 }

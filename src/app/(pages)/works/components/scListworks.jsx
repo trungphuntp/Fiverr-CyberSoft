@@ -27,8 +27,6 @@ const ScListworks = ({ idWorks }) => {
     const handleGetUser = async (idUser = "") => {
         try {
             const data = await getUserById(idUser);
-            console.log("data", data);
-
             setUser((prev) => {
                 return [...prev, data];
             });

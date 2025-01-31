@@ -58,7 +58,7 @@ const Scexplore = ({ idWorks }) => {
                         categoryWorksData?.map((item, index) => {
                             return (
                                 <CardCategory
-                                    key={item?.id || new Date.getTime() + index}
+                                    key={item?.id || index}
                                     imgCate={item?.hinhAnh || ""}
                                     title={item?.tenNhom || ""}
                                     detailCategorys={item?.dsChiTietLoai || []}

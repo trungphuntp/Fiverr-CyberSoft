@@ -20,7 +20,7 @@ const AvatarCard = ({ avt, role, name, type = "" }) => {
                     type === "row" ? "flex items-center gap-[15px]" : ""
                 } `}
             >
-                <h5 className="AvatarCard__content-role font-[m700] text-[1.6rem] break-words hover:underline">
+                <h5 className="AvatarCard__content-role cursor-pointer font-[m700] text-[1.6rem] break-words hover:underline">
                     {name || "Guest"}
                 </h5>
                 <p

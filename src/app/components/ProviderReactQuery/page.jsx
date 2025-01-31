@@ -4,7 +4,6 @@ import React, { useState } from "react";
 
 const ProviderReactQuery = ({ children }) => {
     const [queryClient] = useState(() => new QueryClient());
-
     return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 };
 

@@ -24,9 +24,7 @@ const Scpopular = () => {
                         }}
                         loop={true}
                         grabCursor={true}
-                        pauseOnMouseEnter={true}
                         draggable={false}
-                        touch={false}
                         freeMode={true}
                         threshold={10}
                         navigation={{

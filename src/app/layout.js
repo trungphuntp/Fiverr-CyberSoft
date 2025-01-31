@@ -2,6 +2,7 @@ import Footer from "./components/Footer/page";
 import Header from "./components/Header/page";
 import Navbar from "./components/Navbar/page";
 import ProviderReactQuery from "./components/ProviderReactQuery/page";
+import { AccordionProvider } from "./contexts/AccordionContext/page";
 import { NavContextProvider } from "./contexts/NavContext/page";
 import "./globals.css";
 import "./styles/main.scss";
@@ -18,12 +19,14 @@ export default function RootLayout({ children }) {
             </head>
             <body>
                 <ProviderReactQuery>
-                    <NavContextProvider>
-                        <Header />
-                        <Navbar />
-                    </NavContextProvider>
-                    {children}
-                    <Footer />
+                    <AccordionProvider>
+                        <NavContextProvider>
+                            <Header />
+                            <Navbar />
+                        </NavContextProvider>
+                        {children}
+                        <Footer />
+                    </AccordionProvider>
                 </ProviderReactQuery>
             </body>
         </html>

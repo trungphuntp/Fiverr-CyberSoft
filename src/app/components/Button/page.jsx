@@ -1,6 +1,15 @@
+import Link from "next/link";
 import React from "react";
 
-const Button = ({ children, sizeBtn = "normal", variant = "primary", className = "", ...rest }) => {
+const Button = ({
+    children,
+    sizeBtn = "normal",
+    variant = "primary",
+    linkIn,
+    linkOut,
+    className = "",
+    ...rest
+}) => {
     let classVarant = "";
     let classSize = "";
 
@@ -18,12 +27,31 @@ const Button = ({ children, sizeBtn = "normal", variant = "primary", className =
         case "outline":
             classVarant = "btn outlineBtn";
             break;
+
         case "outlineWhite":
             classVarant = "btn outlineWhiteBtn";
             break;
+        case "outlineGrey":
+            classVarant = "btn outlineGrey";
+            break;
+
         case "text":
             classVarant = "btn textBtn";
             break;
+    }
+    if (linkIn) {
+        return (
+            <Link href={linkIn} className={`${classVarant} ${classSize} ${className}`} {...rest}>
+                {children}
+            </Link>
+        );
+    }
+    if (linkOut) {
+        return (
+            <a href={linkOut} className={`${classVarant} ${classSize} ${className}`} {...rest}>
+                {children}
+            </a>
+        );
     }
 
     return (

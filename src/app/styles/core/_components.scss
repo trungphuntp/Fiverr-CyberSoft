@@ -4,12 +4,17 @@
 
 // button
 .btn {
-    @apply font-[m600] max-lg:h-[40px] h-[48px] px-[24px] bg-[var(--btn-primary-color)] rounded-[4px] text-[var(--white-color)] whitespace-nowrap;
+    @apply font-[m600] max-lg:h-[40px] h-[48px] px-[24px] bg-[var(--btn-primary-color)] rounded-[4px] text-[var(--white-color)] whitespace-nowrap inline-flex items-center justify-center;
     @include m.transition(0.3s);
 
     &.outlineBtn {
         @apply bg-[transparent] text-[var(--btn-primary-color)] border border-[var(--btn-primary-color)] border-solid hover:bg-[var(--btn-primary-color)] hover:text-[var(--white-color)];
     }
+
+    &.outlineGrey {
+        @apply bg-[transparent] text-[var(--btn-grey-color)] border border-[var(--btn-grey-color)] border-solid hover:bg-[var(--btn-grey-color)] hover:text-[var(--white-color)];
+    }
+
     &.outlineWhiteBtn {
         @apply bg-[transparent] text-[var(--white-color)] border border-[var(--white-color)] border-solid hover:border-[var(--btn-primary-color)] hover:text-[var(--btn-primary-color)];
     }
@@ -226,7 +231,7 @@
 
         &-item {
             display: block;
-            color: #62646a;
+            color: var(--text-color-body-4);
             font-size: 1.8rem;
             font-family: m500;
             line-height: 1.2;
@@ -296,6 +301,7 @@
         visibility: hidden;
         @include m.transition(0.3s);
         position: absolute;
+        z-index: 50;
         top: 70%;
         left: 0;
         width: 100vw;
@@ -339,12 +345,11 @@
     &__text {
         font-size: 1.6rem;
         font-family: m600;
-        color: #62646a;
+        color: var(--text-color-body-4);
     }
 }
 
-// WorksCard Text styles
-
+// Works Card avatar Text styles
 .WorksCard {
     width: 100%;
     background: var(--white-color);
@@ -445,7 +450,6 @@
     gap: 12px;
     color: var(--text-color-body-2);
     padding: 14px 10px;
-    text-transform: capitalize;
     @include m.xs {
         --fontsize: 1.4rem;
     }
@@ -475,5 +479,219 @@
 
 // rating
 .ratingComponent {
-    color: #ffb33e;
+    display: flex;
+    align-items: center;
+    &__star {
+        color: #ffb33e;
+    }
+    &__numRate {
+        color: #ffb33e;
+        font-family: m700;
+        margin-left: 4px;
+        line-height: 1;
+    }
+    &__quantityRate {
+        margin-left: 4px;
+        line-height: 1;
+        font-family: m500;
+    }
+}
+
+// Big Card Avatar
+.BigCardAvatar {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    color: var(--text-color-body-4);
+    font-size: 1.6rem;
+    font-family: m500;
+    &__img {
+        border-radius: 50%;
+    }
+    &__content {
+        &-name {
+            font-size: 1.8rem;
+            font-family: m700;
+            text-transform: capitalize;
+        }
+        &-role {
+            text-transform: uppercase;
+        }
+        .ratingComponent {
+            margin-top: 8px;
+            margin-bottom: 25px;
+        }
+
+        &-btn {
+            height: 38px !important;
+        }
+    }
+}
+
+// Accordion Component
+.AccordionComponent {
+    width: 100%;
+    &__item {
+        cursor: pointer;
+        overflow: hidden;
+
+        &.active {
+            .chevron {
+                transform: rotate(0deg);
+            }
+        }
+
+        &-title {
+            padding-top: 20px;
+            padding-bottom: 14px;
+            font-size: 1.8rem;
+            font-family: m700;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            .chevron {
+                transform: rotate(-90deg);
+                @include m.transition(0.3s);
+            }
+        }
+        &-desc {
+            height: 0;
+            font-size: 1.6rem;
+            font-family: m500;
+            @include m.transition(0.3s);
+        }
+    }
+}
+
+// Rate Bars
+.rateBars {
+    color: #446ee7;
+    font-family: m500;
+    font-size: 1.6rem;
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 36px;
+        white-space: nowrap;
+        &-starText {
+            font-family: m600;
+            width: 15%;
+        }
+        &-bar {
+            position: relative;
+            width: 100%;
+            max-width: 230px;
+            height: 8px;
+            background: #e4e5e7;
+            border-radius: 999px;
+            overflow: hidden;
+            .line {
+                position: absolute;
+                left: 0;
+                right: 0;
+                height: 100%;
+                // width: 50%;
+                background: #ffb33e;
+            }
+        }
+        &-quantity {
+            width: 15%;
+        }
+    }
+}
+
+// reviews Card
+.reviewsCard {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    font-size: 1.6rem;
+    color: var(--text-color-body-3);
+    padding: 20px 10px;
+    border-top: 2px solid #c5c6c9;
+    &:nth-last-of-type(1) {
+        border-bottom: 2px solid #c5c6c9;
+    }
+    &__img {
+        flex-shrink: 0;
+        height: 105px;
+        width: 105px;
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+    &__content {
+        &-name {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-family: m700;
+        }
+        &-date {
+            margin-top: 10px;
+            font-family: m500;
+        }
+        &-desc {
+            margin-top: 10px;
+        }
+        &-useful,
+        .icon {
+            display: flex;
+            align-items: center;
+        }
+        &-useful {
+            margin-top: 20px;
+            gap: 20px;
+            font-family: m600;
+        }
+        .icon {
+            gap: 10px;
+            @include m.transition(0.3s);
+            &:nth-of-type(1):hover {
+                color: blue;
+            }
+            &:nth-of-type(2):hover {
+                color: red;
+            }
+        }
+    }
+}
+
+// Form Rating
+.formRating {
+    font-size: 2rem;
+    font-family: m700;
+    color: var(--text-color-body-3);
+    &__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        &-rate {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    }
+    &__text {
+        margin-top: 32px;
+        display: block;
+        width: 100%;
+        min-height: 120px;
+        border: 1px solid var(--btn-grey-color);
+        border-radius: 4px;
+    }
+    &__btn {
+        font-size: 1.4rem;
+        margin-top: 18px;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
 }

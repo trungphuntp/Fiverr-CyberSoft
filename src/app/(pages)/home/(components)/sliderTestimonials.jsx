@@ -50,7 +50,7 @@ const SliderTestimonials = () => {
                 <SwiperSlide>
                     <div className="sctestimonials__item">
                         <div
-                            className="sctestimonials__item-video "
+                            className="sctestimonials__item-video object-cover"
                             onClick={() => {
                                 handleShowVideo(
                                     "https://fiverr-res.cloudinary.com/video/upload/t_fiverr_hd/yja2ld5fnolhsixj3xxw"
@@ -59,9 +59,9 @@ const SliderTestimonials = () => {
                         >
                             <Image
                                 src={"/testimonials_1.png"}
+                                sizes="100%"
                                 alt="video image"
-                                layout="fill"
-                                objectFit="cover"
+                                fill={true}
                             />
                             <IconPlayVideo />
                         </div>
@@ -86,7 +86,7 @@ const SliderTestimonials = () => {
                 <SwiperSlide>
                     <div className="sctestimonials__item">
                         <div
-                            className="sctestimonials__item-video "
+                            className="sctestimonials__item-video object-cover "
                             onClick={() => {
                                 handleShowVideo(
                                     "https://fiverr-res.cloudinary.com/video/upload/t_fiverr_hd/plfa6gdjihpdvr10rchl"
@@ -95,9 +95,9 @@ const SliderTestimonials = () => {
                         >
                             <Image
                                 src={"/testimonials_2.png"}
+                                sizes="100%"
                                 alt="video image"
-                                layout="fill"
-                                objectFit="cover"
+                                fill={true}
                             />
                             <IconPlayVideo />
                         </div>
@@ -123,7 +123,7 @@ const SliderTestimonials = () => {
                 <SwiperSlide>
                     <div className="sctestimonials__item">
                         <div
-                            className="sctestimonials__item-video "
+                            className="sctestimonials__item-video object-cover "
                             onClick={() => {
                                 handleShowVideo(
                                     "https://fiverr-res.cloudinary.com/video/upload/t_fiverr_hd/rb8jtakrisiz0xtsffwi"
@@ -132,9 +132,9 @@ const SliderTestimonials = () => {
                         >
                             <Image
                                 src={"/testimonials_3.png"}
+                                sizes="100%"
                                 alt="video image"
-                                layout="fill"
-                                objectFit="cover"
+                                fill={true}
                             />
                             <IconPlayVideo />
                         </div>
@@ -160,7 +160,7 @@ const SliderTestimonials = () => {
                 <SwiperSlide>
                     <div className="sctestimonials__item">
                         <div
-                            className="sctestimonials__item-video "
+                            className="sctestimonials__item-video object-cover "
                             onClick={() => {
                                 handleShowVideo(
                                     "https://fiverr-res.cloudinary.com/video/upload/t_fiverr_hd/bsncmkwya3nectkensun"
@@ -169,9 +169,9 @@ const SliderTestimonials = () => {
                         >
                             <Image
                                 src={"/testimonials_4.png"}
+                                sizes="100%"
                                 alt="video image"
-                                layout="fill"
-                                objectFit="cover"
+                                fill={true}
                             />
                             <IconPlayVideo />
                         </div>

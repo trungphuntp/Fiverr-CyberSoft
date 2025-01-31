@@ -16,10 +16,7 @@ const HeaderMiddle = async () => {
                     MenuCategorys?.map((item, index) => {
                         const linkIdCategoryWork = PATH.WORKS_CATEGORY + `/${item?.id}`;
                         return (
-                            <div
-                                className="header__bottom-wrapper"
-                                key={item?.id || new Date.getTime() + index}
-                            >
+                            <div className="header__bottom-wrapper" key={item?.id || index}>
                                 <Link className="header__bottom-item" href={linkIdCategoryWork}>
                                     {item?.tenLoaiCongViec || ""}
                                 </Link>
@@ -28,10 +25,7 @@ const HeaderMiddle = async () => {
                                         return (
                                             <div
                                                 className="item"
-                                                key={
-                                                    NhomChiTietLoai?.id ||
-                                                    new Date.getTime() + index
-                                                }
+                                                key={NhomChiTietLoai?.id || index}
                                             >
                                                 <h5 className="item__title">
                                                     {NhomChiTietLoai?.tenNhom || ""}
@@ -45,10 +39,7 @@ const HeaderMiddle = async () => {
                                                             <Link
                                                                 className="item__text"
                                                                 href={linkWorks || "#"}
-                                                                key={
-                                                                    chiTietLoai?.id ||
-                                                                    new Date.getTime() + index
-                                                                }
+                                                                key={chiTietLoai?.id || index}
                                                             >
                                                                 {chiTietLoai?.tenChiTiet || ""}
                                                             </Link>

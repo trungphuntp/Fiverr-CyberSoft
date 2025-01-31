@@ -57,7 +57,7 @@
                 @include m.transition(0.3s);
                 font-family: m600;
                 font-size: 2rem;
-                color: #62646a;
+                color: var(--text-color-body-4);
                 display: block;
                 padding: 14px 0;
                 display: flex;

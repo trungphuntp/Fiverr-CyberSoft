@@ -40,19 +40,11 @@ export const getWorksByIdCategoryWork = async (id) => {
     }
 };
 export const getDetailWorkById = async (id) => {
-    let isLoading = true;
     try {
         const res = await WorksServices.getDetailWorkById(id);
-        let isLoading = false;
-        return {
-            data: res.data.content,
-            loading: isLoading,
-        };
+        return res.data.content;
     } catch (error) {
         console.log("error", error);
-        return {
-            error,
-            loading: isLoading,
-        };
+        return error;
     }
 };

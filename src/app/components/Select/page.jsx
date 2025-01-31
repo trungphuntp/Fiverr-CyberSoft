@@ -36,6 +36,10 @@ const SelectComponent = ({ dropDownList, type = "normal", children }) => {
                                         className="selectComponent__dropdown-item"
                                         href="#"
                                         key={index}
+                                        onClick={(e) => {
+                                            e?.stopPropagation();
+                                            e?.preventDefault();
+                                        }}
                                     >
                                         {item}
                                     </a>
@@ -71,6 +75,10 @@ const SelectComponent = ({ dropDownList, type = "normal", children }) => {
                                         className="selectComponent__dropdown-item"
                                         href="#"
                                         key={index}
+                                        onClick={(e) => {
+                                            e?.stopPropagation();
+                                            e?.preventDefault();
+                                        }}
                                     >
                                         {item}
                                     </a>

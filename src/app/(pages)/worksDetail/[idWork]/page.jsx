@@ -114,7 +114,9 @@ const WorksDetailPage = async (props) => {
                             {DetailCateWorks?.tenChiTiet || ""}
                         </Link>
                     </BreadcumbComponent.item>
-                    <BreadcumbComponent.item>{tenCongViec || ""}</BreadcumbComponent.item>
+                    <BreadcumbComponent.item isActive={true}>
+                        {tenCongViec || ""}
+                    </BreadcumbComponent.item>
                 </BreadcumbComponent>
                 <div className="container flex justify-between items-stretch">
                     <div className="mainContent">

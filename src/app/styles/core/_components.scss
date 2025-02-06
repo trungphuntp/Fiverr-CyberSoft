@@ -459,6 +459,10 @@
         align-items: center;
         gap: 12px;
 
+        &.active {
+            font-family: m600;
+        }
+
         &:nth-last-child(1) {
             .BreadcumbComponent__item-chev {
                 display: none;
@@ -481,6 +485,8 @@
 .ratingComponent {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
     &__star {
         color: #ffb33e;
     }
@@ -507,6 +513,10 @@
     font-family: m500;
     &__img {
         border-radius: 50%;
+        @include m.xs {
+            width: 90px;
+            height: 90px;
+        }
     }
     &__content {
         &-name {
@@ -632,6 +642,12 @@
             align-items: center;
             gap: 20px;
             font-family: m700;
+            word-break: break-all;
+            flex-wrap: wrap;
+            @include m.xs {
+                align-items: flex-start;
+                flex-direction: column;
+            }
         }
         &-date {
             margin-top: 10px;
@@ -639,6 +655,7 @@
         }
         &-desc {
             margin-top: 10px;
+            word-break: break-all;
         }
         &-useful,
         .icon {
@@ -649,6 +666,9 @@
             margin-top: 20px;
             gap: 20px;
             font-family: m600;
+            @include m.xs {
+                display: none;
+            }
         }
         .icon {
             gap: 10px;
@@ -673,6 +693,11 @@
         align-items: center;
         justify-content: space-between;
         gap: 20px;
+        @include m.sm {
+            align-items: flex-start;
+            gap: 10px;
+            flex-direction: column;
+        }
         &-rate {
             display: flex;
             align-items: center;
@@ -686,12 +711,20 @@
         min-height: 120px;
         border: 1px solid var(--btn-grey-color);
         border-radius: 4px;
+        @include m.sm {
+            margin-top: 20px;
+            min-height: 170px;
+        }
     }
     &__btn {
         font-size: 1.4rem;
         margin-top: 18px;
         &:hover {
             opacity: 0.8;
+        }
+
+        @include m.sm {
+            width: 100%;
         }
     }
 }

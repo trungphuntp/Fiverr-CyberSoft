@@ -26,7 +26,7 @@ const WorksCategoryPage = async (props) => {
                 <BreadcumbComponent.item>
                     <Link href={"/"}>{"Home"}</Link>
                 </BreadcumbComponent.item>
-                <BreadcumbComponent.item>
+                <BreadcumbComponent.item isActive={true}>
                     {detailCategoryWorks?.tenLoaiCongViec || ""}
                 </BreadcumbComponent.item>
             </BreadcumbComponent>

@@ -3,6 +3,13 @@
 .mainDetailWork {
     --max-w-mainContent: 750px;
     --max-w-aside: 430px;
+    @include m.maxW(1400px) {
+        --max-w-mainContent: 720px;
+        --max-w-aside: 400px;
+    }
+    @include m.xl() {
+        --max-w-mainContent: 100%;
+    }
 
     .mainContent {
         max-width: var(--max-w-mainContent);
@@ -22,6 +29,7 @@
                 margin-top: 15px;
                 display: flex;
                 align-items: center;
+                flex-wrap: wrap;
                 gap: 16px;
                 &-rating {
                     display: flex;
@@ -31,6 +39,9 @@
                     color: #95979d;
                     font-family: m500;
                     letter-spacing: normal;
+                    @include m.sm {
+                        display: none !important;
+                    }
                 }
             }
             &__item {
@@ -44,6 +55,9 @@
                     height: 14px;
                     background: var(--text-color-body-2) !important;
                     opacity: 0.5;
+                    @include m.sm {
+                        background: transparent !important;
+                    }
                 }
                 &:nth-last-of-type(1)::after {
                     display: none;
@@ -52,6 +66,11 @@
 
             &__img {
                 margin-top: 16px;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
             }
             &__gig {
                 margin-top: 45px;
@@ -71,6 +90,10 @@
                     align-items: center;
                     justify-content: space-between;
                     gap: 20px;
+                    @include m.md {
+                        flex-direction: column;
+                        align-items: flex-start;
+                    }
                     .reviews {
                         display: flex;
                         align-items: center;
@@ -86,8 +109,16 @@
                 &-bottom {
                     margin-top: 12px;
                     display: flex;
+                    gap: 20px;
+                    @include m.md {
+                        flex-direction: column;
+                    }
                     .rateBars {
                         width: 60%;
+                        @include m.md {
+                            max-width: 350px;
+                            width: 100%;
+                        }
                     }
                     .rateTexts {
                         display: flex;
@@ -95,6 +126,10 @@
                         font-family: m600;
                         font-size: 1.6rem;
                         width: 40%;
+                        @include m.md {
+                            max-width: 350px;
+                            width: 100%;
+                        }
                         &__title {
                             height: 36px;
                             display: flex;
@@ -124,6 +159,9 @@
         max-width: var(--max-w-aside);
         position: relative;
         width: 100%;
+        @include m.xl() {
+            display: none;
+        }
         .ant-tabs-nav-list {
             width: 100%;
 

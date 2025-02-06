@@ -49,7 +49,7 @@ const WorksPage = async (props) => {
                         {categoryWorkMoment?.[0]?.tenLoaiCongViec || ""}
                     </Link>
                 </BreadcumbComponent.item>
-                <BreadcumbComponent.item>
+                <BreadcumbComponent.item isActive={true}>
                     {worksData?.[0]?.tenChiTietLoai || ""}
                 </BreadcumbComponent.item>
             </BreadcumbComponent>

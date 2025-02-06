@@ -11,6 +11,7 @@ const BigCardAvatar = ({ avt = "/default_img.jpg", name, role, saoCongViec, phon
                 alt="img big card"
                 height={110}
                 width={110}
+                sizes="(max-width: 576px) 90px"
             />
             <div className="BigCardAvatar__content">
                 <h3 className="BigCardAvatar__content-name">{name || ""}</h3>

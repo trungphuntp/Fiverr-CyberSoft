@@ -8,9 +8,9 @@ const BreadcumbComponent = ({ children }) => {
     );
 };
 
-const BreadcumbComponentItem = ({ children }) => {
+const BreadcumbComponentItem = ({ isActive, children }) => {
     return (
-        <div className="BreadcumbComponent__item">
+        <div className={`BreadcumbComponent__item ${!!isActive ? "active" : ""}`}>
             {children}
             <svg
                 className="BreadcumbComponent__item-chev h-[16px] w-[16px]"

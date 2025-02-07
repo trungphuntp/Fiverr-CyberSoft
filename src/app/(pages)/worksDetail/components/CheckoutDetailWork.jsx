@@ -4,20 +4,18 @@ import { Tabs } from "antd";
 import React from "react";
 const { TabPane } = Tabs;
 
-const CheckoutDetailWork = () => {
+const CheckoutDetailWork = ({ price, shortDesc }) => {
     return (
         <div className="checkoutDetailWork">
+            {/* tabs antd */}
             <Tabs defaultActiveKey="1" type="card">
                 <TabPane tab="basic" key="1">
                     <div className="checkoutDetailWork__pane">
                         <div className="checkoutDetailWork__pane-top">
                             <h5 className="type">Basic</h5>
-                            <h5 className="price">US$5</h5>
+                            <h5 className="price">{`US$${price || 0}`}</h5>
                         </div>
-                        <p className="checkoutDetailWork__pane-desc">
-                            1000 Words US$5 2x500 words or 1x1000 Words articles 1 Day Delivery Up
-                            to 1,000 words SEO keywords
-                        </p>
+                        <p className="checkoutDetailWork__pane-desc">{shortDesc || ""}</p>
                         <div className="checkoutDetailWork__pane-days">
                             <p className="text">
                                 <svg
@@ -104,12 +102,9 @@ const CheckoutDetailWork = () => {
                     <div className="checkoutDetailWork__pane">
                         <div className="checkoutDetailWork__pane-top">
                             <h5 className="type">Standard</h5>
-                            <h5 className="price">US$5</h5>
+                            <h5 className="price">{`US$${price * 2 || 20}`}</h5>
                         </div>
-                        <p className="checkoutDetailWork__pane-desc">
-                            1000 Words US$5 2x500 words or 1x1000 Words articles 1 Day Delivery Up
-                            to 1,000 words SEO keywords
-                        </p>
+                        <p className="checkoutDetailWork__pane-desc">{shortDesc || ""}</p>
                         <div className="checkoutDetailWork__pane-days">
                             <p className="text">
                                 <svg
@@ -196,12 +191,9 @@ const CheckoutDetailWork = () => {
                     <div className="checkoutDetailWork__pane">
                         <div className="checkoutDetailWork__pane-top">
                             <h5 className="type">Premium</h5>
-                            <h5 className="price">US$5</h5>
+                            <h5 className="price">{`US$${price * 3 || 50}`}</h5>
                         </div>
-                        <p className="checkoutDetailWork__pane-desc">
-                            1000 Words US$5 2x500 words or 1x1000 Words articles 1 Day Delivery Up
-                            to 1,000 words SEO keywords
-                        </p>
+                        <p className="checkoutDetailWork__pane-desc">{shortDesc || ""}</p>
                         <div className="checkoutDetailWork__pane-days">
                             <p className="text">
                                 <svg

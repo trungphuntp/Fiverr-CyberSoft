@@ -1,7 +1,10 @@
 @use "./mixins" as m;
 
 // common
-
+// CUSTOM MESSAGE ANTD
+.ant-message {
+    top: 10% !important;
+}
 // button
 .btn {
     @apply font-[m600] max-lg:h-[40px] h-[48px] px-[24px] bg-[var(--btn-primary-color)] rounded-[4px] text-[var(--white-color)] whitespace-nowrap inline-flex items-center justify-center;

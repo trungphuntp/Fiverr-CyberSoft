@@ -1,10 +1,13 @@
 "use client";
-import React from "react";
-import InputSearch from "../../InputSearch/page";
-import Link from "next/link";
-import Button from "../../Button/page";
 import PATH from "@/app/constants/path";
 import { useNavContext } from "@/app/contexts/NavContext/page";
+import Link from "next/link";
+import Button from "../../Button/page";
+import InputSearch from "../../InputSearch/page";
+import { methodToken } from "@/app/utils/Token";
+import { STORAGE } from "@/app/constants/storage";
+import Image from "next/image";
+import { useSelector } from "react-redux";
 
 const listIdHeader = {
     lang: "langheader",
@@ -12,14 +15,16 @@ const listIdHeader = {
 
 const HeaderTop = () => {
     const { handleSetActiveNav, isDropDown, handleSetIsDropDown } = useNavContext();
+    const { profile } = useSelector((state) => state.profile);
 
     const _onShowNav = () => {
         handleSetActiveNav(true);
     };
-
     const _toggleDropDown = (id) => {
         handleSetIsDropDown?.(id);
     };
+
+    console.log(profile);
 
     return (
         <div className="container">
@@ -106,12 +111,25 @@ const HeaderTop = () => {
                         </li>
                     </ul>
                     <div className="flex items-center gap-2 max-sm:hidden">
-                        <Button variant="text" sizeBtn="small">
-                            Sign in
-                        </Button>
-                        <Button variant="outline" sizeBtn="small">
-                            Join
-                        </Button>
+                        {!methodToken.get(STORAGE.token) && !profile ? (
+                            <>
+                                <Button variant="text" sizeBtn="small" linkIn={PATH.LOGIN}>
+                                    Sign in
+                                </Button>
+                                <Button variant="outline" sizeBtn="small" linkIn={PATH.REGISTER}>
+                                    Join
+                                </Button>
+                            </>
+                        ) : (
+                            <Link href={PATH.HOME} className="avatarLogin">
+                                <Image
+                                    src={"/default-avatar.jpg"}
+                                    alt="avatar icon"
+                                    height={40}
+                                    width={40}
+                                />
+                            </Link>
+                        )}
                     </div>
                 </div>
             </div>

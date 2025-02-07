@@ -1,0 +1,61 @@
+@use "../core/mixins" as m;
+.registerMain {
+    .registerContent {
+        margin: 50px 0;
+        max-width: 1200px;
+        background: #fff;
+        min-height: 500px;
+        width: 100%;
+        border-radius: 20px;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        display: flex;
+        gap: 20px;
+        padding: 50px 50px 100px;
+        @include m.lg {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            padding: 30px 20px 50px;
+        }
+        &__img {
+            width: 60%;
+            img {
+                user-select: none;
+
+                margin-left: auto;
+                width: 100%;
+                max-height: 500px;
+            }
+            @include m.lg {
+                width: 100%;
+                order: 2;
+            }
+        }
+        &__register {
+            width: 40%;
+            @include m.lg {
+                width: 100%;
+                order: 1;
+            }
+            &-title {
+                text-align: center;
+                font-size: 3.2rem;
+                letter-spacing: 1.2;
+                font-family: m700;
+                color: var(--primary-color);
+            }
+            &-form {
+                margin-top: 50px;
+            }
+
+            .textPolicy {
+                font-family: m500;
+                font-size: 1.4rem;
+                .link {
+                    color: #1677ff;
+                }
+            }
+        }
+    }
+}

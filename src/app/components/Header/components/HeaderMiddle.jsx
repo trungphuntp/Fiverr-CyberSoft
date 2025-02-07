@@ -4,15 +4,13 @@ import Link from "next/link";
 import ComponentLoading from "../../Loading/page";
 
 const HeaderMiddle = async () => {
-    const { data: MenuCategorys, loading } = await getMenuCategory();
+    const MenuCategorys = await getMenuCategory();
 
     return (
         <div className="container-fluid max-xl:hidden ">
             <div className="headerBottomLine"></div>
             <div className="header__bottom  h-[40px]  flex justify-between items-center relative ">
-                {!!loading && <ComponentLoading spin={true} />}
-                {!loading &&
-                    MenuCategorys?.length > 0 &&
+                {MenuCategorys?.length > 0 &&
                     MenuCategorys?.map((item, index) => {
                         const linkIdCategoryWork = PATH.WORKS_CATEGORY + `/${item?.id}`;
                         return (

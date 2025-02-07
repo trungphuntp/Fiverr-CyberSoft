@@ -48,7 +48,12 @@ const Button = ({
     }
     if (linkOut) {
         return (
-            <a href={linkOut} className={`${classVarant} ${classSize} ${className}`} {...rest}>
+            <a
+                href={linkOut}
+                target="_blank"
+                className={`${classVarant} ${classSize} ${className}`}
+                {...rest}
+            >
                 {children}
             </a>
         );

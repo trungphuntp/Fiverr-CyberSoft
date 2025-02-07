@@ -1,14 +1,17 @@
 import axios from "axios";
+import { STORAGE } from "../constants/storage";
 import { token } from "../constants/tokens";
 import { BASE_URL } from "./enviroments";
+import { methodToken } from "./Token";
 
 const axiosInstance = axios.create({
     baseURL: BASE_URL,
 });
+
 axiosInstance.interceptors.request.use(
     (config) => {
-        config.headers.token = `${token}`;
         config.headers.tokencybersoft = `${token}`;
+        config.headers.token = `${methodToken.get(STORAGE.token)}`;
         return config;
     },
     (error) => {

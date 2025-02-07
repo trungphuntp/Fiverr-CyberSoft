@@ -7,8 +7,6 @@ import { SelectWorksPage } from "@/app/constants/general";
 import { formatDate } from "@/app/utils/format";
 
 const ScReviews = ({ quantityReviews, reviews, star }) => {
-    console.log("reviews", reviews);
-
     const getQuantityByStar = (star) => {
         if (!reviews) return null;
         return (
@@ -17,9 +15,6 @@ const ScReviews = ({ quantityReviews, reviews, star }) => {
             })?.length || 0
         );
     };
-
-    console.log(reviews);
-
     return (
         <section className="scReviews py-[50px]">
             <div className="scReviews__rateInfo">

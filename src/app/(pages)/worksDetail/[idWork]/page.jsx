@@ -96,7 +96,13 @@ const WorksDetailPage = async (props) => {
         star: saoCongViec || 0,
     };
 
-    // console.log(detailWorkData);
+    // props asides reviews
+    const propsAside = {
+        price: congViec.giaTien || 0,
+        shortDesc: congViec.moTaNgan || "",
+    };
+
+    console.log(detailWorkData);
     return (
         <main className="mainDetailWork pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)]">
             <Suspense fallback={<ComponentLoading />}>
@@ -126,7 +132,7 @@ const WorksDetailPage = async (props) => {
                         <ScReviews {...propsReviews} />
                     </div>
                     <aside className="asideDetailWork">
-                        <CheckoutDetailWork />
+                        <CheckoutDetailWork {...propsAside} />
                     </aside>
                 </div>
             </Suspense>

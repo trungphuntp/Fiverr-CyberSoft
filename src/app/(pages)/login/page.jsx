@@ -1,6 +1,6 @@
+import MessageProvider from "@/app/components/MessageProvider/page";
 import ReduxProvider from "@/app/components/ReduxProvider/page";
 import FormLogin from "./components/formLogin";
-import MessageProvider from "@/app/components/MessageProvider/page";
 
 const LoginPage = () => {
     return (

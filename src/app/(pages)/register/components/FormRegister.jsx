@@ -189,7 +189,7 @@ const FormRegister = () => {
             </Form.Item>
 
             <Form.Item label={null}>
-                <Button className="mt-8">Login</Button>
+                <Button className="mt-8">Register</Button>
                 <Button variant="text" linkIn={PATH.LOGIN}>
                     I am already member
                 </Button>

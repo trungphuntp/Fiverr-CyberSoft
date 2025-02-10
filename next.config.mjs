@@ -5,7 +5,6 @@ const nextConfig = {
         styledComponents: true,
     },
     images: {
-        domains: ["sc04.alicdn.com", "fiverrnew.cybersoft.edu.vn"],
         remotePatterns: [
             {
                 protocol: "https",

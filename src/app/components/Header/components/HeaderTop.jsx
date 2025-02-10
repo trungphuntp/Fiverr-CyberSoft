@@ -7,7 +7,9 @@ import InputSearch from "../../InputSearch/page";
 import { methodToken } from "@/app/utils/Token";
 import { STORAGE } from "@/app/constants/storage";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { handleGetProfile } from "@/app/store/reducers/authReducer";
 
 const listIdHeader = {
     lang: "langheader",
@@ -16,6 +18,13 @@ const listIdHeader = {
 const HeaderTop = () => {
     const { handleSetActiveNav, isDropDown, handleSetIsDropDown } = useNavContext();
     const { profile } = useSelector((state) => state.profile);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (methodToken.get(STORAGE.token)) {
+            dispatch(handleGetProfile?.());
+        }
+    }, []);
 
     const _onShowNav = () => {
         handleSetActiveNav(true);
@@ -23,8 +32,6 @@ const HeaderTop = () => {
     const _toggleDropDown = (id) => {
         handleSetIsDropDown?.(id);
     };
-
-    console.log(profile);
 
     return (
         <div className="container">

@@ -131,7 +131,7 @@ export const handleRegister = createAsyncThunk(
     }
 );
 
-// handle register
+// handle get profile
 export const handleGetProfile = createAsyncThunk(
     "auth/handleGetProfile",
     async (idData, thunkAPI) => {

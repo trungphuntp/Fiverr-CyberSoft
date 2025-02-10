@@ -109,7 +109,7 @@ const ScReviews = ({ quantityReviews, reviews, star }) => {
                                     name={tenNguoiBinhLuan || ""}
                                     starValue={saoBinhLuan || 0}
                                     desc={noiDung || ""}
-                                    date={formatDate(ngayBinhLuan) || ""}
+                                    date={formatDate(ngayBinhLuan || "")}
                                 />
                             );
                         })}

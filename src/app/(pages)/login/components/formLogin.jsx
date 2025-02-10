@@ -19,6 +19,8 @@ const FormLogin = () => {
 
     const onFinish = async (values) => {
         const res = await dispatch(handleLogin(values)).unwrap();
+        console.log(res);
+
         if (!!res?.user?.id) {
             messageAPI
                 .open({
@@ -31,7 +33,7 @@ const FormLogin = () => {
                     router.push(PATH.HOME);
                 });
         } else {
-            messageAPI.error("Password or account does not exist!");
+            messageAPI.error("Email or Password does not exist!");
         }
     };
     const onFinishFailed = (errorInfo) => {

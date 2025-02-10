@@ -102,7 +102,6 @@ const WorksDetailPage = async (props) => {
         shortDesc: congViec.moTaNgan || "",
     };
 
-    console.log(detailWorkData);
     return (
         <main className="mainDetailWork pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)]">
             <Suspense fallback={<ComponentLoading />}>

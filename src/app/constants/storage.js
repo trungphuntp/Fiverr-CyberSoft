@@ -1,4 +1,4 @@
 export const STORAGE = {
-    token: "TokenUser",
+    token: "tokenuser",
     tokenCyber: "tokencybersoft",
 };

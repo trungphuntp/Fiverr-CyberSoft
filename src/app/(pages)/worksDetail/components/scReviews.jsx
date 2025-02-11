@@ -1,12 +1,38 @@
+"use client";
+import { getReviewsByIdWork, postReviewsByIdWork } from "@/app/actions/ReviewsAction";
 import FormRating from "@/app/components/FormRating/page";
 import RateBars from "@/app/components/RateBars/page";
 import Rating from "@/app/components/Rating/page";
 import ReviewsCard from "@/app/components/ReviewsCard/page";
 import SelectComponent from "@/app/components/Select/page";
 import { SelectWorksPage } from "@/app/constants/general";
+import { handleSetMessage } from "@/app/store/reducers/messageReducer";
 import { formatDate } from "@/app/utils/format";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-const ScReviews = ({ quantityReviews, reviews, star }) => {
+const ScReviews = ({ quantityReviews, star, idWork }) => {
+    const [reviews, setReviews] = useState([]);
+    const { profile } = useSelector((state) => state.profile);
+    const dispatch = useDispatch();
+    const { id } = profile || {};
+
+    // get API reviews
+    const {
+        data: reviewsData,
+        isLoading,
+        error,
+        refetch,
+    } = useQuery({
+        queryKey: ["reviews"],
+        queryFn: () => getReviewsByIdWork(idWork),
+        enabled: !!idWork, // Chỉ chạy query khi idWork có giá trị
+    });
+    useEffect(() => {
+        setReviews(reviewsData);
+    }, [reviewsData]);
+
     const getQuantityByStar = (star) => {
         if (!reviews) return null;
         return (
@@ -15,6 +41,27 @@ const ScReviews = ({ quantityReviews, reviews, star }) => {
             })?.length || 0
         );
     };
+
+    // handle send reviews
+    const handleSendReviews = async (content, valueStar) => {
+        const now = new Date();
+        const payload = {
+            id: 0,
+            maCongViec: idWork || "",
+            maNguoiBinhLuan: id || "",
+            ngayBinhLuan: formatDate(now || ""),
+            noiDung: content || "",
+            saoBinhLuan: valueStar || 0,
+        };
+        const res = await postReviewsByIdWork?.(payload);
+        if (res?.id) {
+            dispatch(handleSetMessage(["Comment successful!", "success"]));
+            refetch();
+        } else {
+            dispatch(handleSetMessage(["Comment failed!", "error"]));
+        }
+    };
+
     return (
         <section className="scReviews py-[50px]">
             <div className="scReviews__rateInfo">
@@ -116,7 +163,7 @@ const ScReviews = ({ quantityReviews, reviews, star }) => {
                 </div>
             </div>
             <div className="scReviews__form pt-[35px]">
-                <FormRating />
+                <FormRating handleSendReviews={handleSendReviews} />
             </div>
         </section>
     );

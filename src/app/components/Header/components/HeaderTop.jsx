@@ -31,8 +31,6 @@ const HeaderTop = () => {
 
     // message
     useEffect(() => {
-        console.log("message", message);
-        console.log("typeMessage", typeMessage);
         if (!!message) {
             switch (typeMessage) {
                 case "success":

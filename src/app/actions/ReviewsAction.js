@@ -11,8 +11,19 @@ export const getAllReviews = async () => {
 };
 
 export const getReviewsByIdWork = async (id) => {
+    console.log(123);
+
     try {
         const res = await ReviewsServices.getReviewsByIdWork(id);
+        return res.data.content;
+    } catch (error) {
+        console.log("error", error);
+        return error;
+    }
+};
+export const postReviewsByIdWork = async (payload) => {
+    try {
+        const res = await ReviewsServices.postReviewsByIdWork(payload);
         return res.data.content;
     } catch (error) {
         console.log("error", error);

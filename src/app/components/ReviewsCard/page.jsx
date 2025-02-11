@@ -7,7 +7,7 @@ const ReviewsCard = ({ avt, name, starValue, desc, date }) => {
         <div className="reviewsCard">
             <div className="reviewsCard__img">
                 <Image
-                    src={avt || "/default_img.jpg"}
+                    src={avt || "/default-avatar.jpg"}
                     alt="img review Card avatar"
                     width={105}
                     height={105}

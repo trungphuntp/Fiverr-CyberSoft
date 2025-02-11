@@ -8,7 +8,7 @@ const ReviewsServices = {
         return axiosInstance.get(`/binh-luan/lay-binh-luan-theo-cong-viec/${id}`);
     },
     postReviewsByIdWork: (payload = {}) => {
-        return axiosInstance.get(`/binh-luan`, payload);
+        return axiosInstance.post(`/binh-luan`, payload);
     },
 };
 

@@ -1,21 +1,19 @@
 import { getCategoryWorksById } from "@/app/actions/CategoryWorksAction";
-import { getDetailWorkById } from "@/app/actions/WorksActions";
-import AvatarCard from "@/app/components/AvatarCard/page";
-import BreadcumbComponent from "@/app/components/Breadcumb/page";
-import Rating from "@/app/components/Rating/page";
-import Image from "next/image";
-import Link from "next/link";
-import ScContentWork from "../components/scContentWork";
-import { getUserById } from "@/app/actions/UserActions";
 import { getDetailCategoryWorksById } from "@/app/actions/DetailCategoryWorkAction";
-import PATH from "@/app/constants/path";
-import { cache, Suspense } from "react";
+import { getReviewsByIdWork } from "@/app/actions/ReviewsAction";
+import { getUserById } from "@/app/actions/UserActions";
+import { getDetailWorkById } from "@/app/actions/WorksActions";
+import BreadcumbComponent from "@/app/components/Breadcumb/page";
 import ComponentLoading from "@/app/components/Loading/page";
-import ScSeller from "../components/scSeller";
+import PATH from "@/app/constants/path";
+import Link from "next/link";
+import { cache, Suspense } from "react";
+import CheckoutDetailWork from "../components/CheckoutDetailWork";
+import ScContentWork from "../components/scContentWork";
 import ScFAQ from "../components/scFAQ";
 import ScReviews from "../components/scReviews";
-import { getReviewsByIdWork } from "@/app/actions/ReviewsAction";
-import CheckoutDetailWork from "../components/CheckoutDetailWork";
+import ScSeller from "../components/scSeller";
+import ReduxProvider from "@/app/components/ReduxProvider/page";
 
 const WorksDetailPage = async (props) => {
     const { idWork } = await props.params;
@@ -61,13 +59,6 @@ const WorksDetailPage = async (props) => {
         CateWorks = CateWorks?.[0] || {};
     }
 
-    // get API reviews
-    let reviewsData = [];
-    if (id) {
-        // get Category Moment
-        reviewsData = await getReviewsByIdWork(id);
-    }
-
     // props section content works
     const propsScContentWorks = {
         hinhAnh,
@@ -91,9 +82,9 @@ const WorksDetailPage = async (props) => {
 
     // props section reviews
     const propsReviews = {
-        reviews: reviewsData,
         quantityReviews: danhGia || 0,
         star: saoCongViec || 0,
+        idWork: id || "",
     };
 
     // props asides reviews
@@ -128,7 +119,9 @@ const WorksDetailPage = async (props) => {
                         <ScContentWork {...propsScContentWorks} />
                         <ScSeller {...propsScSeller} />
                         <ScFAQ />
-                        <ScReviews {...propsReviews} />
+                        <ReduxProvider>
+                            <ScReviews {...propsReviews} />
+                        </ReduxProvider>
                     </div>
                     <aside className="asideDetailWork">
                         <CheckoutDetailWork {...propsAside} />

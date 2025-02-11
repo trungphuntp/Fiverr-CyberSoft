@@ -73,13 +73,44 @@
                     }
                 }
             }
-            .avatarLogin {
-                overflow: hidden;
-                border-radius: 50%;
-                img {
-                    height: 100%;
-                    width: 100%;
-                    object-fit: cover;
+            .avatarLoginedWrapper {
+                position: relative;
+                .avatarLogin {
+                    overflow: hidden;
+                    border-radius: 50%;
+                    img {
+                        height: 100%;
+                        width: 100%;
+                        object-fit: cover;
+                    }
+                }
+
+                &__dropdown {
+                    font-size: 1.4rem;
+                    padding: 12px 0;
+                    display: flex;
+                    flex-direction: column;
+                    position: absolute;
+                    right: 0;
+                    z-index: 50;
+                    background: #fff;
+                    max-width: 200px;
+                    width: 100vw;
+                    visibility: hidden;
+                    opacity: 0;
+                    top: 70%;
+                    @include m.transition(0.3s);
+                    &.active {
+                        visibility: visible;
+                        opacity: 1;
+                        top: 100%;
+                    }
+                    a {
+                        padding: 8px 16px;
+                        &:hover {
+                            color: var(--primary-color);
+                        }
+                    }
                 }
             }
         }

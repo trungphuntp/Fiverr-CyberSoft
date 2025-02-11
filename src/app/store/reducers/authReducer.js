@@ -4,7 +4,7 @@ import { STORAGE } from "@/app/constants/storage";
 import { formatDate } from "@/app/utils/format";
 import { methodToken } from "@/app/utils/Token";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { message } from "antd";
+import { handleSetMessage } from "./messageReducer";
 
 const initialState = {
     loading: {
@@ -21,6 +21,11 @@ const authSlice = createSlice({
     reducers: {
         handleSetProfile: (state, action) => {
             state.profile = action.payload;
+        },
+        handleLogout: (state, action) => {
+            state.profile = null;
+            methodToken.remove(STORAGE.token);
+            methodToken.remove(STORAGE.idUser);
         },
     },
     // extra reducer để nhận extra function
@@ -61,7 +66,7 @@ const authSlice = createSlice({
     },
 });
 
-export const { handleSetProfile } = authSlice.actions;
+export const { handleSetProfile, handleLogout } = authSlice.actions;
 const { reducer: authReducer } = authSlice;
 export default authReducer;
 
@@ -81,7 +86,10 @@ export const handleLogin = createAsyncThunk("auth/handleLogin", async (dataLogin
 
         if (!!res?.user?.id) {
             thunkAPI.dispatch(handleGetProfile(res.user.id));
+            thunkAPI.dispatch(handleSetMessage(["Login success!", "success"]));
 
+            // set id token
+            methodToken.set(STORAGE.idUser, res.user.id);
             // set token vào cookies
             if (!!token) {
                 methodToken.set(STORAGE.token, token);
@@ -89,6 +97,9 @@ export const handleLogin = createAsyncThunk("auth/handleLogin", async (dataLogin
 
             return res;
         } else {
+            console.log(123);
+
+            thunkAPI.dispatch(handleSetMessage(["Email or Password does not exist!", "error"]));
             throw res;
         }
     } catch (error) {
@@ -120,11 +131,19 @@ export const handleRegister = createAsyncThunk(
             const res = await registerActon(payload);
 
             if (!!res?.email) {
+                thunkAPI.dispatch(handleSetMessage(["Register success!", "success"]));
+                thunkAPI.dispatch(
+                    handleLogin({
+                        email: email,
+                        password: password,
+                    })
+                );
                 return res;
             } else {
                 throw res;
             }
         } catch (error) {
+            thunkAPI.dispatch(handleSetMessage(["Email already exists!", "error"]));
             const errorsInfor = error?.response?.data;
             return thunkAPI.rejectWithValue(errorsInfor);
         }
@@ -137,6 +156,7 @@ export const handleGetProfile = createAsyncThunk(
     async (idData, thunkAPI) => {
         try {
             const res = await getUserById(idData);
+
             if (!!res?.id) {
                 return res;
             } else {

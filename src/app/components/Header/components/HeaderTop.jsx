@@ -8,29 +8,101 @@ import { methodToken } from "@/app/utils/Token";
 import { STORAGE } from "@/app/constants/storage";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { handleGetProfile } from "@/app/store/reducers/authReducer";
+import { useEffect, useState } from "react";
+import { handleGetProfile, handleLogout } from "@/app/store/reducers/authReducer";
+import { useMessageContext } from "../../MessageProvider/page";
+import { handleResetMessage, handleSetMessage } from "@/app/store/reducers/messageReducer";
 
 const listIdHeader = {
     lang: "langheader",
 };
 
 const HeaderTop = () => {
-    const { handleSetActiveNav, isDropDown, handleSetIsDropDown } = useNavContext();
-    const { profile } = useSelector((state) => state.profile);
     const dispatch = useDispatch();
 
+    const [avatarDropdown, setAvatarDropdown] = useState(false);
+    const { handleSetActiveNav, isDropDown, handleSetIsDropDown } = useNavContext();
+
+    const { profile } = useSelector((state) => state.profile);
+    const [isLogined, setIsLogined] = useState(false);
+
+    const { message, typeMessage } = useSelector((state) => state.message);
+    const { messageAPI } = useMessageContext();
+
+    // message
     useEffect(() => {
-        if (methodToken.get(STORAGE.token)) {
-            dispatch(handleGetProfile?.());
+        console.log("message", message);
+        console.log("typeMessage", typeMessage);
+        if (!!message) {
+            switch (typeMessage) {
+                case "success":
+                    messageAPI.success(message);
+                    break;
+                case "error":
+                    messageAPI.error(message);
+                    break;
+                case "warning":
+                    messageAPI.warning(message);
+                    break;
+                default:
+                    break;
+            }
+
+            dispatch(handleResetMessage());
+        }
+    }, [message]);
+
+    //  get profile when have token
+    useEffect(() => {
+        const getProfile = async (idUser) => {
+            const res = await dispatch(handleGetProfile(idUser)).unwrap();
+            if (!!res?.id) {
+                dispatch(handleSetMessage(["Login success!", "success"]));
+            }
+            return res;
+        };
+
+        if (methodToken.get(STORAGE.token) && methodToken.get(STORAGE.idUser)) {
+            const idUser = methodToken.get(STORAGE.idUser);
+            getProfile(idUser);
         }
     }, []);
 
+    // check login
+    useEffect(
+        () => {
+            if (methodToken.get(STORAGE.token) && methodToken.get(STORAGE.idUser) && !!profile) {
+                setIsLogined(true);
+            } else {
+                setIsLogined(false);
+            }
+        },
+        [profile, methodToken.get(STORAGE.token)],
+        methodToken.get(STORAGE.idUser)
+    );
+
+    // show nav
     const _onShowNav = () => {
         handleSetActiveNav(true);
     };
+    // dropdown language
     const _toggleDropDown = (id) => {
         handleSetIsDropDown?.(id);
+    };
+
+    // dropdown avatar when logined
+    const handleShowDropdownAvatar = (e) => {
+        e?.preventDefault();
+        e?.stopPropagation();
+        setAvatarDropdown((prev) => !prev);
+    };
+
+    // logout user
+    const _OnclickLogout = (e) => {
+        e?.preventDefault();
+        e?.stopPropagation();
+        dispatch(handleLogout());
+        dispatch(handleSetMessage(["Logout success!", "success"]));
     };
 
     return (
@@ -118,7 +190,7 @@ const HeaderTop = () => {
                         </li>
                     </ul>
                     <div className="flex items-center gap-2 max-sm:hidden">
-                        {!methodToken.get(STORAGE.token) && !profile ? (
+                        {!isLogined ? (
                             <>
                                 <Button variant="text" sizeBtn="small" linkIn={PATH.LOGIN}>
                                     Sign in
@@ -128,14 +200,29 @@ const HeaderTop = () => {
                                 </Button>
                             </>
                         ) : (
-                            <Link href={PATH.HOME} className="avatarLogin">
-                                <Image
-                                    src={"/default-avatar.jpg"}
-                                    alt="avatar icon"
-                                    height={40}
-                                    width={40}
-                                />
-                            </Link>
+                            <div
+                                className="avatarLoginedWrapper"
+                                onClick={handleShowDropdownAvatar}
+                            >
+                                <Link href={PATH.HOME} className="avatarLogin">
+                                    <Image
+                                        src={"/default-avatar.jpg"}
+                                        alt="avatar icon"
+                                        height={40}
+                                        width={40}
+                                    />
+                                </Link>
+                                <div
+                                    className={`avatarLoginedWrapper__dropdown ${
+                                        !!avatarDropdown ? "active" : ""
+                                    }`}
+                                >
+                                    <Link href={PATH.PROFILE}>Account Details</Link>
+                                    <a onClick={_OnclickLogout} href="#">
+                                        Sign out
+                                    </a>
+                                </div>
+                            </div>
                         )}
                     </div>
                 </div>

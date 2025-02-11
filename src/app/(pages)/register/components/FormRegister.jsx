@@ -3,7 +3,8 @@ import Button from "@/app/components/Button/page";
 import { useMessageContext } from "@/app/components/MessageProvider/page";
 import { REGEX } from "@/app/constants/format";
 import PATH from "@/app/constants/path";
-import { handleLogin, handleRegister } from "@/app/store/reducers/authReducer";
+import { handleRegister } from "@/app/store/reducers/authReducer";
+import { handleSetMessage } from "@/app/store/reducers/messageReducer";
 import {
     KeyOutlined,
     LockOutlined,
@@ -18,32 +19,15 @@ import { useDispatch } from "react-redux";
 const FormRegister = () => {
     const dispatch = useDispatch();
     const router = useRouter();
-    const { messageAPI } = useMessageContext();
 
     const onFinish = async (values) => {
         const res = await dispatch(handleRegister?.(values)).unwrap();
-        const { email, password } = res || {};
         if (!!res?.email) {
-            messageAPI
-                .open({
-                    type: "loading",
-                    content: "Loading...",
-                    duration: 1,
-                })
-                .then(() => messageAPI.success("Register success!", 1))
-                .then(async () => {
-                    // login sau khi register
-                    const res = await dispatch(handleLogin?.({ email, password })).unwrap();
-                    if (res?.user?.id) {
-                        router.push(PATH.HOME);
-                    }
-                });
-        } else {
-            messageAPI.error("Email already exists!");
+            router.push(PATH.HOME);
         }
     };
     const onFinishFailed = (errorInfo) => {
-        messageAPI.error("Something wrong!");
+        dispatch(handleSetMessage(["Something wrong!", "error"]));
     };
     return (
         <Form

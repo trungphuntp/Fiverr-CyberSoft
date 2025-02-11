@@ -5,7 +5,6 @@ export const getUserById = async (id) => {
         const res = await UserServices.getUserById(id);
         return res.data.content;
     } catch (error) {
-        console.log("error", error);
         return error;
     }
 };

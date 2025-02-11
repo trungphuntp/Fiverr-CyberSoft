@@ -1,10 +1,48 @@
 "use client";
+import { postHireWork } from "@/app/actions/HireWorkActions";
 import Button from "@/app/components/Button/page";
+import PATH from "@/app/constants/path";
+import { STORAGE } from "@/app/constants/storage";
+import { handleSetMessage } from "@/app/store/reducers/messageReducer";
+import { formatDate } from "@/app/utils/format";
+import { methodToken } from "@/app/utils/Token";
 import { Tabs } from "antd";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 const { TabPane } = Tabs;
 
-const CheckoutDetailWork = ({ price, shortDesc }) => {
+const CheckoutDetailWork = ({ price, shortDesc, idDetailWork }) => {
+    const router = useRouter();
+    const dispatch = useDispatch();
+    const { profile } = useSelector((state) => state.profile);
+    const { id } = profile || {};
+    // handle hire work
+    const handleHireWork = async (e) => {
+        e?.preventDefault();
+        e?.stopPropagation();
+
+        if (!methodToken.get(STORAGE.token) && !methodToken.get(STORAGE.idUser) && !profile) {
+            dispatch(handleSetMessage(["Hired failed job", "error"]));
+            router.push(PATH.LOGIN);
+        }
+        const now = new Date();
+        const payload = {
+            maCongViec: idDetailWork || "",
+            maNguoiThue: id || "",
+            ngayThue: formatDate(now || ""),
+            hoanThanh: false,
+        };
+
+        const res = await postHireWork(payload);
+        if (res?.id) {
+            dispatch(handleSetMessage(["Hired successfully job", "success"]));
+            router.push(PATH.PROFILE);
+        } else {
+            dispatch(handleSetMessage(["Hired failed job", "error"]));
+        }
+    };
+
     return (
         <div className="checkoutDetailWork">
             {/* tabs antd */}
@@ -100,8 +138,9 @@ const CheckoutDetailWork = ({ price, shortDesc }) => {
                                 </div>
                                 <Button
                                     className="btnPrimary"
+                                    onClick={handleHireWork}
                                     sizeBtn="small"
-                                >{`Continue (US$)`}</Button>
+                                >{`Continue (${price || 0}US$)`}</Button>
                                 <Button variant="text" className="btnText">
                                     Compare Packages
                                 </Button>
@@ -196,8 +235,9 @@ const CheckoutDetailWork = ({ price, shortDesc }) => {
                                 </div>
                                 <Button
                                     className="btnPrimary"
+                                    onClick={handleHireWork}
                                     sizeBtn="small"
-                                >{`Continue (US$)`}</Button>
+                                >{`Continue (${price * 2 || 20}US$)`}</Button>
                                 <Button variant="text" className="btnText">
                                     Compare Packages
                                 </Button>
@@ -292,8 +332,9 @@ const CheckoutDetailWork = ({ price, shortDesc }) => {
                                 </div>
                                 <Button
                                     className="btnPrimary"
+                                    onClick={handleHireWork}
                                     sizeBtn="small"
-                                >{`Continue (US$)`}</Button>
+                                >{`Continue (${price * 3 || 50}US$)`}</Button>
                                 <Button variant="text" className="btnText">
                                     Compare Packages
                                 </Button>

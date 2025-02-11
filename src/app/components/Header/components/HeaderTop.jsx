@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { handleGetProfile, handleLogout } from "@/app/store/reducers/authReducer";
 import { useMessageContext } from "../../MessageProvider/page";
 import { handleResetMessage, handleSetMessage } from "@/app/store/reducers/messageReducer";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const listIdHeader = {
     lang: "langheader",
@@ -19,6 +20,9 @@ const listIdHeader = {
 
 const HeaderTop = () => {
     const dispatch = useDispatch();
+    const router = useRouter();
+    const pathName = usePathname();
+    const searchParam = useSearchParams();
 
     const [avatarDropdown, setAvatarDropdown] = useState(false);
     const { handleSetActiveNav, isDropDown, handleSetIsDropDown } = useNavContext();
@@ -29,7 +33,7 @@ const HeaderTop = () => {
     const { message, typeMessage } = useSelector((state) => state.message);
     const { messageAPI } = useMessageContext();
 
-    // message
+    // message config
     useEffect(() => {
         if (!!message) {
             switch (typeMessage) {
@@ -81,6 +85,7 @@ const HeaderTop = () => {
 
     // show nav
     const _onShowNav = () => {
+        document.body.classList.add("--disable-scroll");
         handleSetActiveNav(true);
     };
     // dropdown language
@@ -94,11 +99,16 @@ const HeaderTop = () => {
         e?.stopPropagation();
         setAvatarDropdown((prev) => !prev);
     };
+    // reset avatarDropdown
+    useEffect(() => {
+        setAvatarDropdown(false);
+    }, [pathName, searchParam]);
 
     // logout user
     const _OnclickLogout = (e) => {
         e?.preventDefault();
         e?.stopPropagation();
+        router.push(PATH.HOME);
         dispatch(handleLogout());
         dispatch(handleSetMessage(["Logout success!", "success"]));
     };
@@ -202,14 +212,14 @@ const HeaderTop = () => {
                                 className="avatarLoginedWrapper"
                                 onClick={handleShowDropdownAvatar}
                             >
-                                <Link href={PATH.HOME} className="avatarLogin">
+                                <div className="avatarLogin">
                                     <Image
                                         src={"/default-avatar.jpg"}
                                         alt="avatar icon"
                                         height={40}
                                         width={40}
                                     />
-                                </Link>
+                                </div>
                                 <div
                                     className={`avatarLoginedWrapper__dropdown ${
                                         !!avatarDropdown ? "active" : ""

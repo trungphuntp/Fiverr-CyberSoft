@@ -21,7 +21,13 @@ const FormRegister = () => {
     const router = useRouter();
 
     const onFinish = async (values) => {
-        const res = await dispatch(handleRegister?.(values)).unwrap();
+        const payload = {
+            ...values,
+            email: values.email.toLowerCase().trim(),
+            phone: values.phone.trim(),
+            name: values.name.trim(),
+        };
+        const res = await dispatch(handleRegister?.(payload)).unwrap();
         if (!!res?.email) {
             router.push(PATH.HOME);
         }

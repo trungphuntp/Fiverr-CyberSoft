@@ -6,9 +6,13 @@ import Rating from "@/app/components/Rating/page";
 import ReviewsCard from "@/app/components/ReviewsCard/page";
 import SelectComponent from "@/app/components/Select/page";
 import { SelectWorksPage } from "@/app/constants/general";
+import PATH from "@/app/constants/path";
+import { STORAGE } from "@/app/constants/storage";
 import { handleSetMessage } from "@/app/store/reducers/messageReducer";
 import { formatDate } from "@/app/utils/format";
+import { methodToken } from "@/app/utils/Token";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -17,6 +21,7 @@ const ScReviews = ({ quantityReviews, star, idWork }) => {
     const { profile } = useSelector((state) => state.profile);
     const dispatch = useDispatch();
     const { id } = profile || {};
+    const router = useRouter();
 
     // get API reviews
     const {
@@ -44,9 +49,17 @@ const ScReviews = ({ quantityReviews, star, idWork }) => {
 
     // handle send reviews
     const handleSendReviews = async (content, valueStar) => {
+        if (!methodToken.get(STORAGE.token) && !methodToken.get(STORAGE.idUser) && !profile) {
+            router.push(PATH.LOGIN);
+            dispatch(handleSetMessage(["Comment failed!", "error"]));
+        }
+        if (!content) {
+            dispatch(handleSetMessage(["Comment failed!", "error"]));
+            return;
+        }
+
         const now = new Date();
         const payload = {
-            id: 0,
             maCongViec: idWork || "",
             maNguoiBinhLuan: id || "",
             ngayBinhLuan: formatDate(now || ""),

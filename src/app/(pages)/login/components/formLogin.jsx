@@ -17,7 +17,13 @@ const FormLogin = () => {
     useEffect(() => {}, [profile, loading.login, loading.profile]);
 
     const onFinish = async (values) => {
-        const res = await dispatch(handleLogin(values)).unwrap();
+        const payload = {
+            ...values,
+            email: values.email.toLowerCase().trim(),
+        };
+        console.log(payload);
+
+        const res = await dispatch(handleLogin(payload)).unwrap();
         if (!!res?.user?.id) {
             router.push(PATH.HOME);
         }

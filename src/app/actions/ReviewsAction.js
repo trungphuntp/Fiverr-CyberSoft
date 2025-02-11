@@ -11,8 +11,6 @@ export const getAllReviews = async () => {
 };
 
 export const getReviewsByIdWork = async (id) => {
-    console.log(123);
-
     try {
         const res = await ReviewsServices.getReviewsByIdWork(id);
         return res.data.content;

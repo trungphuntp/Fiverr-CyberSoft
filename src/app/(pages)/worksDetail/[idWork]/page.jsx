@@ -1,10 +1,10 @@
 import { getCategoryWorksById } from "@/app/actions/CategoryWorksAction";
 import { getDetailCategoryWorksById } from "@/app/actions/DetailCategoryWorkAction";
-import { getReviewsByIdWork } from "@/app/actions/ReviewsAction";
 import { getUserById } from "@/app/actions/UserActions";
 import { getDetailWorkById } from "@/app/actions/WorksActions";
 import BreadcumbComponent from "@/app/components/Breadcumb/page";
 import ComponentLoading from "@/app/components/Loading/page";
+import ReduxProvider from "@/app/components/ReduxProvider/page";
 import PATH from "@/app/constants/path";
 import Link from "next/link";
 import { cache, Suspense } from "react";
@@ -13,7 +13,6 @@ import ScContentWork from "../components/scContentWork";
 import ScFAQ from "../components/scFAQ";
 import ScReviews from "../components/scReviews";
 import ScSeller from "../components/scSeller";
-import ReduxProvider from "@/app/components/ReduxProvider/page";
 
 const WorksDetailPage = async (props) => {
     const { idWork } = await props.params;
@@ -91,6 +90,7 @@ const WorksDetailPage = async (props) => {
     const propsAside = {
         price: congViec.giaTien || 0,
         shortDesc: congViec.moTaNgan || "",
+        idDetailWork: id || "",
     };
 
     return (
@@ -124,7 +124,9 @@ const WorksDetailPage = async (props) => {
                         </ReduxProvider>
                     </div>
                     <aside className="asideDetailWork">
-                        <CheckoutDetailWork {...propsAside} />
+                        <ReduxProvider>
+                            <CheckoutDetailWork {...propsAside} />
+                        </ReduxProvider>
                     </aside>
                 </div>
             </Suspense>

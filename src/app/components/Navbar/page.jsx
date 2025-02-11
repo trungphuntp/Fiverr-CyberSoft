@@ -38,6 +38,7 @@ const Navbar = () => {
     const refDropDown = useRef({});
 
     const _onCloseNav = () => {
+        document.body.classList.remove("--disable-scroll");
         handleSetActiveNav?.(false);
     };
 

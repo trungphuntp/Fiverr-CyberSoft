@@ -76,6 +76,7 @@
             .avatarLoginedWrapper {
                 position: relative;
                 .avatarLogin {
+                    cursor: pointer;
                     overflow: hidden;
                     border-radius: 50%;
                     img {

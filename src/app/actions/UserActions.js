@@ -8,3 +8,12 @@ export const getUserById = async (id) => {
         return error;
     }
 };
+
+export const putUserById = async (id, payload) => {
+    try {
+        const res = await UserServices.putUserById(id, payload);
+        return res.data.content;
+    } catch (error) {
+        return error;
+    }
+};

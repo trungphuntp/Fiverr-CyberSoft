@@ -8,17 +8,14 @@ export const middleware = async (request) => {
     const urlPathname = request.nextUrl.pathname;
     const originPathname = request.nextUrl.origin;
 
-    // // Kiểm tra route người dùng đang truy cập
-    // if (pathname === "/profile") {
-    //     // Trang profile chỉ cho phép truy cập nếu đã đăng nhập
-    //     if (!tokenUser) {
-    //         return redirect(PATH.LOGIN);
-    //     }
-    // }
+    if (urlPathname === PATH.PROFILE) {
+        if (!cookies.has(STORAGE.token) && !cookies.has(STORAGE.idUser)) {
+            return NextResponse.redirect(originPathname + PATH.LOGIN);
+        }
+    }
 
     if (urlPathname === PATH.LOGIN || urlPathname === PATH.REGISTER) {
-        // Trang đăng nhập và đăng ký chỉ cho phép truy cập nếu chưa đăng nhập
-        if (!!cookies.has(STORAGE.token)) {
+        if (!!cookies.has(STORAGE.token) && !!cookies.has(STORAGE.idUser)) {
             return NextResponse.redirect(originPathname + PATH.HOME);
         }
     }

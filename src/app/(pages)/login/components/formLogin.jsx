@@ -21,7 +21,6 @@ const FormLogin = () => {
             ...values,
             email: values.email.toLowerCase().trim(),
         };
-        console.log(payload);
 
         const res = await dispatch(handleLogin(payload)).unwrap();
         if (!!res?.user?.id) {

@@ -84,10 +84,10 @@ const Navbar = () => {
             ></div>
             <div className="navbar__content">
                 <div className="navbar__content-account">
-                    <Button variant="text" className="w-1/2">
+                    <Button linkIn={PATH.LOGIN} variant="text" className="w-1/2">
                         Sign in
                     </Button>
-                    <Button variant="outline" className="w-1/2">
+                    <Button linkIn={PATH.REGISTER} variant="outline" className="w-1/2">
                         Join
                     </Button>
                 </div>

@@ -134,6 +134,7 @@ const FormRegister = () => {
                         // callback trả về rule
                         if (!!rule.getFieldValue("phone")) {
                             return {
+                                // dùng validator kết hợp rule để validate form phone
                                 validator(_, value) {
                                     if (REGEX.phone.test(value)) {
                                         return Promise.resolve();

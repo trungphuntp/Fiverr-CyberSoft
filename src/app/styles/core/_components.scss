@@ -7,7 +7,7 @@
 }
 // button
 .btn {
-    @apply font-[m600] max-lg:h-[40px] h-[48px] px-[24px] bg-[var(--btn-primary-color)] rounded-[4px] text-[var(--white-color)] whitespace-nowrap inline-flex items-center justify-center;
+    @apply font-[m600] max-lg:h-[40px] h-[48px] px-[24px] bg-[var(--btn-primary-color)] rounded-[4px] text-[var(--white-color)] whitespace-nowrap inline-flex items-center justify-center select-none;
     @include m.transition(0.3s);
 
     &.outlineBtn {
@@ -27,6 +27,9 @@
     }
     &.smallBtn {
         @apply h-[42px] px-[15px] max-lg:h-[38px];
+    }
+    &.error {
+        @apply bg-[#E14C4C];
     }
 }
 
@@ -293,7 +296,7 @@
         gap: 12px;
         font-size: 1.6rem;
         font-family: m600;
-        border: 1px solid #dadbdd;
+        border: 1px solid var(--color-border-grey);
         border-radius: 4px;
         height: 38px;
         padding: 0px 12px;
@@ -733,6 +736,85 @@
 
         @include m.sm {
             width: 100%;
+        }
+    }
+}
+
+// Hired Job Card
+.HiredJobCard {
+    border: 1px solid var(--color-border-grey);
+    padding: 12px;
+    &__content {
+        display: flex;
+        gap: 20px;
+        &-img {
+            aspect-ratio: 300/200;
+            width: 40%;
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+        &-text {
+            width: 60%;
+            .title {
+                line-height: 1.4;
+                font-size: 1.6rem;
+                font-family: m700;
+                @include m.transition(0.3s);
+                &:hover {
+                    color: var(--primary-color);
+                }
+            }
+            .desc {
+                margin-top: 10px;
+            }
+            .priceRate {
+                margin-top: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .rate {
+                    color: #ffb33e;
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    .quantity {
+                        color: #b5b6ba;
+                        letter-spacing: 2px;
+                    }
+                }
+                .price {
+                    font-size: 1.8rem;
+                    color: var(--text-color-body-3);
+                    letter-spacing: 2.5px;
+                }
+            }
+        }
+    }
+    &__action {
+        display: flex;
+        justify-content: flex-end;
+        gap: 16px;
+        margin-top: 20px;
+        @include m.transition(0.3s);
+        .btn:hover {
+            opacity: 0.7;
+        }
+    }
+}
+
+.formEditModal {
+    width: 100% !important;
+    max-width: 600px !important;
+    .formEditProfile {
+        .row {
+            display: flex;
+            gap: 20px;
+            & > * {
+                width: 50%;
+            }
         }
     }
 }

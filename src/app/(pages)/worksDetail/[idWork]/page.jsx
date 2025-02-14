@@ -17,14 +17,26 @@ import ScSeller from "../components/scSeller";
 const WorksDetailPage = async (props) => {
     const { idWork } = await props.params;
     // get work infor
-    const detailWorkData = await getDetailWorkById(idWork);
+    let detailWorkData;
+    if (idWork) {
+        detailWorkData = await getDetailWorkById(idWork);
+    }
 
     // get category work
     const categoryWorkData = await getCategoryWorksById();
 
     const { congViec, tenLoaiCongViec, id } = detailWorkData?.[0] || {};
-    const { hinhAnh, moTa, nguoiTao, maChiTietLoaiCongViec, tenCongViec, saoCongViec, danhGia } =
-        congViec || {};
+    const {
+        hinhAnh,
+        moTa,
+        nguoiTao,
+        maChiTietLoaiCongViec,
+        tenCongViec,
+        saoCongViec,
+        danhGia,
+        giaTien,
+        moTaNgan,
+    } = congViec || {};
 
     // get API user
     let userData = {};
@@ -88,8 +100,8 @@ const WorksDetailPage = async (props) => {
 
     // props asides reviews
     const propsAside = {
-        price: congViec.giaTien || 0,
-        shortDesc: congViec.moTaNgan || "",
+        price: giaTien || 0,
+        shortDesc: moTaNgan || "",
         idDetailWork: id || "",
     };
 

@@ -4,11 +4,17 @@ import PATH from "@/app/constants/path";
 import { useNavContext } from "@/app/contexts/NavContext/page";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Button from "../Button/page";
 import InputSearch from "../InputSearch/page";
 import ComponentLoading from "../Loading/page";
+import { useDispatch, useSelector } from "react-redux";
+import { STORAGE } from "@/app/constants/storage";
+import { methodToken } from "@/app/utils/Token";
+import NavLoggedAvatar from "../NavLoggedAvatar/page";
+import { handleLogout } from "@/app/store/reducers/authReducer";
+import { handleSetMessage } from "@/app/store/reducers/messageReducer";
 
 const listIdNav = {
     category: "categoryNav",
@@ -18,9 +24,24 @@ const listIdNav = {
 const Navbar = () => {
     const pathName = usePathname();
     const searchParam = useSearchParams();
-
+    const dispatch = useDispatch();
+    const { profile } = useSelector((state) => state.profile);
+    const { avatar, name, email } = profile || [];
     const { isActiveNav, handleSetActiveNav, isDropDown, handleSetIsDropDown } = useNavContext();
     const [isDropDownItem, setisDropDownItem] = useState([]);
+    const [isLogined, setIsLogined] = useState(false);
+    const router = useRouter();
+
+    // check login
+    useEffect(() => {
+        if (methodToken.get(STORAGE.token) && methodToken.get(STORAGE.idUser) && !!profile) {
+            setIsLogined(true);
+        } else {
+            setIsLogined(false);
+        }
+    }, [profile, methodToken.get(STORAGE.token), methodToken.get(STORAGE.idUser)]);
+
+    // API categoryAll
     const {
         data: categoryWorksAPI,
         error,
@@ -32,11 +53,10 @@ const Navbar = () => {
         cacheTime: 3600000,
     });
 
-    const { data: categoryWorks } = categoryWorksAPI || [];
-
     // ref của các item dropdown
     const refDropDown = useRef({});
 
+    // close Nav
     const _onCloseNav = () => {
         document.body.classList.remove("--disable-scroll");
         handleSetActiveNav?.(false);
@@ -46,11 +66,27 @@ const Navbar = () => {
         _onCloseNav();
     }, [pathName, searchParam]);
 
+    // close nav when resize 1280
+    useEffect(() => {
+        const handleSetSize = (e) => {
+            if (window.innerWidth >= 1280) {
+                _onCloseNav();
+            }
+        };
+
+        window.addEventListener("resize", handleSetSize);
+
+        return () => {
+            window.removeEventListener("resize", handleSetSize);
+        };
+    }, []);
+
     // toggle active class dropdown
     const _toggleDropDownActive = (id) => {
         handleSetIsDropDown?.(id);
     };
 
+    // check active Item Nav
     const _handleSetActiveItem = (id) => {
         setisDropDownItem((prev) => {
             if (prev.includes(id)) {
@@ -74,6 +110,14 @@ const Navbar = () => {
         });
     }, [isDropDownItem]);
 
+    // logout user
+    const _OnclickLogout = () => {
+        router.push(PATH.HOME);
+        dispatch(handleLogout());
+        dispatch(handleSetMessage(["Logout success!", "success"]));
+        _onCloseNav();
+    };
+
     return (
         <nav className={`navbar ${isActiveNav ? "active" : ""}`}>
             <div
@@ -84,12 +128,25 @@ const Navbar = () => {
             ></div>
             <div className="navbar__content">
                 <div className="navbar__content-account">
-                    <Button linkIn={PATH.LOGIN} variant="text" className="w-1/2">
-                        Sign in
-                    </Button>
-                    <Button linkIn={PATH.REGISTER} variant="outline" className="w-1/2">
-                        Join
-                    </Button>
+                    {!!isLogined ? (
+                        <>
+                            <NavLoggedAvatar
+                                avatar={avatar}
+                                email={email}
+                                name={name}
+                                logout={_OnclickLogout}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <Button linkIn={PATH.LOGIN} variant="text" className="w-1/2">
+                                Sign in
+                            </Button>
+                            <Button linkIn={PATH.REGISTER} variant="outline" className="w-1/2">
+                                Join
+                            </Button>
+                        </>
+                    )}
                 </div>
                 <ul className="navbar__content-list">
                     <li>
@@ -133,9 +190,9 @@ const Navbar = () => {
                             }}
                         >
                             {isLoading && <ComponentLoading />}
-                            {categoryWorks?.length > 0 &&
+                            {categoryWorksAPI?.length > 0 &&
                                 !isLoading &&
-                                categoryWorks?.map((item, index) => {
+                                categoryWorksAPI?.map((item, index) => {
                                     const linkDetailCate = PATH.WORKS_CATEGORY + `/${item.id}`;
                                     return (
                                         <li className="itemDropdown__item" key={item?.id || index}>

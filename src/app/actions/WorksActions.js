@@ -4,7 +4,6 @@ import WorksServices from "../services/WorksServices";
 export const getMenuCategory = async () => {
     try {
         const res = await WorksServices.getMenuCategoryWorks();
-
         return res.data.content;
     } catch (error) {
         return error;

@@ -3,6 +3,7 @@ import Header from "./components/Header/page";
 import MessageProvider from "./components/MessageProvider/page";
 import Navbar from "./components/Navbar/page";
 import ProviderReactQuery from "./components/ProviderReactQuery/page";
+import ReduxProvider from "./components/ReduxProvider/page";
 import { AccordionProvider } from "./contexts/AccordionContext/page";
 import { NavContextProvider } from "./contexts/NavContext/page";
 import "./globals.css";
@@ -21,10 +22,12 @@ export default function RootLayout({ children }) {
             <body>
                 <ProviderReactQuery>
                     <AccordionProvider>
-                        <NavContextProvider>
-                            <Header />
-                            <Navbar />
-                        </NavContextProvider>
+                        <ReduxProvider>
+                            <NavContextProvider>
+                                <Header />
+                                <Navbar />
+                            </NavContextProvider>
+                        </ReduxProvider>
                         {children}
                         <Footer />
                     </AccordionProvider>

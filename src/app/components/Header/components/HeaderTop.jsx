@@ -73,17 +73,13 @@ const HeaderTop = () => {
     }, []);
 
     // check login
-    useEffect(
-        () => {
-            if (methodToken.get(STORAGE.token) && methodToken.get(STORAGE.idUser) && !!profile) {
-                setIsLogined(true);
-            } else {
-                setIsLogined(false);
-            }
-        },
-        [profile, methodToken.get(STORAGE.token)],
-        methodToken.get(STORAGE.idUser)
-    );
+    useEffect(() => {
+        if (methodToken.get(STORAGE.token) && methodToken.get(STORAGE.idUser) && !!profile) {
+            setIsLogined(true);
+        } else {
+            setIsLogined(false);
+        }
+    }, [profile, methodToken.get(STORAGE.token), methodToken.get(STORAGE.idUser)]);
 
     // show nav
     const _onShowNav = () => {

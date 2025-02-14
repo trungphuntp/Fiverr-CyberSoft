@@ -805,6 +805,7 @@
     }
 }
 
+// form edit modal
 .formEditModal {
     width: 100% !important;
     max-width: 600px !important;
@@ -814,6 +815,50 @@
             gap: 20px;
             & > * {
                 width: 50%;
+            }
+        }
+    }
+}
+
+// Nav Logged Avatar
+.NavLoggedAvatar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    &__left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        &-img {
+            img {
+                height: 50px;
+                width: 50px;
+                object-fit: cover;
+            }
+        }
+        &-content {
+            .name {
+                font-size: 2.2rem;
+                color: var(--text-color-body-3);
+                font-family: m700;
+                @include m.transition(0.3s);
+                &:hover {
+                    color: var(--primary-color);
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+    &__right {
+        svg {
+            height: 25px;
+            width: 25px;
+            cursor: pointer;
+            @include m.transition(0.3s);
+            &:hover {
+                color: var(--primary-color);
             }
         }
     }

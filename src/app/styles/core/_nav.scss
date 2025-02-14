@@ -4,11 +4,12 @@
     z-index: 9999;
     position: fixed;
     inset: 0;
-    height: 100vh;
     width: 100vw;
+    height: 100%;
     opacity: 0;
     visibility: hidden;
     @include m.transition(0.3s);
+
     &.active {
         opacity: 1;
         visibility: visible;
@@ -37,16 +38,22 @@
     &__content {
         --width-nav: 400px;
         position: absolute;
+        overflow: scroll;
         left: calc(-1 * var(--width-nav));
         top: 0;
+        height: 100%;
         z-index: 3;
         opacity: 0;
         visibility: hidden;
         width: var(--width-nav);
+        max-width: 100%;
         background: var(--white-color);
-        height: 100%;
         padding: 80px 30px 20px;
         @include m.transition(0.3s);
+
+        @include m.xs {
+            padding: 60px 16px 20px;
+        }
 
         &-list {
             .item {

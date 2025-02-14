@@ -166,7 +166,7 @@
             width: 100%;
 
             .ant-tabs-tab {
-                border: 2px solid #dadbdd;
+                border: 2px solid var(--color-border-grey);
                 border-bottom: 0;
                 border-right: 0;
                 margin-left: 0 !important;
@@ -179,7 +179,7 @@
                 font-family: m700;
             }
             .ant-tabs-tab:nth-child(3) {
-                border-right: 2px solid #dadbdd;
+                border-right: 2px solid var(--color-border-grey);
             }
             .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
                 color: var(--primary-color) !important;
@@ -196,7 +196,7 @@
                 margin-bottom: 0;
             }
             &__pane {
-                border: 2px solid #dadbdd;
+                border: 2px solid var(--color-border-grey);
                 padding: 24px;
                 font-family: m600;
 

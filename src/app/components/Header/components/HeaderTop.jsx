@@ -9,7 +9,7 @@ import { STORAGE } from "@/app/constants/storage";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { handleGetProfile, handleLogout } from "@/app/store/reducers/authReducer";
+import { handleGetBooking, handleGetProfile, handleLogout } from "@/app/store/reducers/authReducer";
 import { useMessageContext } from "../../MessageProvider/page";
 import { handleResetMessage, handleSetMessage } from "@/app/store/reducers/messageReducer";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -28,6 +28,7 @@ const HeaderTop = () => {
     const { handleSetActiveNav, isDropDown, handleSetIsDropDown } = useNavContext();
 
     const { profile } = useSelector((state) => state.profile);
+    const { avatar } = profile || {};
     const [isLogined, setIsLogined] = useState(false);
 
     const { message, typeMessage } = useSelector((state) => state.message);
@@ -60,6 +61,7 @@ const HeaderTop = () => {
             const res = await dispatch(handleGetProfile(idUser)).unwrap();
             if (!!res?.id) {
                 dispatch(handleSetMessage(["Login success!", "success"]));
+                dispatch(handleGetBooking());
             }
             return res;
         };
@@ -214,7 +216,7 @@ const HeaderTop = () => {
                             >
                                 <div className="avatarLogin">
                                     <Image
-                                        src={"/default-avatar.jpg"}
+                                        src={!!avatar ? avatar : "/default-avatar.jpg"}
                                         alt="avatar icon"
                                         height={40}
                                         width={40}

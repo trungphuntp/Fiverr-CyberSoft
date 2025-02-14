@@ -3,6 +3,7 @@ import { postHireWork } from "@/app/actions/HireWorkActions";
 import Button from "@/app/components/Button/page";
 import PATH from "@/app/constants/path";
 import { STORAGE } from "@/app/constants/storage";
+import { handleGetBooking } from "@/app/store/reducers/authReducer";
 import { handleSetMessage } from "@/app/store/reducers/messageReducer";
 import { formatDate } from "@/app/utils/format";
 import { methodToken } from "@/app/utils/Token";
@@ -37,6 +38,7 @@ const CheckoutDetailWork = ({ price, shortDesc, idDetailWork }) => {
         const res = await postHireWork(payload);
         if (res?.id) {
             dispatch(handleSetMessage(["Hired successfully job", "success"]));
+            dispatch(handleGetBooking());
             router.push(PATH.PROFILE);
         } else {
             dispatch(handleSetMessage(["Hired failed job", "error"]));

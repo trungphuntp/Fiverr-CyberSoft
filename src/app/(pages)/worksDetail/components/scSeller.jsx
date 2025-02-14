@@ -6,7 +6,7 @@ const ScSeller = ({ avatar, name, role, saoCongViec, danhGia, phone }) => {
         <section className="scSeller pt-[50px]">
             <h2 className="title_2 mb-[30px]">About The Seller</h2>
             <BigCardAvatar
-                avt={avatar || ""}
+                avt={avatar || null}
                 name={name || ""}
                 role={role || ""}
                 saoCongViec={saoCongViec || 0}

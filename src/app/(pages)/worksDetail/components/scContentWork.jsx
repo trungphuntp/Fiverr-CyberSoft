@@ -13,7 +13,7 @@ const ScContentWork = ({ avatar, name, role, hinhAnh, moTa, saoCongViec, danhGia
                 <div className="scContentWork__item scContentWork__author-avatar">
                     <AvatarCard
                         type="row"
-                        avatar={avatar || ""}
+                        avatar={avatar || null}
                         name={name || ""}
                         role={role || ""}
                     />
@@ -32,7 +32,7 @@ const ScContentWork = ({ avatar, name, role, hinhAnh, moTa, saoCongViec, danhGia
             </div>
             <div className="scContentWork__img">
                 <Image
-                    src={hinhAnh || ""}
+                    src={hinhAnh || "/default_img.jpg"}
                     alt="image detail work"
                     width={750}
                     height={500}

@@ -7,7 +7,7 @@ const BigCardAvatar = ({ avt = "/default_img.jpg", name, role, saoCongViec, phon
         <div className="BigCardAvatar">
             <Image
                 className="BigCardAvatar__img"
-                src={avt || ""}
+                src={avt || "/default-avatar.jpg"}
                 alt="img big card"
                 height={110}
                 width={110}

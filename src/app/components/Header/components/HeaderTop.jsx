@@ -62,8 +62,8 @@ const HeaderTop = () => {
             if (!!res?.id) {
                 dispatch(handleSetMessage(["Login success!", "success"]));
                 dispatch(handleGetBooking());
+                return res;
             }
-            return res;
         };
 
         if (methodToken.get(STORAGE.token) && methodToken.get(STORAGE.idUser)) {

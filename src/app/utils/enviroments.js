@@ -1,4 +1,4 @@
-const environment = {
+const environments = {
   baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
   isProduction: process.env.NODE_ENV === "production",
   isDevelopment: process.env.NODE_ENV === "development",
@@ -6,8 +6,8 @@ const environment = {
 };
 
 // Validation
-if (!environment.baseUrl) {
+if (!environments.baseUrl) {
   throw new Error("NEXT_PUBLIC_BASE_URL is required");
 }
 
-export default environment;
+export default environments;

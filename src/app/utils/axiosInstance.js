@@ -1,7 +1,8 @@
 import axios from "axios";
 import { STORAGE } from "../constants/storage";
 import { token } from "../constants/tokens";
-import { BASE_URL } from "./enviroments";
+
+import BASE_URL from "./enviroments";
 import { methodToken } from "./Token";
 
 const axiosInstance = axios.create({

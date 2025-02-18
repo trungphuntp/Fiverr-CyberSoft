@@ -30,6 +30,16 @@ export const getWorksByIdCategoryWork = async (id) => {
 export const getDetailWorkById = async (id) => {
     try {
         const res = await WorksServices.getDetailWorkById(id);
+        console.log("res", res);
+
+        return res.data.content;
+    } catch (error) {
+        return error;
+    }
+};
+export const getSearchWorks = async (query) => {
+    try {
+        const res = await WorksServices.getSearchWorks(query);
         return res.data.content;
     } catch (error) {
         return error;

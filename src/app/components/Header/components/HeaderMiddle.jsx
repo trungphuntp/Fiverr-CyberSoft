@@ -1,7 +1,6 @@
 import { getMenuCategory } from "@/app/actions/WorksActions";
 import PATH from "@/app/constants/path";
 import Link from "next/link";
-import ComponentLoading from "../../Loading/page";
 
 const HeaderMiddle = async () => {
     const MenuCategorys = await getMenuCategory();

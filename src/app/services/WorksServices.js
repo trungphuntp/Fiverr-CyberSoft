@@ -13,6 +13,14 @@ const WorksServices = {
     getDetailWorkById: (id = "") => {
         return axiosInstance.get(`cong-viec/lay-cong-viec-chi-tiet/${id}`);
     },
+    getDetailWorkById: (id = "") => {
+        return axiosInstance.get(`cong-viec/lay-cong-viec-chi-tiet/${id}`);
+    },
+    getSearchWorks: (query = {}) => {
+        return axiosInstance.get(`cong-viec/phan-trang-tim-kiem`, {
+            params: query,
+        });
+    },
 };
 
 export default WorksServices;

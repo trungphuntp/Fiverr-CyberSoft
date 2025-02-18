@@ -47,7 +47,7 @@ const Navbar = () => {
         error,
         isLoading,
     } = useQuery({
-        queryKey: ["categoryWor"],
+        queryKey: ["categoryWork"],
         queryFn: getMenuCategory,
         staleTime: 60000,
         cacheTime: 3600000,

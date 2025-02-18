@@ -5,13 +5,13 @@ import PATH from "@/app/constants/path";
 
 const WorksCard = ({ user, congViec }) => {
     const { avatar, name, role } = user || {};
-    const { tenCongViec, moTaNgan, giaTien, saoCongViec, danhGia, id } = congViec || {};
+    const { tenCongViec, moTaNgan, giaTien, saoCongViec, danhGia, id, hinhAnh } = congViec || {};
     const linkDetailWorks = PATH.WORKS_DETAIL + `/${id}`;
     return (
         <article className="WorksCard">
             <div className="WorksCard__img">
                 <Link href={linkDetailWorks}>
-                    <img src={congViec.hinhAnh || ""} alt="avatar works card" />
+                    <img src={hinhAnh || ""} alt="avatar works card" />
                 </Link>
             </div>
             <div className="WorksCard__content">

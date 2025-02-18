@@ -1,13 +1,14 @@
 "use client";
 import { getUserById } from "@/app/actions/UserActions";
+import PaginationComponent from "@/app/components/PaginationComponent/page";
 import WorksCard from "@/app/components/WorksCard/page";
 import useDebounce from "@/app/hooks/useDebounce";
-import { Skeleton } from "antd";
+import { Empty, Skeleton } from "antd";
 import { useEffect, useState } from "react";
 
-const ScListworks = ({ works, loading }) => {
+const ScListworks = ({ pageIndex, pageSize, totalRow, works, loading, handleChangePagination }) => {
     const [user, setUser] = useState([]);
-    const [userloading, setUserLoading] = useState(true);
+    const [userloading, setUserLoading] = useState(false);
 
     const handleGetUser = async (idUser = "") => {
         try {
@@ -37,7 +38,7 @@ const ScListworks = ({ works, loading }) => {
     }, [works]);
 
     const loadingAPI = loading || userloading;
-    const loadingPage = useDebounce(loadingAPI, 500);
+    const loadingPage = useDebounce(loadingAPI, 200);
 
     return (
         <section className="scListworks ">
@@ -66,6 +67,14 @@ const ScListworks = ({ works, loading }) => {
                             </div>
                         );
                     })}
+                {!loadingPage && works?.length <= 0 && (
+                    <div className="col-span-4 max-lg:col-span-2 max-xs:col-span-1">
+                        <Empty
+                            description="No jobs found
+"
+                        />
+                    </div>
+                )}
                 {!loadingPage &&
                     works?.length > 0 &&
                     works?.map((work, index) => {
@@ -73,6 +82,14 @@ const ScListworks = ({ works, loading }) => {
                             <WorksCard congViec={work} user={user[index]} key={work?.id || index} />
                         );
                     })}
+            </div>
+            <div className="container flex justify-center my-[40px] ">
+                <PaginationComponent
+                    defaultCurrent={pageIndex}
+                    total={totalRow}
+                    pageSize={pageSize}
+                    handleChangePagination={handleChangePagination}
+                />
             </div>
         </section>
     );

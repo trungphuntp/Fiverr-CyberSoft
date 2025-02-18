@@ -1,13 +1,12 @@
 "use client";
-import BreadcumbComponent from "@/app/components/Breadcumb/page";
 import Link from "next/link";
-import ScToolkit from "./components/scToolkit";
 import { getSearchWorks } from "@/app/actions/WorksActions";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect } from "react";
-import Button from "@/app/components/Button/page";
+import ScToolkit from "./components/scToolkit";
 import ScListworks from "./components/scListworks";
+import BreadcumbComponent from "@/app/components/Breadcumb/page";
 
 const LIMIT_PRODUCT = 8;
 const SearchPage = () => {
@@ -31,6 +30,7 @@ const SearchPage = () => {
             ...objParam,
             pageSize: LIMIT_PRODUCT,
             pageIndex: !!objParam?.pageIndex ? objParam?.pageIndex : 1,
+            keyword: !!objParam?.keyword ? objParam?.keyword : "",
         };
         const newSearchParams = new URLSearchParams(newParamsObject).toString();
         router.push(`?${newSearchParams}`);
@@ -44,23 +44,33 @@ const SearchPage = () => {
         }
     }, [searchParams]);
 
-    const propsListWorks = {
-        works: dataGetSearchWorks?.data || [],
-        loading: loadingGetSearchWorks,
+    // PAGINATION
+    const handleChangePagination = (page, pageSize) => {
+        updateSearchParams({ ...searchParamObject, pageIndex: page, pageSize: pageSize });
     };
 
+    const propsListWorks = {
+        works: dataGetSearchWorks?.data || [],
+        pageIndex: dataGetSearchWorks?.pageIndex || 1,
+        pageSize: dataGetSearchWorks?.pageSize || LIMIT_PRODUCT,
+        totalRow: dataGetSearchWorks?.totalRow || 35,
+        loading: loadingGetSearchWorks,
+        handleChangePagination,
+    };
     return (
-        <main className="mainWorks pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)] relative">
-            {/* breakcumb */}
+        <main classname="mainWorks pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)] relative">
             <BreadcumbComponent>
-                <BreadcumbComponent.item>
-                    <Link href={"/"}>{"Home"}</Link>
-                </BreadcumbComponent.item>
-                <BreadcumbComponent.item></BreadcumbComponent.item>
-                <BreadcumbComponent.item isActive={true}>searchworks</BreadcumbComponent.item>
+                <BreadcumbComponent.Item>
+                    <Link href="/">Home</Link>
+                </BreadcumbComponent.Item>
+                <BreadcumbComponent.Item isActive={true}>
+                    {`Results for "${searchParamObject?.keyword || ""}"`}
+                </BreadcumbComponent.Item>
             </BreadcumbComponent>
-            <div className="container">
-                <h1 className="heading mt-8 max-md:text-center">Results for </h1>
+            <div classname="container">
+                <h1 classname="heading mt-8 max-md:text-center">
+                    {`Results for "${searchParamObject?.keyword || ""}`}
+                </h1>
             </div>
             <ScToolkit />
             <ScListworks {...propsListWorks} />

@@ -120,11 +120,11 @@
     -o-transition-delay: #{$args};
 }
 @mixin transition($args) {
-    transition: #{$args};
-    -webkit-transition: #{$args};
-    -moz-transition: #{$args};
-    -ms-transition: #{$args};
-    -o-transition: #{$args};
+    transition: #{$args} !important;
+    -webkit-transition: #{$args} !important;
+    -moz-transition: #{$args} !important;
+    -ms-transition: #{$args} !important;
+    -o-transition: #{$args} !important;
 }
 
 // CSS Text

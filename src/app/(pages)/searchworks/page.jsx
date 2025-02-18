@@ -58,18 +58,19 @@ const SearchPage = () => {
         handleChangePagination,
     };
     return (
-        <main classname="mainWorks pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)] relative">
+        <main className="mainSearchWorks pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)] relative">
             <BreadcumbComponent>
-                <BreadcumbComponent.Item>
+                <BreadcumbComponent.item>
                     <Link href="/">Home</Link>
-                </BreadcumbComponent.Item>
-                <BreadcumbComponent.Item isActive={true}>
+                </BreadcumbComponent.item>
+                <BreadcumbComponent.item isActive={true}>
                     {`Results for "${searchParamObject?.keyword || ""}"`}
-                </BreadcumbComponent.Item>
+                </BreadcumbComponent.item>
             </BreadcumbComponent>
-            <div classname="container">
-                <h1 classname="heading mt-8 max-md:text-center">
-                    {`Results for "${searchParamObject?.keyword || ""}`}
+
+            <div className="container">
+                <h1 className="heading mt-8 max-md:text-center">
+                    {`Results for "${searchParamObject?.keyword || ""}"`}
                 </h1>
             </div>
             <ScToolkit />

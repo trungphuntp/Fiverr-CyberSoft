@@ -1,0 +1,9 @@
+@use "../core/mixins" as m;
+
+.mainSearchWorks {
+    position: relative;
+    padding-top: calc(var(--height-header) + 40px);
+    @include m.xl {
+        padding-top: var(--height-header);
+    }
+}

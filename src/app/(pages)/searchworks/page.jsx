@@ -3,10 +3,17 @@ import Link from "next/link";
 import { getSearchWorks } from "@/app/actions/WorksActions";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import { useEffect } from "react";
-import ScToolkit from "./components/scToolkit";
-import ScListworks from "./components/scListworks";
+import { useEffect, Suspense } from "react";
+import dynamic from "next/dynamic";
 import BreadcumbComponent from "@/app/components/Breadcumb/page";
+import ComponentLoading from "@/app/components/Loading/page";
+
+const ScToolkit = dynamic(() => import("./components/scToolkit"), {
+    suspense: true,
+});
+const ScListworks = dynamic(() => import("./components/scListworks"), {
+    suspense: true,
+});
 
 const LIMIT_PRODUCT = 8;
 const SearchPage = () => {
@@ -73,8 +80,12 @@ const SearchPage = () => {
                     {`Results for "${searchParamObject?.keyword || ""}"`}
                 </h1>
             </div>
-            <ScToolkit />
-            <ScListworks {...propsListWorks} />
+            <Suspense fallback={<ComponentLoading />}>
+                <ScToolkit />
+            </Suspense>
+            <Suspense fallback={<ComponentLoading />}>
+                <ScListworks {...propsListWorks} />
+            </Suspense>
         </main>
     );
 };

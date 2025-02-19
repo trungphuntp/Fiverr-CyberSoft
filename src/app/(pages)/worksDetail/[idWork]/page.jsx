@@ -2,20 +2,35 @@ import { getCategoryWorksById } from "@/app/actions/CategoryWorksAction";
 import { getDetailCategoryWorksById } from "@/app/actions/DetailCategoryWorkAction";
 import { getUserById } from "@/app/actions/UserActions";
 import { getDetailWorkById } from "@/app/actions/WorksActions";
-import BreadcumbComponent from "@/app/components/Breadcumb/page";
-import ComponentLoading from "@/app/components/Loading/page";
-import ReduxProvider from "@/app/components/ReduxProvider/page";
 import PATH from "@/app/constants/path";
 import Link from "next/link";
 import { cache, Suspense } from "react";
-import CheckoutDetailWork from "../components/CheckoutDetailWork";
-import ScContentWork from "../components/scContentWork";
-import ScFAQ from "../components/scFAQ";
-import ScReviews from "../components/scReviews";
-import ScSeller from "../components/scSeller";
+import dynamic from "next/dynamic";
+import BreadcumbComponent from "@/app/components/Breadcumb/page";
+import ComponentLoading from "@/app/components/Loading/page";
+
+const ScContentWork = dynamic(() => import("../components/scContentWork"), {
+    suspense: true,
+});
+const ScSeller = dynamic(() => import("../components/scSeller"), {
+    suspense: true,
+});
+const ScFAQ = dynamic(() => import("../components/scFAQ"), {
+    suspense: true,
+});
+const ScReviews = dynamic(() => import("../components/scReviews"), {
+    suspense: true,
+});
+const CheckoutDetailWork = dynamic(() => import("../components/CheckoutDetailWork"), {
+    suspense: true,
+});
+const ReduxProvider = dynamic(() => import("@/app/components/ReduxProvider/page"), {
+    suspense: true,
+});
 
 const WorksDetailPage = async (props) => {
     const { idWork } = await props.params;
+
     // get work infor
     let detailWorkData;
     if (idWork) {
@@ -107,41 +122,49 @@ const WorksDetailPage = async (props) => {
 
     return (
         <main className="mainDetailWork pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)]">
-            <Suspense fallback={<ComponentLoading />}>
-                <BreadcumbComponent>
-                    <BreadcumbComponent.item>
-                        <Link href={"/"}>Home</Link>
-                    </BreadcumbComponent.item>
-                    <BreadcumbComponent.item>
-                        <Link href={PATH.WORKS_CATEGORY + `/${CateWorks?.id}`}>
-                            {CateWorks?.tenLoaiCongViec || ""}
-                        </Link>
-                    </BreadcumbComponent.item>
-                    <BreadcumbComponent.item>
-                        <Link href={PATH.WORKS + `/${DetailCateWorks?.id}`}>
-                            {DetailCateWorks?.tenChiTiet || ""}
-                        </Link>
-                    </BreadcumbComponent.item>
-                    <BreadcumbComponent.item isActive={true}>
-                        {tenCongViec || ""}
-                    </BreadcumbComponent.item>
-                </BreadcumbComponent>
-                <div className="container flex justify-between items-stretch">
-                    <div className="mainContent">
+            <BreadcumbComponent>
+                <BreadcumbComponent.item>
+                    <Link href={"/"}>Home</Link>
+                </BreadcumbComponent.item>
+                <BreadcumbComponent.item>
+                    <Link href={PATH.WORKS_CATEGORY + `/${CateWorks?.id}`}>
+                        {CateWorks?.tenLoaiCongViec || ""}
+                    </Link>
+                </BreadcumbComponent.item>
+                <BreadcumbComponent.item>
+                    <Link href={PATH.WORKS + `/${DetailCateWorks?.id}`}>
+                        {DetailCateWorks?.tenChiTiet || ""}
+                    </Link>
+                </BreadcumbComponent.item>
+                <BreadcumbComponent.item isActive={true}>
+                    {tenCongViec || ""}
+                </BreadcumbComponent.item>
+            </BreadcumbComponent>
+            <div className="container flex justify-between items-stretch">
+                <div className="mainContent">
+                    <Suspense fallback={<ComponentLoading />}>
                         <ScContentWork {...propsScContentWorks} />
+                    </Suspense>
+                    <Suspense fallback={<ComponentLoading />}>
                         <ScSeller {...propsScSeller} />
+                    </Suspense>
+                    <Suspense fallback={<ComponentLoading />}>
                         <ScFAQ />
+                    </Suspense>
+                    <Suspense fallback={<ComponentLoading />}>
                         <ReduxProvider>
                             <ScReviews {...propsReviews} />
                         </ReduxProvider>
-                    </div>
-                    <aside className="asideDetailWork">
+                    </Suspense>
+                </div>
+                <aside className="asideDetailWork">
+                    <Suspense fallback={<ComponentLoading />}>
                         <ReduxProvider>
                             <CheckoutDetailWork {...propsAside} />
                         </ReduxProvider>
-                    </aside>
-                </div>
-            </Suspense>
+                    </Suspense>
+                </aside>
+            </div>
         </main>
     );
 };

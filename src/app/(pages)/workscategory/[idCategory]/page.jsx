@@ -1,10 +1,22 @@
 import { getDetailCategoryWorksByIdCate } from "@/app/actions/WorksActions";
 import BreadcumbComponent from "@/app/components/Breadcumb/page";
+import ComponentLoading from "@/app/components/Loading/page";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import Scpopular from "../components/scpopular";
-import Scservices from "../components/scservices";
-import Sctextbox from "../components/sctextbox";
-import Scexplore from "../components/scexplore";
+import { Suspense } from "react";
+
+const Scpopular = dynamic(() => import("../components/scpopular"), {
+    suspense: true,
+});
+const Scservices = dynamic(() => import("../components/scservices"), {
+    suspense: true,
+});
+const Sctextbox = dynamic(() => import("../components/sctextbox"), {
+    suspense: true,
+});
+const Scexplore = dynamic(() => import("../components/scexplore"), {
+    suspense: true,
+});
 
 const WorksCategoryPage = async (props) => {
     const { idCategory } = await props.params;
@@ -21,7 +33,10 @@ const WorksCategoryPage = async (props) => {
     return (
         <main className="mainWorksCategory relative pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)]">
             {/* section textbox */}
-            <Sctextbox {...sctextboxProps} />
+            <Suspense fallback={<ComponentLoading />}>
+                <Sctextbox {...sctextboxProps} />
+            </Suspense>
+
             <BreadcumbComponent>
                 <BreadcumbComponent.item>
                     <Link href={"/"}>{"Home"}</Link>
@@ -31,13 +46,19 @@ const WorksCategoryPage = async (props) => {
                 </BreadcumbComponent.item>
             </BreadcumbComponent>
             {/* section popular */}
-            <Scpopular />
+            <Suspense fallback={<ComponentLoading />}>
+                <Scpopular />
+            </Suspense>
 
-            {/* section expolore */}
-            <Scexplore {...scexploreProps} />
+            <Suspense fallback={<ComponentLoading />}>
+                {/* section expolore */}
+                <Scexplore {...scexploreProps} />
+            </Suspense>
 
-            {/* section Services  */}
-            <Scservices />
+            <Suspense fallback={<ComponentLoading />}>
+                {/* section Services  */}
+                <Scservices />
+            </Suspense>
         </main>
     );
 };

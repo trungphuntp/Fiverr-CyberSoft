@@ -1,11 +1,18 @@
 import { getCategoryWorksById } from "@/app/actions/CategoryWorksAction";
 import { getWorksByIdCategoryWork } from "@/app/actions/WorksActions";
-import BreadcumbComponent from "@/app/components/Breadcumb/page";
 import PATH from "@/app/constants/path";
 import Link from "next/link";
-import { cache } from "react";
-import ScListworks from "../components/scListworks";
-import ScToolkit from "../components/scToolkit";
+import { cache, Suspense } from "react";
+import dynamic from "next/dynamic";
+import BreadcumbComponent from "@/app/components/Breadcumb/page";
+import ComponentLoading from "@/app/components/Loading/page";
+
+const ScToolkit = dynamic(() => import("../components/scToolkit"), {
+    suspense: true,
+});
+const ScListworks = dynamic(() => import("../components/scListworks"), {
+    suspense: true,
+});
 
 const WorksPage = async (props) => {
     const { idWorks } = await props.params;
@@ -38,6 +45,7 @@ const WorksPage = async (props) => {
     const propsListWorks = {
         idWorks,
     };
+
     return (
         <main className="mainWorks pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)] relative">
             {/* breakcumb */}
@@ -59,8 +67,12 @@ const WorksPage = async (props) => {
                     {worksData?.[0]?.tenChiTietLoai || ""}
                 </h1>
             </div>
-            <ScToolkit />
-            <ScListworks {...propsListWorks} />
+            <Suspense fallback={<ComponentLoading />}>
+                <ScToolkit />
+            </Suspense>
+            <Suspense fallback={<ComponentLoading />}>
+                <ScListworks {...propsListWorks} />
+            </Suspense>
         </main>
     );
 };

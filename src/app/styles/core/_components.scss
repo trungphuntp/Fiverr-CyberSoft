@@ -261,7 +261,7 @@
     top: 0;
     left: 0;
     right: 0;
-    z-index: 999;
+    z-index: 9999;
 }
 // css loading post trên thư viên antd
 .loadingPost {
@@ -859,6 +859,51 @@
             @include m.transition(0.3s);
             &:hover {
                 color: var(--primary-color);
+            }
+        }
+    }
+}
+
+// pagination
+.PaginationComponent {
+    .ant-pagination-item {
+        @include m.transition(0.3s);
+        a {
+            @include m.transition(0.3s);
+        }
+        &:hover {
+            background: var(--primary-color) !important;
+            border-color: var(--primary-color);
+            a {
+                color: #fff !important;
+            }
+        }
+    }
+    .ant-pagination-item-active {
+        border-color: var(--primary-color);
+        a {
+            @include m.transition(0.3s);
+            color: var(--primary-color) !important;
+        }
+
+        &:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            a {
+                color: #fff !important;
+            }
+        }
+    }
+    .ant-pagination-item-link {
+        @include m.transition(0.3s);
+        span {
+            @include m.transition(0.3s);
+        }
+        &:hover {
+            background: var(--primary-color) !important;
+            border-color: var(--primary-color);
+            span {
+                color: #fff !important;
             }
         }
     }

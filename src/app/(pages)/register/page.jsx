@@ -1,6 +1,17 @@
-import ReduxProvider from "@/app/components/ReduxProvider/page";
-import FormRegister from "./components/FormRegister";
-import MessageProvider from "@/app/components/MessageProvider/page";
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
+import ComponentLoading from "@/app/components/Loading/page";
+
+// Lazy load các components
+const ReduxProvider = dynamic(() => import("@/app/components/ReduxProvider/page"), {
+    suspense: true,
+});
+const MessageProvider = dynamic(() => import("@/app/components/MessageProvider/page"), {
+    suspense: true,
+});
+const FormRegister = dynamic(() => import("./components/FormRegister"), {
+    suspense: true,
+});
 
 const RegisterPage = () => {
     return (
@@ -9,12 +20,18 @@ const RegisterPage = () => {
                 <section className="registerContent">
                     <div className="registerContent__register">
                         <h1 className="registerContent__register-title">Register to Fiverr</h1>
-                        <div className="registerContent__register-form">
-                            <ReduxProvider>
-                                <MessageProvider>
-                                    <FormRegister />
-                                </MessageProvider>
-                            </ReduxProvider>
+                        <div className="registerContent__register-form relative">
+                            <Suspense fallback={<ComponentLoading />}>
+                                <ReduxProvider>
+                                    <Suspense fallback={<ComponentLoading />}>
+                                        <MessageProvider>
+                                            <Suspense fallback={<ComponentLoading />}>
+                                                <FormRegister />
+                                            </Suspense>
+                                        </MessageProvider>
+                                    </Suspense>
+                                </ReduxProvider>
+                            </Suspense>
                         </div>
                     </div>
                     <div className="registerContent__img">

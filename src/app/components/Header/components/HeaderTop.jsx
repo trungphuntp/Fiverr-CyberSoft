@@ -66,16 +66,16 @@ const HeaderTop = () => {
     }
   }, [message]);
 
-  //  get profile when have token
-  useEffect(() => {
-    const getProfile = async (idUser) => {
-      const res = await dispatch(handleGetProfile(idUser)).unwrap();
-      if (!!res?.id) {
-        dispatch(handleSetMessage(["Login success!", "success"]));
-        dispatch(handleGetBooking());
-      }
-      return res;
-    };
+    //  get profile when have token
+    useEffect(() => {
+        const getProfile = async (idUser) => {
+            const res = await dispatch(handleGetProfile(idUser)).unwrap();
+            if (!!res?.id) {
+                dispatch(handleSetMessage(["Login success!", "success"]));
+                dispatch(handleGetBooking());
+                return res;
+            }
+        };
 
     if (methodToken.get(STORAGE.token) && methodToken.get(STORAGE.idUser)) {
       const idUser = methodToken.get(STORAGE.idUser);

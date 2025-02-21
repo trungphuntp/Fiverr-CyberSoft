@@ -1,31 +1,18 @@
 "use client";
 import { getUserById } from "@/app/actions/UserActions";
-import { getWorksByIdCategoryWork } from "@/app/actions/WorksActions";
+import PaginationComponent from "@/app/components/PaginationComponent/page";
 import WorksCard from "@/app/components/WorksCard/page";
 import useDebounce from "@/app/hooks/useDebounce";
-import { Skeleton } from "antd";
-import React, { useEffect, useState } from "react";
+import { Empty, Skeleton } from "antd";
+import { useEffect, useState } from "react";
 
-const ScListworks = ({ idWorks }) => {
-    const [works, setWorks] = useState([]);
-    const [worksLoading, setworksLoading] = useState(true);
-
+const ScListworks = ({ pageIndex, pageSize, totalRow, works, loading, handleChangePagination }) => {
     const [user, setUser] = useState([]);
-    const [userloading, setUserLoading] = useState(true);
-
-    const handleGetWorks = async () => {
-        try {
-            const data = await getWorksByIdCategoryWork(idWorks);
-            setWorks(data);
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setworksLoading(false);
-        }
-    };
+    const [userloading, setUserLoading] = useState(false);
 
     const handleGetUser = async (idUser = "") => {
         try {
+            setUserLoading(true);
             const data = await getUserById(idUser);
             setUser((prev) => {
                 return [...prev, data];
@@ -40,22 +27,18 @@ const ScListworks = ({ idWorks }) => {
     const handleGetUserByWork = () => {
         if (works) {
             works?.forEach((work) => {
-                handleGetUser(work?.congViec?.nguoiTao || "");
+                handleGetUser(work?.nguoiTao || "");
             });
         }
     };
-
-    useEffect(() => {
-        handleGetWorks();
-    }, [idWorks]);
 
     // get user when work active
     useEffect(() => {
         handleGetUserByWork();
     }, [works]);
 
-    const loadingAPI = worksLoading || userloading;
-    const loadingPage = useDebounce(loadingAPI, 500);
+    const loadingAPI = loading || userloading;
+    const loadingPage = useDebounce(loadingAPI, 200);
 
     return (
         <section className="scListworks ">
@@ -84,11 +67,29 @@ const ScListworks = ({ idWorks }) => {
                             </div>
                         );
                     })}
+                {!loadingPage && works?.length <= 0 && (
+                    <div className="col-span-4 max-lg:col-span-2 max-xs:col-span-1">
+                        <Empty
+                            description="No jobs found
+"
+                        />
+                    </div>
+                )}
                 {!loadingPage &&
                     works?.length > 0 &&
                     works?.map((work, index) => {
-                        return <WorksCard {...work} user={user[index]} key={work?.id || index} />;
+                        return (
+                            <WorksCard congViec={work} user={user[index]} key={work?.id || index} />
+                        );
                     })}
+            </div>
+            <div className="container flex justify-center my-[40px] ">
+                <PaginationComponent
+                    defaultCurrent={pageIndex}
+                    total={totalRow}
+                    pageSize={pageSize}
+                    handleChangePagination={handleChangePagination}
+                />
             </div>
         </section>
     );

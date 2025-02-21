@@ -209,7 +209,7 @@ const ProfilePage = () => {
                               onClick={() => handleViewDetail(item.congViec.id)}
                               className="py-2 px-6 rounded-md text-white bg-blue-500 font-semibold"
                             >
-                              View{" "}
+                              Chi tiết
                             </button>
                             <button
                               onClick={() => deleteHireWork(item.id)}

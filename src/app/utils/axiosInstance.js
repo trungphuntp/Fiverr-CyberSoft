@@ -4,9 +4,10 @@ import { token } from "../constants/tokens";
 
 import BASE_URL from "./enviroments";
 import { methodToken } from "./Token";
+import environment from "./enviroments";
 
 const axiosInstance = axios.create({
-    baseURL: BASE_URL,
+    baseURL: environment.baseUrl,
 });
 
 axiosInstance.interceptors.request.use(

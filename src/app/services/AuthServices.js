@@ -7,6 +7,7 @@ const AuthServices = {
     register: (payload = {}) => {
         return axiosInstance.post(`/auth/signup`, payload);
     },
+   
 };
 
 export default AuthServices;

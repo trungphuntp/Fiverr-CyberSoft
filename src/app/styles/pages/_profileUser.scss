@@ -1,0 +1,88 @@
+@use "../core/mixins" as m;
+
+.MainProfileUser {
+  .content-left,
+  .certificate,
+  .education,
+  .skill {
+    position: relative; // Cần để pseudo-element absolute căn chỉnh theo phần tử cha
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 5px; //  Đặt ở dưới cùng của phần tử .text
+      left: 2%;
+
+      width: 95%;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.2); // Tạo đường kẻ dưới
+    }
+  }
+  .content-text {
+    @apply flex
+    items-center
+    justify-between 
+    space-y-3;
+  }
+  .description {
+    font-weight: 900;
+  }
+  
+  .contentProfile {
+    @include m.sm() {
+      @apply grid-cols-1;
+      @apply space-y-4;
+    }
+    .content-right {
+      @include m.sm() {
+        @apply col-span-1;
+      }
+    }
+    .social {
+      @include m.sm() {
+        @apply px-4;
+      }
+    }
+    .contentHireWork {
+      @include m.mdWithLg() {
+        overflow: hidden;
+      }
+      @include m.sm() {
+        overflow: hidden;
+      }
+      h2 {
+        @include m.sm() {
+          display: -webkit-box;
+          -webkit-line-clamp: var(--line-clamp, 1);
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+
+          + p {
+            display: none;
+          }
+        }
+      }
+      .buttonHire {
+        @include m.sm() {
+          @apply flex;
+        }
+      }
+      .textHireWork {
+        display: -webkit-box;
+        -webkit-line-clamp: var(--line-clamp, 3);
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        @include m.sm() {
+          display: -webkit-box;
+          -webkit-line-clamp: var(--line-clamp, 1);
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        @include m.mdWithLg() {
+          display: -webkit-box;
+          -webkit-line-clamp: var(--line-clamp, 3);
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}

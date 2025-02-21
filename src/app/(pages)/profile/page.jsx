@@ -72,10 +72,10 @@ const ProfilePage = () => {
   return (
     <div className="MainProfileUser container  pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)]">
       {profile ? (
-        <div className="grid  mx-auto gap-x-4 grid-cols-3  mt-10 mb-10">
+        <div className="grid contentProfile  mx-auto gap-x-4 grid-cols-3  mt-10 mb-10">
           {/* content-left */}
           <div className=" col-span-1">
-            <div className="content-left flex flex-col items-center bg-gray-100 p-4 rounded-md">
+            <div className="content-left flex flex-col items-center bg-gray-100 p-4 rounded-lg">
               <Avatar size={128} style={{ fontSize: "48px" }}>
                 {profile.email ? profile.email.charAt(0).toUpperCase() : "?"}
               </Avatar>
@@ -140,7 +140,7 @@ const ProfilePage = () => {
             </div>
           </div>
           {/* content-right */}
-          <div className=" col-span-2  bg-gray-100 p-6 space-y-6 rounded-lg">
+          <div className=" col-span-2 content-right  bg-gray-100 p-6 space-y-6 rounded-lg">
             <div className="w-full  text-2xl space-y-6">
               <div className="flex justify-between items-center">
                 <h1 className=" description mb-2 text-3xl">Description</h1>
@@ -196,7 +196,7 @@ const ProfilePage = () => {
                           width={160}
                           height={160}
                         ></Image>
-                        <div>
+                        <div className="contentHireWork">
                           <div className="flex justify-between mb-2">
                             <h2 className="text-2xl  font-bold">
                               {item.congViec.tenCongViec}
@@ -204,7 +204,7 @@ const ProfilePage = () => {
                             <p> {item.ngayThue}</p>
                           </div>
                           <p className="textHireWork ">{item.congViec.moTa}</p>
-                          <div className="mt-4 text-right space-x-2">
+                          <div className="mt-4 buttonHire text-right space-x-2">
                             <button
                               onClick={() => handleViewDetail(item.congViec.id)}
                               className="py-2 px-6 rounded-md text-white bg-blue-500 font-semibold"

@@ -1,0 +1,174 @@
+@use "../core/mixins" as m;
+.BlogMain {
+  .blog {
+    // max-width: 800px;
+
+    &-list {
+      display: flex;
+      justify-content: center;
+      margin: 40px auto 0;
+      column-gap: 20px;
+      @include m.mdWithLg {
+        display: block;
+      }
+      @include m.sm {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    &__image {
+      @include m.mdWithLg {
+        width: 100%;
+      }
+    }
+    &__content {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      align-items: center;
+      @include m.mdWithLg {
+        margin-top: 40px;
+      }
+
+      .blog__image {
+        max-width: 500px;
+        height: auto;
+        border-radius: 8px;
+      }
+    }
+
+    &__text {
+      flex: 1;
+
+      .blog__paragraph {
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1.5;
+        color: #1dbf73;
+
+        &--author {
+          font-weight: bold;
+          color: #000;
+        }
+
+        &--date {
+          color: #666;
+        }
+      }
+
+      .blog__heading {
+        font-weight: 700;
+        font-size: 4rem;
+        max-width: 400px;
+        // font-weight: bold;
+        margin: 10px 0;
+        color: #000;
+        @include m.mdWithLg {
+          max-width: 700px;
+        }
+      }
+    }
+
+    &__meta {
+      // Styles for the meta element
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+
+      .blog__meta-info {
+        color: #ccc;
+        font-size: 14px;
+      }
+    }
+    &-section {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      align-items: center;
+      @include m.sm {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+      }
+    }
+
+    &-list__item {
+      width: 300px;
+      height: auto;
+      @include m.mdWithLg {
+        width: 200px;
+        // height: 300px;
+      }
+    }
+
+    &-list__title {
+      margin-top: 10px;
+      color: #1dbf73;
+      font-weight: 700;
+    }
+    &-list__heading {
+      margin: 12px 0;
+      font-size: 2rem;
+      font-weight: 900;
+      @include m.mdWithLg {
+        font-size: 1.5rem;
+        display: -webkit-box;
+        -webkit-line-clamp: var(--line-clamp, 2);
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
+    &-list__image {
+      width: 300px;
+
+      @include m.mdWithLg {
+        width: 200px;
+      }
+    }
+    &-list__text {
+      @include m.mdWithLg {
+        display: -webkit-box;
+        -webkit-line-clamp: var(--line-clamp, 2);
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
+
+    &__team {
+      // column-gap: 30px;
+      width: 100%;
+      @include m.sm {
+        display: flex;
+        flex-direction: column;
+      }
+
+      &__img {
+        height: auto !important;
+      }
+    }
+    &__team__left {
+      justify-items: center;
+    }
+    &__team__right {
+    }
+    &__team__content {
+      padding: 30px;
+    }
+    &__team__title {
+      color: #1dbf73;
+      font-weight: 700;
+    }
+    &__team__heading {
+      font-size: 2rem;
+      max-width: 300px;
+      font-weight: 900;
+      margin: 10px 0;
+    }
+    &__team__text {
+      max-width: 300px;
+    }
+  }
+}

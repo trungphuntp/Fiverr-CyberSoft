@@ -37,10 +37,10 @@ const ProfilePage = () => {
         // Giả sử response.data.content là mảng công việc
         // Hoặc nếu API trả về mảng gốc, ta dùng trực tiếp
         setHireWorkList(response.data.content || []);
-        console.log("Danh sách công việc đã thuê:", response.data.content);
+        // console.log("Danh sách công việc đã thuê:", response.data.content);
       })
       .catch((error) => {
-        console.error("Lỗi khi lấy danh sách công việc đã thuê:", error);
+        // console.error("Lỗi khi lấy danh sách công việc đã thuê:", error);
       })
       .finally(() => {
         setLoadingHireWork(false);
@@ -57,7 +57,7 @@ const ProfilePage = () => {
       })
       .catch((error) => {
         dispatch(handleSetMessage(["Xóa không thành cồng", "error"]));
-        console.error("Lỗi khi xóa công việc đã thuê:", error);
+        // console.error("Lỗi khi xóa công việc đã thuê:", error);
       });
   };
   // đế trang chi tiết
@@ -119,22 +119,22 @@ const ProfilePage = () => {
                 className="flex justify-between "
                 href="https://www.facebook.com/"
               >
-                <Image src={linkedin_icon} width={16} height={16}></Image>
+                <Image alt="..." src={linkedin_icon} width={16} height={16}></Image>
                 <span> https://www.facebook.com</span>
               </a>
               <a className="flex justify-between " href="">
-                <Image src={google_icon} width={16} height={16}></Image>
+                <Image  alt="..." src={google_icon} width={16} height={16}></Image>
                 <span> https://www.google.com</span>
               </a>{" "}
               <a className="flex justify-between " href="https://github.com/">
-                <Image src={github_icon} width={16} height={16}></Image>
+                <Image  alt="..." src={github_icon} width={16} height={16}></Image>
                 <span> https://wwwgithub.com</span>
               </a>{" "}
               <a
                 className="flex justify-between "
                 href="https://www.instagram.com/"
               >
-                <Image src={instagram_icon} width={16} height={16}></Image>
+                <Image  alt="..." src={instagram_icon} width={16} height={16}></Image>
                 <span> https://www.instagram.com</span>
               </a>
             </div>
@@ -195,6 +195,7 @@ const ProfilePage = () => {
                           src={item.congViec.hinhAnh}
                           width={160}
                           height={160}
+                           alt="..."
                         ></Image>
                         <div className="contentHireWork">
                           <div className="flex justify-between mb-2">

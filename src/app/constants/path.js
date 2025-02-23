@@ -6,6 +6,7 @@ const REGISTER_PATH = "/register";
 const PROFILE_PATH = "/profile";
 const LOGIN_PATH = "/login";
 const SEARCH_PATH = "/searchworks";
+const BLOG_PATH = "/blog";
 
 const PATH = {
     HOME: HOME_PATH,
@@ -16,5 +17,6 @@ const PATH = {
     WORKS_CATEGORY: WORKS_CATEGORY_PATH,
     WORKS_DETAIL: WORKS_DETAIL_PATH,
     SEARCH: SEARCH_PATH,
+    BLOG: BLOG_PATH,
 };
 export default PATH;

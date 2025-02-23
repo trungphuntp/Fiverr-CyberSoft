@@ -3,7 +3,7 @@ import { getUserById } from "@/app/actions/UserActions";
 import { getWorksByIdCategoryWork } from "@/app/actions/WorksActions";
 import WorksCard from "@/app/components/WorksCard/page";
 import useDebounce from "@/app/hooks/useDebounce";
-import { Skeleton } from "antd";
+import { Empty, Skeleton } from "antd";
 import React, { useEffect, useState } from "react";
 
 const ScListworks = ({ idWorks }) => {
@@ -11,10 +11,11 @@ const ScListworks = ({ idWorks }) => {
     const [worksLoading, setworksLoading] = useState(true);
 
     const [user, setUser] = useState([]);
-    const [userloading, setUserLoading] = useState(true);
+    const [userloading, setUserLoading] = useState(false);
 
     const handleGetWorks = async () => {
         try {
+            setworksLoading(true);
             const data = await getWorksByIdCategoryWork(idWorks);
             setWorks(data);
         } catch (error) {
@@ -84,6 +85,15 @@ const ScListworks = ({ idWorks }) => {
                             </div>
                         );
                     })}
+
+                {!loadingPage && !!works?.length <= 0 && (
+                    <div className="col-span-4 max-lg:col-span-2 max-xs:col-span-1 py-8">
+                        <Empty
+                            description="No jobs found
+"
+                        />
+                    </div>
+                )}
                 {!loadingPage &&
                     works?.length > 0 &&
                     works?.map((work, index) => {

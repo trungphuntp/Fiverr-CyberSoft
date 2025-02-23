@@ -2,7 +2,7 @@
 import { getDetailCategoryWorksByIdCate } from "@/app/actions/WorksActions";
 import CardCategory from "@/app/components/CardCategory/page";
 import useDebounce from "@/app/hooks/useDebounce";
-import { Skeleton } from "antd";
+import { Empty, Skeleton } from "antd";
 import { useEffect, useState } from "react";
 
 const Scexplore = ({ idWorks }) => {
@@ -53,6 +53,15 @@ const Scexplore = ({ idWorks }) => {
                                 </div>
                             );
                         })}
+
+                    {!loadingAPI && !!categoryWorksData?.length <= 0 && (
+                        <div className="col-span-4 max-lg:col-span-2 max-xs:col-span-1 py-8">
+                            <Empty
+                                description="No jobs found
+"
+                            />
+                        </div>
+                    )}
                     {!loadingAPI &&
                         categoryWorksData?.length > 0 &&
                         categoryWorksData?.map((item, index) => {

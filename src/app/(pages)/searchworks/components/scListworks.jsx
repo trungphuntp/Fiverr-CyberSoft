@@ -67,8 +67,8 @@ const ScListworks = ({ pageIndex, pageSize, totalRow, works, loading, handleChan
                             </div>
                         );
                     })}
-                {!loadingPage && works?.length <= 0 && (
-                    <div className="col-span-4 max-lg:col-span-2 max-xs:col-span-1">
+                {!loadingPage && !!works?.length <= 0 && (
+                    <div className="col-span-4 max-lg:col-span-2 max-xs:col-span-1 py-8">
                         <Empty
                             description="No jobs found
 "

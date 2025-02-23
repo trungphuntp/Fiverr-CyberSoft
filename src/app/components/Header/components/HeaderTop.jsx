@@ -173,8 +173,8 @@ const HeaderTop = () => {
               </Link>
             </li>
             <li>
-              <Link className="item " href="#">
-                Explore
+              <Link className="item " href={PATH.BLOG}>
+                    Blog
               </Link>
             </li>
             <li>

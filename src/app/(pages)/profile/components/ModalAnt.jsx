@@ -65,7 +65,7 @@ const ModalAnt = () => {
           : [],
       };
 
-      console.log("Payload gửi đi:", payload);
+      // console.log("Payload gửi đi:", payload);
 
       Profile.putUserById(profile.id, payload)
         .then((response) => {

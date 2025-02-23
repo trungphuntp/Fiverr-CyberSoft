@@ -26,7 +26,7 @@ const HomePage = () => {
         <main className="mainHome relative">
             {/* section hero */}
             <Suspense fallback={<ComponentLoading />}>
-                <Schero />
+                <Schero />  
             </Suspense>
 
             {/* section trustby */}

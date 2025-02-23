@@ -2,14 +2,15 @@
 import { getDetailCategoryWorksByIdCate } from "@/app/actions/WorksActions";
 import CardCategory from "@/app/components/CardCategory/page";
 import useDebounce from "@/app/hooks/useDebounce";
-import { Skeleton } from "antd";
+import { Empty, Skeleton } from "antd";
 import { useEffect, useState } from "react";
 
 const Scexplore = ({ idWorks }) => {
     const [categoryWorks, setCategoryWorks] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const handleGetCategoryWorks = async () => {
         try {
+            setLoading(true);
             const data = await getDetailCategoryWorksByIdCate(idWorks);
             setCategoryWorks(data);
         } catch (error) {
@@ -23,7 +24,8 @@ const Scexplore = ({ idWorks }) => {
     }, []);
 
     const loadingAPI = useDebounce(loading, 500);
-    const categoryWorksData = categoryWorks?.[0]?.dsNhomChiTietLoai;
+    const categoryWorksData = categoryWorks?.[0]?.dsNhomChiTietLoai || [];
+
     return (
         <section className="scexplore">
             <div className="container">
@@ -53,8 +55,14 @@ const Scexplore = ({ idWorks }) => {
                                 </div>
                             );
                         })}
+
+                    {!loadingAPI && !!categoryWorksData?.length < 1 && (
+                        <div className="col-span-4 max-lg:col-span-2 max-xs:col-span-1 py-8">
+                            <Empty description="No data found" />
+                        </div>
+                    )}
                     {!loadingAPI &&
-                        categoryWorksData?.length > 0 &&
+                        !!categoryWorksData?.length > 0 &&
                         categoryWorksData?.map((item, index) => {
                             return (
                                 <CardCategory

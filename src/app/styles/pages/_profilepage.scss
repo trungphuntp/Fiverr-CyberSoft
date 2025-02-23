@@ -4,6 +4,9 @@
     .container {
         display: flex;
         gap: 30px;
+        @include m.lg {
+            flex-direction: column;
+        }
     }
     .ant-divider {
         user-select: none;
@@ -16,13 +19,18 @@
     }
     .profileInfor {
         width: 35%;
+        @include m.lg {
+            width: 100%;
+        }
     }
     .profileContent {
         width: 65%;
         display: flex;
         flex-direction: column;
         gap: 28px;
-
+        @include m.lg {
+            width: 100%;
+        }
         &__card {
             padding: 30px;
             border: 1px solid var(--color-border-grey);
@@ -48,7 +56,6 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-
                 gap: 10px;
             }
             &.gigcard {
@@ -56,6 +63,11 @@
                 align-items: center;
                 justify-content: space-between;
                 gap: 10px;
+
+                @include m.md {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
                 .gigcard__text {
                     font-size: 1.8rem;
                     font-family: m600;
@@ -108,12 +120,27 @@
                         margin: 0 auto;
                     }
                 }
-                .avatarUser {
-                    cursor: pointer;
+                .avatarUser__wrapper {
+                    position: relative;
+                    overflow: hidden;
                     border-radius: 50%;
                     height: 150px;
                     width: 150px;
-                    object-fit: cover;
+                    cursor: pointer;
+                    .avatar {
+                        height: 100%;
+                        width: 100%;
+                        object-fit: cover;
+                    }
+                    .avatarInput {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        cursor: pointer;
+                        height: 100%;
+                        width: 100%;
+                        opacity: 0;
+                    }
                 }
             }
         }

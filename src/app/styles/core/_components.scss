@@ -747,9 +747,15 @@
     &__content {
         display: flex;
         gap: 20px;
+        @include m.md {
+            flex-direction: column;
+        }
         &-img {
             aspect-ratio: 300/200;
             width: 40%;
+            @include m.md {
+                width: 100%;
+            }
             img {
                 height: 100%;
                 width: 100%;
@@ -758,6 +764,9 @@
         }
         &-text {
             width: 60%;
+            @include m.md {
+                width: 100%;
+            }
             .title {
                 line-height: 1.4;
                 font-size: 1.6rem;
@@ -796,9 +805,15 @@
     &__action {
         display: flex;
         justify-content: flex-end;
+        flex-wrap: wrap;
         gap: 16px;
         margin-top: 20px;
         @include m.transition(0.3s);
+        @include m.md {
+            & > * {
+                flex: 1;
+            }
+        }
         .btn:hover {
             opacity: 0.7;
         }

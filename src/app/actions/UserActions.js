@@ -17,3 +17,11 @@ export const putUserById = async (id, payload) => {
         return error;
     }
 };
+export const uploadAvatar = async (payload) => {
+    try {
+        const res = await UserServices.uploadAvatar(payload);
+        return res.data.content;
+    } catch (error) {
+        return error;
+    }
+};

@@ -30,7 +30,6 @@ export const getWorksByIdCategoryWork = async (id) => {
 export const getDetailWorkById = async (id) => {
     try {
         const res = await WorksServices.getDetailWorkById(id);
-        console.log("res", res);
 
         return res.data.content;
     } catch (error) {

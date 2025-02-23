@@ -100,10 +100,10 @@ const FormEditProfile = ({ profile, isShowModal, handleSetShowModal }) => {
             }) !== JSON.stringify(payload)
         ) {
             const res = await putUserById(profileInforForm?.id, payload);
-            console.log("res", res);
             if (res?.id) {
                 dispatch(handleSetMessage(["Update profile successfully!", "success"]));
                 dispatch(handleGetProfile(profileInforForm?.id));
+                handleSetShowModal?.(false);
             } else {
                 dispatch(handleSetMessage(["Update profile failed!", "error"]));
             }
@@ -115,8 +115,6 @@ const FormEditProfile = ({ profile, isShowModal, handleSetShowModal }) => {
     };
     // submit form fail
     const onFinishFailed = (errorInfo) => {
-        console.log(errorInfo);
-
         dispatch(handleSetMessage(["Something wrong!", "error"]));
     };
 
@@ -162,7 +160,7 @@ const FormEditProfile = ({ profile, isShowModal, handleSetShowModal }) => {
                                 },
                             ]}
                         >
-                            <Input placeholder="Email" />
+                            <Input placeholder="Email" disabled={true} />
                         </Form.Item>
                         {/* password */}
                         <Form.Item

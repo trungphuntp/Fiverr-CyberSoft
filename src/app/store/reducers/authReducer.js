@@ -23,13 +23,18 @@ const authSlice = createSlice({
   reducers: {
     handleSetProfile: (state, action) => {
       state.profile = action.payload;
-    },    
+    },
     handleLogout: (state) => {
       // Xóa thông tin người dùng trong store
       state.profile = null;
       // Xóa token và idUser trong cookies
       methodToken.remove(STORAGE.token);
       methodToken.remove(STORAGE.idUser);
+    },
+    updateAvatar: (state, action) => {
+      if (state.profile) {
+        state.profile.avatar = action.payload;
+      }
     },
   },
   // extra reducer để nhận extra function
@@ -81,9 +86,10 @@ const authSlice = createSlice({
       state.loading.register = true;
     });
   },
-}); 
+});
 
-export const { handleSetProfile, handleLogout } = authSlice.actions;
+export const { handleSetProfile, handleLogout, updateAvatar } =
+  authSlice.actions;
 const { reducer: authReducer } = authSlice;
 export default authReducer;
 
@@ -172,22 +178,22 @@ export const handleRegister = createAsyncThunk(
 
 // handle get profile
 export const handleGetProfile = createAsyncThunk(
-    "auth/handleGetProfile",
-    async (idData, thunkAPI) => {
-      try {
-        const res = await getUserById(idData);
-        if (res?.id) {
-          return res;
-        } else {    
-          throw res;
-        }
-      } catch (error) {
-        const errorsInfor = error?.response?.data;
-        return thunkAPI.rejectWithValue(errorsInfor);
+  "auth/handleGetProfile",
+  async (idData, thunkAPI) => {
+    try {
+      const res = await getUserById(idData);
+      if (res?.id) {
+        return res;
+      } else {
+        throw res;
       }
+    } catch (error) {
+      const errorsInfor = error?.response?.data;
+      return thunkAPI.rejectWithValue(errorsInfor);
     }
-  );
-  
+  }
+);
+
 // handle get booking
 export const handleGetBooking = createAsyncThunk(
   "auth/handleGetBooking",

@@ -12,6 +12,10 @@ import { handleSetMessage } from "../../store/reducers/messageReducer";
 import ModalAnt from "./components/ModalAnt";
 import HireWorkServices from "../../services/HireWorkServices";
 import DetailCategoryWorkServices from "../../services/DetailCategoryWorkServices";
+import UploadAvatar from "./components/UploadAvatar";
+import { handleGetProfile } from "../../store/reducers/authReducer";
+import { methodToken } from "../../utils/Token";
+import { STORAGE } from "../../constants/storage";
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -20,7 +24,14 @@ const ProfilePage = () => {
   // console.log(authState);
   const [hireWorkList, setHireWorkList] = useState([]);
   const [loadingHireWork, setLoadingHireWork] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState(profile?.avatar || null);
 
+  useEffect(() => {
+    const idUser = methodToken.get(STORAGE.idUser);
+    if (idUser) {
+      dispatch(handleGetProfile(idUser));
+    }
+  }, [dispatch]);
   useEffect(() => {
     // Nếu cần call API ngay khi có profile
     if (profile) {
@@ -60,10 +71,15 @@ const ProfilePage = () => {
         // console.error("Lỗi khi xóa công việc đã thuê:", error);
       });
   };
-  // đế trang chi tiết
+  // đến trang chi tiết
   const handleViewDetail = (idWork) => {
     // Chuyển hướng đến /worksDetail/[idWork]
     router.push(`/worksDetail/${idWork}`);
+  };
+  // Hàm này sẽ được gọi khi upload thành công
+  const handleUploadSuccess = (newAvatarUrl) => {
+    console.log("New avatar URL:", newAvatarUrl); // Kiểm tra URL mới
+    setAvatarUrl(newAvatarUrl);
   };
   if (loading.profile) {
     return <p>Đang tải dữ liệu...</p>;
@@ -76,9 +92,10 @@ const ProfilePage = () => {
           {/* content-left */}
           <div className=" col-span-1">
             <div className="content-left flex flex-col items-center bg-gray-100 p-4 rounded-lg">
-              <Avatar size={128} style={{ fontSize: "48px" }}>
-                {profile.email ? profile.email.charAt(0).toUpperCase() : "?"}
-              </Avatar>
+              <UploadAvatar
+                onUploadSuccess={handleUploadSuccess}
+                avatarUrl={profile.avatar} // Truyền avatarUrl vào UploadAvatar
+              />
               <p className="text text-3xl  font-semibold mt-2 border-b-2 border-gray-500">
                 {profile.name}
               </p>
@@ -119,22 +136,42 @@ const ProfilePage = () => {
                 className="flex justify-between "
                 href="https://www.facebook.com/"
               >
-                <Image alt="..." src={linkedin_icon} width={16} height={16}></Image>
+                <Image
+                  alt="..."
+                  src={linkedin_icon}
+                  width={16}
+                  height={16}
+                ></Image>
                 <span> https://www.facebook.com</span>
               </a>
               <a className="flex justify-between " href="">
-                <Image  alt="..." src={google_icon} width={16} height={16}></Image>
+                <Image
+                  alt="..."
+                  src={google_icon}
+                  width={16}
+                  height={16}
+                ></Image>
                 <span> https://www.google.com</span>
               </a>{" "}
               <a className="flex justify-between " href="https://github.com/">
-                <Image  alt="..." src={github_icon} width={16} height={16}></Image>
+                <Image
+                  alt="..."
+                  src={github_icon}
+                  width={16}
+                  height={16}
+                ></Image>
                 <span> https://wwwgithub.com</span>
               </a>{" "}
               <a
                 className="flex justify-between "
                 href="https://www.instagram.com/"
               >
-                <Image  alt="..." src={instagram_icon} width={16} height={16}></Image>
+                <Image
+                  alt="..."
+                  src={instagram_icon}
+                  width={16}
+                  height={16}
+                ></Image>
                 <span> https://www.instagram.com</span>
               </a>
             </div>
@@ -195,7 +232,7 @@ const ProfilePage = () => {
                           src={item.congViec.hinhAnh}
                           width={160}
                           height={160}
-                           alt="..."
+                          alt="..."
                         ></Image>
                         <div className="contentHireWork">
                           <div className="flex justify-between mb-2">

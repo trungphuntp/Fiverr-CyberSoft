@@ -31,6 +31,9 @@
     &.error {
         @apply bg-[#E14C4C];
     }
+    &.blue {
+        @apply bg-[#3B82F6];
+    }
 }
 
 // input search
@@ -207,7 +210,7 @@
     padding-bottom: 20px;
     display: flex;
     flex-direction: column;
-    word-break: break-all;
+    word-break: break-word;
     &__img {
         aspect-ratio: 300/200;
         border-radius: 10px;
@@ -650,7 +653,7 @@
             align-items: center;
             gap: 20px;
             font-family: m700;
-            word-break: break-all;
+            word-break: break-word;
             flex-wrap: wrap;
             @include m.xs {
                 align-items: flex-start;
@@ -663,7 +666,7 @@
         }
         &-desc {
             margin-top: 10px;
-            word-break: break-all;
+            word-break: break-word;
         }
         &-useful,
         .icon {

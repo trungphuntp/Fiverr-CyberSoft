@@ -6,6 +6,7 @@ const PaginationComponent = ({
     defaultCurrent = 1,
     total = 35,
     pageSize = 9,
+    linkSubmit = "searchWork",
     ...rest
 }) => {
     const onchangePagi = (pageIndex, pageSize) => {
@@ -14,10 +15,11 @@ const PaginationComponent = ({
     return (
         <div className="PaginationComponent">
             <Pagination
-                defaultCurrent={defaultCurrent}
+                current={defaultCurrent}
                 total={total}
                 pageSize={pageSize}
                 onChange={onchangePagi}
+                showSizeChanger={false}
                 {...rest}
             />
         </div>

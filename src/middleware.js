@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import { STORAGE } from "./app/constants/storage";
-import { methodToken } from "./app/utils/Token";
 import PATH from "./app/constants/path";
+import { STORAGE } from "./app/constants/storage";
 
 export const middleware = async (request) => {
     const cookies = request.cookies;

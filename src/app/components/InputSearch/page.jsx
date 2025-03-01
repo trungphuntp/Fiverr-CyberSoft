@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Button from "../Button/page";
 
-const InputSearch = ({ placeholder, sizeBtn = "small", ...rest }) => {
+const InputSearch = ({ placeholder, sizeBtn = "small", linkSubmit = "searchWork", ...rest }) => {
     const router = useRouter();
     const [keyword, setKeyword] = useState("");
 
@@ -12,7 +12,14 @@ const InputSearch = ({ placeholder, sizeBtn = "small", ...rest }) => {
     const _onSubmit = (e) => {
         e?.stopPropagation();
         e?.preventDefault();
-        router.push(`${PATH.SEARCH}?keyword=${keyword.trim()}`);
+        switch (linkSubmit) {
+            case "searchWork":
+                router.push(`${PATH.SEARCH}?keyword=${keyword.trim()}`);
+                break;
+            case "adminSearch":
+                router.push(`${PATH.ADMIN}?keyword=${keyword.trim()}`);
+                break;
+        }
     };
 
     const _inputChange = (e) => {

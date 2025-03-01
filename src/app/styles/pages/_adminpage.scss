@@ -1,0 +1,123 @@
+@use "../core/mixins" as m;
+
+.mainAdmin {
+    .container {
+        display: flex;
+        @include m.xl {
+            flex-direction: column;
+        }
+        .adminTabs {
+            width: 25%;
+            padding: 30px;
+            border-right: 1px solid #000;
+            @include m.xl {
+                width: 100%;
+                border: none;
+            }
+            &__top {
+                &-title {
+                    font-size: 42px;
+                    font-family: m700;
+                    text-transform: uppercase;
+                }
+            }
+
+            &__list {
+                margin-top: 20px;
+                .listMenu {
+                    &__item {
+                        font-family: m500;
+                        display: block;
+                        padding: 20px 0;
+                        font-size: 1.8rem;
+                        @include m.transition(0.3s);
+                        &.active {
+                            text-decoration: underline;
+                            color: var(--primary-color);
+                        }
+                        &:hover {
+                            text-decoration: underline;
+                            color: var(--primary-color);
+                        }
+                    }
+                }
+            }
+        }
+        .adminInfor {
+            width: 75%;
+            padding: 30px;
+            text-align: center;
+            @include m.xl {
+                width: 100%;
+            }
+            &__title {
+                font-size: 20px;
+                font-family: m700;
+                text-transform: uppercase;
+            }
+
+            &__search {
+                margin-top: 30px;
+                height: 40px;
+            }
+            &__list {
+                width: 100%;
+                margin-top: 30px;
+                border: 2px solid black;
+                align-items: center;
+                &-head {
+                    background: rgb(147, 142, 142);
+                    font-size: 1.6rem;
+                    font-family: m600;
+                }
+                &-row:nth-of-type(even) {
+                    background: rgb(234, 234, 234);
+                }
+
+                th,
+                td {
+                    border-left: 2px solid black;
+                    border-right: 2px solid black;
+                    padding: 12px 8px;
+                    font-family: m500;
+                    min-width: 70px;
+                    word-break: break-word;
+                }
+            }
+            &__list.mobile {
+                .adminInfor__list-row {
+                    th,
+                    td {
+                        border: 2px solid black;
+                    }
+                    .title {
+                        font-family: m700;
+                    }
+                    .action {
+                        flex-wrap: wrap;
+                    }
+                }
+            }
+
+            .tablesInfo {
+            }
+
+            .createAd {
+                color: #3b82f6;
+                font-size: 1.8rem;
+                font-family: m700;
+                text-decoration: underline;
+                @include m.transition(0.3s);
+                &:hover {
+                    opacity: 0.7;
+                }
+            }
+
+            &__pagi {
+                margin-top: 30px;
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+}

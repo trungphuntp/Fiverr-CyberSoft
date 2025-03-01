@@ -41,6 +41,9 @@ const Button = ({
         case "error":
             classVarant = "btn error";
             break;
+        case "blue":
+            classVarant = "btn blue";
+            break;
     }
     if (linkIn) {
         return (

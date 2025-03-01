@@ -7,6 +7,7 @@ const PROFILE_PATH = "/profile";
 const LOGIN_PATH = "/login";
 const SEARCH_PATH = "/searchworks";
 const BLOG_PATH = "/blog";
+const ADMIN_PATH = "/admin";
 
 const PATH = {
     HOME: HOME_PATH,
@@ -18,5 +19,6 @@ const PATH = {
     WORKS_DETAIL: WORKS_DETAIL_PATH,
     SEARCH: SEARCH_PATH,
     BLOG: BLOG_PATH,
+    ADMIN: ADMIN_PATH,
 };
 export default PATH;

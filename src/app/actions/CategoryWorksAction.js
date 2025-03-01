@@ -9,3 +9,11 @@ export const getCategoryWorksById = async (id) => {
         return error;
     }
 };
+export const getCategoryWorkSearch = async (query) => {
+    try {
+        const res = await CategoryWorkServices.getCategoryWorkSearch(query);
+        return res.data.content;
+    } catch (error) {
+        return error;
+    }
+};

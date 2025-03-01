@@ -13,17 +13,105 @@ import blog_img7 from "../../../../public/blog-img-BusinessTech.png";
 import blog_img8 from "../../../../public/blog-img-BusinessWeb.png";
 import blog_img9 from "../../../../public/blog-img-BusinessTip.png";
 import TeamWork from "./components/TeamWork";
+
+const blogItems = [
+  {
+    id: 1,
+    title: "Business News",
+    heading: "Top Priorities for Marketing Executives",
+    text: "Fiverr has released its second annual report detailing the urgent needs and top priorities of marketing executives in the U.S.",
+    src: blog_img1,
+  },
+  {
+    id: 2,
+    title: "Product News",
+    heading: "How Fiverr’s Financial Services Work For Freelancers And Entrepreneurs",
+    text: "Today, Fiverr launches its new Financial Services Vertical, adding nearly two dozen specialty services that provide businesses access to world-class financial expertise.",
+    src: blog_img2,
+  },
+  {
+    id: 3,
+    title: "Business News",
+    heading: "How Fiverr’s Adaptability Powered Its Transformation into a Global Marketplace",
+    text: "Creative Director, Ami Alush, discusses branding's role in Fiverr's transformation from a freelance platform into a global marketplace.",
+    src: blog_img3,
+  },
+  {
+    id: 4,
+    title: "Business News",
+    heading: "Semi-Annual Small Business Needs Index: Strength and Optimism Is Still Present",
+    text: "Businesses are building back and finding new ways to reach their customers.",
+    src: blog_img4,
+  },
+  {
+    id: 5,
+    title: "Product News",
+    heading: "Introducing Fiverr's Fashion Store",
+    text: "Now you can use Fiverr's new Fashion Design services to grow your business from idea to implementation.",
+    src: blog_img5,
+  },
+  {
+    id: 6,
+    title: "Freelancer Tips",
+    heading: "It Starts Here",
+    text: 'Our new brand campaign, "It Starts Here", was inspired by our mission to change how the world works and the need for digital transformation.',
+    src: blog_img6,
+  },
+  {
+    id: 7,
+    title: "Web Programming",
+    heading: "5 Ways to Enhance Your Business Website in 2023",
+    text: "Businesses are building back and finding new ways to reach their customers.",
+    src: blog_img7,
+  },
+  {
+    id: 8,
+    title: "Business Tips",
+    heading: "3 Ways Using Fiverr Freelancers Can Help You Scale Your Business",
+    text: "Now you can use Fiverr’s new Fashion Design services to grow your business from idea to implementation.",
+    src: blog_img8,
+  },
+  {
+    id: 9,
+    title: "Programming & Tips",
+    heading: "How No-Code Solutions Let You Build Apps Without Coding Skills",
+    text: "Our new brand campaign, “It Starts Here”, was inspired by our mission to change how the world works and the need for digital transformation.",
+    src: blog_img9,
+  },
+  {
+    id: 10,
+    title: "Success Stories",
+    heading: "Danielle Lemieux of BREAD IN CAPTIVITY: Sourdough-Baking YouTube Series",
+    text: "Businesses are building back and finding new ways to reach their customers.",
+    src: blog_img7,
+  },
+  {
+    id: 11,
+    title: "Success Stories",
+    heading: "Olivia Claparols of ROOTED: Direct-to-Consumer Houseplants",
+    text: "Now you can use Fiverr’s new Fashion Design services to grow your business from idea to implementation.",
+    src: blog_img8,
+  },
+  {
+    id: 12,
+    title: "Success Stories",
+    heading: "Zach & David of ABC Beer Company: Neighborhood Bar & Beer Store",
+    text: "How No-Code Solutions Let You Build Apps Without Coding Skills",
+    src: blog_img9,
+  },
+];
+
 const BlogPage = () => {
   return (
-    <main className="BlogMain container py-20   pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)]">
-      <div className="blog-list ">
+    <main className="BlogMain container py-20 pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)]">
+      <div className="blog-list">
         <div className="blog__media">
           <Image className="blog__image" src={blog_img} alt="Blog Image" />
         </div>
         <div className="blog__content">
           <div className="blog__text">
             <p className="blog__paragraph">Freelancer News</p>
-            <h2 className="blog__heading    ">
+            <h2 className="blog__heading">
               International Freelancer Day 2024 Recap
             </h2>
             <div className="blog__meta">
@@ -39,70 +127,39 @@ const BlogPage = () => {
         </div>
       </div>
 
-      <div className="blog-section mb-32">
-        <BlogItem
-          title={"Business News"}
-          heading={"Top Priorities for Marketing Executives"}
-          text={
-            "Fiverr has released its second annual report detailing the urgent needs and top priorities of marketing executives in the U.S."
-          }
-          src={blog_img1}
-        ></BlogItem>
-        <BlogItem
-          title={"Product News"}
-          heading={
-            "How Fiverr’s Financial Services Work For Freelancers And Entrepreneurs"
-          }
-          text={
-            "Today, Fiverr launches its new Financial Services Vertical, adding nearly two dozen specialty services that provide businesses access to world-class financial expertise."
-          }
-          src={blog_img2}
-        ></BlogItem>
-        <BlogItem
-          title={"Business News"}
-          heading={
-            " How Fiverr’s Adaptability Powered Its Transformation into a Global Marketplace  "
-          }
-          text={
-            "Creative Director, Ami Alush, discusses branding's role in Fiverr's transformation from a freelance platform into a global marketplace"
-          }
-          src={blog_img3}
-        ></BlogItem>
+      {/* Blog Section 1 */}
+      <div className="blog-section mb-32 flex justify-center items-center">
+        {blogItems.slice(0, 3).map((item) => (
+          <BlogItem
+            key={item.id}
+            id={item.id}
+            title={item.title}
+            heading={item.heading}
+            text={item.text}
+            src={item.src}
+          />
+        ))}
       </div>
+
+      {/* Blog Section 2 - News */}
       <div>
-        {/* New */}
         <h2 className="text-5xl text-center font-bold container">News</h2>
         <div className="blog-section">
-          <BlogItem
-            text={
-              "Businesses are building back and finding new ways to reach their customers."
-            }
-            heading={
-              "Semi-Annual Small Business Needs Index: Strength and Optimism is Still Present"
-            }
-            title={"Business News"}
-            src={blog_img4}
-          ></BlogItem>
-          <BlogItem
-            text={
-              "Now you can use Fiverr’s new Fashion Design services to grow your business from idea to implementation."
-            }
-            heading={"Introducing Fiverr's Fashion Store"}
-            title={"Product News"}
-            src={blog_img5}
-          ></BlogItem>
-          <BlogItem
-            text={
-              "Our new brand campaign, “It Starts Here”, was inspired by our mission to change how the world works and the need for digital transformation."
-            }
-            heading={"It Starts Here"}
-            title={"Freelancer Tips"}
-            src={blog_img6}
-          ></BlogItem>
+          {blogItems.slice(3, 6).map((item) => (
+            <BlogItem
+              key={item.id}
+              id={item.id}
+              title={item.title}
+              heading={item.heading}
+              text={item.text}
+              src={item.src}
+            />
+          ))}
         </div>
       </div>
-      {/* TeamWork */}
-      <div className="mt-20">
+
+      {/* TeamWork Section */}
+      <div className="mt-20 ">
         <TeamWork
           text={
             "We believe that 2020 marks the beginning of a decade in which freelancing will take another step forward."
@@ -110,94 +167,56 @@ const BlogPage = () => {
           title={"Freelancer Tips"}
           heading={"Here's to Writing a New Chapter; From Fiverr CEO"}
           src={blog_img_team}
-        ></TeamWork>
+        />
       </div>
-      {/* Business */}
-      <div className="mb-32 ">
+
+      {/* Blog Section 3 - Business */}
+      <div className="mb-32">
         <h2 className="text-5xl mt-14 text-center font-bold container">Business</h2>
         <div className="blog-section">
-          <BlogItem
-            text={
-              "Businesses are building back and finding new ways to reach their customers."
-            }
-            heading={"5 Ways to Enhance Your Business Website in 2023"}
-            title={"  Web Programming"}
-            src={blog_img7}
-          ></BlogItem>
-          <BlogItem
-            text={
-              "Now you can use Fiverr’s new Fashion Design services to grow your business from idea to implementation."
-            }
-            heading={
-              "3 Ways Using Fiverr Freelancers Can Help You Scale Your Business"
-            }
-            title={"Business Tips"}
-            src={blog_img8}
-          ></BlogItem>
-          <BlogItem
-            text={
-              "Our new brand campaign, “It Starts Here”, was inspired by our mission to change how the world works and the need for digital transformation."
-            }
-            heading={
-              "How No-Code Solutions Let You Build Apps Without Coding Skills"
-            }
-            title={"Programming & Tips"}
-            src={blog_img9}
-          ></BlogItem>
+          {blogItems.slice(6, 9).map((item) => (
+            <BlogItem
+              key={item.id}
+              id={item.id}
+              title={item.title}
+              heading={item.heading}
+              text={item.text}
+              src={item.src}
+            />
+          ))}
         </div>
       </div>
 
-      <div className="">
+      {/* TeamWork Section 2 */}
+      <div>
         <TeamWork
-          className=""
           text={
             "We believe that 2020 marks the beginning of a decade in which freelancing will take another step forward."
           }
           title={"Programming & Tips"}
           heading={"Here's to Writing a New Chapter; From Fiverr CEO"}
           src={blog_img_team2}
-        ></TeamWork>
+        />
       </div>
 
-      {/* Case studies */}
-      <div className="mb-32 ">
-        <h2 className="text-5xl  mt-14 text-center font-bold container">
-          Case Studies
-        </h2>
+      {/* Blog Section 4 - Case Studies */}
+      <div className="mb-32">
+        <h2 className="text-5xl mt-14 text-center font-bold container">Case Studies</h2>
         <div className="blog-section">
-          <BlogItem
-            text={
-              "Businesses are building back and finding new ways to reach their customers."
-            }
-            heading={
-              "Danielle Lemieux of BREAD IN CAPTIVITY: Sourdough-Baking YouTube Series"
-            }
-            title={"Success Stories"}
-            src={blog_img7}
-          ></BlogItem>
-          <BlogItem
-            text={
-              "Now you can use Fiverr’s new Fashion Design services to grow your business from idea to implementation."
-            }
-            heading={
-              "Olivia Claparols of ROOTED: Direct-to-Consumer Houseplants"
-            }
-            title={"Success Stories"}
-            src={blog_img8}
-          ></BlogItem>
-          <BlogItem
-            text={
-              "Zach & David of ABC Beer Company: Neighborhood Bar & Beer Store"
-            }
-            heading={
-              "How No-Code Solutions Let You Build Apps Without Coding Skills"
-            }
-            title={"Success Stories"}
-            src={blog_img9}
-          ></BlogItem>
+          {blogItems.slice(9, 12).map((item) => (
+            <BlogItem
+              key={item.id}
+              id={item.id}
+              title={item.title}
+              heading={item.heading}
+              text={item.text}
+              src={item.src}
+            />
+          ))}
         </div>
       </div>
     </main>
   );
 };
+
 export default BlogPage;

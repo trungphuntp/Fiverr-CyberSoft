@@ -5,7 +5,7 @@ const TeamWork = ({ width, height, src, text, title, heading }) => {
   return (
     <div className="blog__team   flex justify-center items-center ">
       <div className="blog__team__left">
-        <Image className="blog__team__img" style={{ width: "420px", height: "420px" }} src={src}></Image>
+        <Image alt="team-work-img" className="blog__team__img" style={{ width: "420px", height: "420px" }} src={src}></Image>
       </div>
       <div className="blog__team__right  ">
         <div className="blog__team__content">

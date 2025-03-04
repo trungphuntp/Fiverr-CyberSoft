@@ -16,6 +16,14 @@ export const getUserById = async (id) => {
         return error;
     }
 };
+export const deleteUserById = async (id) => {
+    try {
+        const res = await UserServices.deleteUserById(id);
+        return res.data;
+    } catch (error) {
+        return error;
+    }
+};
 
 export const putUserById = async (id, payload) => {
     try {

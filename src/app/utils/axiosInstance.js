@@ -2,9 +2,8 @@ import axios from "axios";
 import { STORAGE } from "../constants/storage";
 import { token } from "../constants/tokens";
 
-import BASE_URL from "./enviroments";
-import { methodToken } from "./Token";
 import environment from "./enviroments";
+import { methodToken } from "./Token";
 
 const axiosInstance = axios.create({
     baseURL: environment.baseUrl,

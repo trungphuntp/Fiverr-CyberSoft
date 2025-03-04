@@ -820,6 +820,32 @@
                 width: 50%;
             }
         }
+        .thumb {
+            margin: 0 auto;
+            width: 200px;
+            overflow: hidden;
+            max-height: 400px;
+            position: relative;
+            cursor: pointer;
+            &.circle {
+                border-radius: 50%;
+                height: 200px;
+            }
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .thumbInput {
+                cursor: pointer;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+            }
+        }
     }
 }
 

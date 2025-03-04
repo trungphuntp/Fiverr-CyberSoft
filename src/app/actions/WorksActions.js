@@ -1,6 +1,46 @@
-"use server";
 import WorksServices from "../services/WorksServices";
 
+export const getWorksById = async (id) => {
+    try {
+        const res = await WorksServices.getWorksById(id);
+        return res.data.content;
+    } catch (error) {
+        return error;
+    }
+};
+export const postWorks = async (payload) => {
+    try {
+        const res = await WorksServices.postWorks(payload);
+        return res.data.content;
+    } catch (error) {
+        return error;
+    }
+};
+export const deleteWorksById = async (id) => {
+    try {
+        const res = await WorksServices.deleteWorksById(id);
+
+        return res.data;
+    } catch (error) {
+        return error;
+    }
+};
+export const putWorksById = async (id, payload) => {
+    try {
+        const res = await WorksServices.putWorksById(id, payload);
+        return res.data.content;
+    } catch (error) {
+        return error;
+    }
+};
+export const updateThumbWork = async (id, payload) => {
+    try {
+        const res = await WorksServices.updateThumbWork(id, payload);
+        return res.data.content;
+    } catch (error) {
+        return error;
+    }
+};
 export const getMenuCategory = async () => {
     try {
         const res = await WorksServices.getMenuCategoryWorks();

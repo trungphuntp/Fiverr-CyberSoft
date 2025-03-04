@@ -1,3 +1,4 @@
+"use client";
 import { REGEX } from "@/app/constants/format";
 import { handleRegisterAdmin } from "@/app/store/reducers/authReducer";
 import {
@@ -11,8 +12,9 @@ import { Form, Input, Modal, Radio } from "antd";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import Button from "../Button/page";
+import { handleSetMessage } from "@/app/store/reducers/messageReducer";
 
-const FormCreateAdmin = ({ isActiveCreateAdmin, handleSetModalAdmin }) => {
+const FormCreateAdmin = ({ isActiveCreateAdmin, handleSetModalAdmin, handleFetchingAPI }) => {
     const formRef = useRef(null);
     const [form] = Form.useForm();
     const dispatch = useDispatch();
@@ -37,10 +39,17 @@ const FormCreateAdmin = ({ isActiveCreateAdmin, handleSetModalAdmin }) => {
             role: "ADMIN",
         };
         const res = await dispatch(handleRegisterAdmin?.(payload)).unwrap();
+        if (res?.email) {
+            dispatch(handleSetMessage(["Create new admin successfully!", "success"]));
+            handleSetModalAdmin?.(false);
+            handleFetchingAPI?.();
+        }
     };
 
     // submit form fail
-    const onFinishFailed = (errorInfo) => {};
+    const onFinishFailed = (errorInfo) => {
+        dispatch(handleSetMessage(["Something wrong!", "error"]));
+    };
     return (
         <Modal
             centered={true}
@@ -59,11 +68,8 @@ const FormCreateAdmin = ({ isActiveCreateAdmin, handleSetModalAdmin }) => {
             )}
         >
             <Form
-                name="basic"
+                name="createAdmin"
                 form={form}
-                initialValues={{
-                    remember: true,
-                }}
                 ref={formRef}
                 autoComplete="off"
                 layout="vertical"

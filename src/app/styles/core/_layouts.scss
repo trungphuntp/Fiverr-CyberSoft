@@ -44,3 +44,17 @@ body {
     background-color: var(--primary-color);
     color: #fff;
 }
+// scroll
+::-webkit-scrollbar {
+    width: 6px;
+    border-adius: 999px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 999px;
+}

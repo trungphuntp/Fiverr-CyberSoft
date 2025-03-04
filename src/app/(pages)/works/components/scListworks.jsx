@@ -39,7 +39,7 @@ const ScListworks = ({ idWorks }) => {
     };
 
     const handleGetUserByWork = () => {
-        if (works) {
+        if (works?.length > 0) {
             works?.forEach((work) => {
                 handleGetUser(work?.congViec?.nguoiTao || "");
             });

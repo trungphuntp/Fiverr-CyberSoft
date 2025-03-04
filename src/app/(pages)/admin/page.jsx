@@ -1,19 +1,32 @@
 "use client";
-import { getCategoryWorkSearch } from "@/app/actions/CategoryWorksAction";
-import { getDetailCategoryWorksSearch } from "@/app/actions/DetailCategoryWorkAction";
-import { getUserSearch } from "@/app/actions/UserActions";
-import { getSearchWorks } from "@/app/actions/WorksActions";
+import {
+    deleteCategoryWork,
+    getCategoryWorksById,
+    getCategoryWorkSearch,
+} from "@/app/actions/CategoryWorksAction";
+import {
+    deleteDetailCategoryWorksById,
+    getDetailCategoryWorksById,
+    getDetailCategoryWorksSearch,
+} from "@/app/actions/DetailCategoryWorkAction";
+import { deleteUserById, getUserById, getUserSearch } from "@/app/actions/UserActions";
+import { deleteWorksById, getSearchWorks, getWorksById } from "@/app/actions/WorksActions";
+import FormCreateAdmin from "@/app/components/FormCreateAdmin/page";
+import FormEditAdmin from "@/app/components/FormEditAdmin/page";
+import PopupAddItemAdmin from "@/app/components/PopupAddItemAdmin/page";
 import { adminTab } from "@/app/constants/general";
+import { handleSetMessage } from "@/app/store/reducers/messageReducer";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
 import AdminInfor from "./components/AdminInfor";
 import AdminTabs from "./components/AdminTabs";
-import { useRouter, useSearchParams } from "next/navigation";
-import FormCreateAdmin from "@/app/components/FormCreateAdmin/page";
-import ReduxProvider from "@/app/components/ReduxProvider/page";
+import FormAddAdmin from "@/app/components/FormAddAdmin/page";
 
 const LIMIT_ITEM = 6;
 const AdminPage = () => {
+    const dispatch = useDispatch();
     const router = useRouter();
     const searchParams = useSearchParams();
     const searchParamObject = Object.fromEntries(searchParams.entries());
@@ -30,6 +43,30 @@ const AdminPage = () => {
         setisActiveCreateAdmin(active);
     };
 
+    // modal add admin active
+    const [isActiveAddAdmin, setisActiveAddAdmin] = useState(false);
+    const handleSetAddAdmin = (active) => {
+        setisActiveAddAdmin(active);
+    };
+
+    // modal add new item
+    const [isActiveAdd, setIsActiveAdd] = useState(false);
+    const handleSetActiveAdd = (active) => {
+        setIsActiveAdd(active);
+    };
+
+    // modal edit new item
+    const [isActiveEdit, setIsActiveEdit] = useState(false);
+    const handleSetActiveEdit = (active) => {
+        setIsActiveEdit(active);
+    };
+
+    // data edit by id
+    const [dataEdit, setDataEdit] = useState(null);
+    const handleSetDataEdit = (data) => {
+        setDataEdit(data);
+    };
+
     // update search param
     const updateSearchParams = (objParam = {}) => {
         const newParamsObject = {
@@ -41,8 +78,8 @@ const AdminPage = () => {
         const newSearchParams = new URLSearchParams(newParamsObject).toString();
         router.push(`?${newSearchParams}`);
     };
-    // fetch api when search param change
-    useEffect(() => {
+    // ============= fetch api when search param change =============
+    const handleFetchingAPI = () => {
         updateSearchParams(searchParamObject);
         if (!!searchParamObject) {
             switch (isTabActive) {
@@ -61,6 +98,9 @@ const AdminPage = () => {
                     break;
             }
         }
+    };
+    useEffect(() => {
+        handleFetchingAPI();
     }, [searchParams, isTabActive]);
 
     // set page 1 when change active
@@ -112,12 +152,128 @@ const AdminPage = () => {
         mutationFn: (query) => getDetailCategoryWorksSearch(query),
     });
 
-    // PAGINATION
+    // API ALL CATEGORY
+    const {
+        data: allCategoryData,
+        isPending: allCategoryDataLoading,
+        mutate: fetchingAllCategoryData,
+    } = useMutation({
+        mutationKey: ["AllCategory"],
+        mutationFn: () => getCategoryWorksById(),
+    });
+    useEffect(() => {
+        if (isTabActive === adminTab.detailCategory) {
+            fetchingAllCategoryData();
+        }
+    }, [isTabActive === adminTab.detailCategory]);
+
+    // API ALL DETAIL CATEGORY
+    const {
+        data: allDetailCategoryData,
+        isPending: allDetailCategoryDataLoading,
+        mutate: fetchingAllDetailCategoryData,
+    } = useMutation({
+        mutationKey: ["AllDetailCategory"],
+        mutationFn: () => getDetailCategoryWorksById(),
+    });
+    useEffect(() => {
+        if (isTabActive === adminTab.works) {
+            fetchingAllDetailCategoryData();
+        }
+    }, [isTabActive === adminTab.works]);
+    // =========================== handle DELETE ===========================
+    // delete category
+    const handleDeleteCategory = async (id) => {
+        if (!!id) {
+            const res = await deleteCategoryWork(id);
+            if (res?.statusCode === 200) {
+                dispatch(handleSetMessage(["Delete Item Successfully!", "success"]));
+                handleFetchingAPI();
+            }
+        }
+    };
+    // delete detail category
+    const handleDeleteDetailCategory = async (id) => {
+        if (!!id) {
+            const res = await deleteDetailCategoryWorksById(id);
+            if (res?.statusCode === 200) {
+                dispatch(handleSetMessage(["Delete Item Successfully!", "success"]));
+                handleFetchingAPI();
+            }
+        }
+    };
+    // delete work
+    const handleDeleteWork = async (id) => {
+        if (!!id) {
+            const res = await deleteWorksById(id);
+            if (res?.statusCode === 200) {
+                dispatch(handleSetMessage(["Delete Item Successfully!", "success"]));
+                handleFetchingAPI();
+            }
+        }
+    };
+    // delete user
+    const handleDeleteUser = async (id) => {
+        if (!!id) {
+            const res = await deleteUserById(id);
+            if (res?.statusCode === 200) {
+                dispatch(handleSetMessage(["Delete Item Successfully!", "success"]));
+                handleFetchingAPI();
+            }
+        }
+    };
+    // =========================== handle EDIT ===========================
+    const handleGetInforItemByid = async (id) => {
+        if (!!isTabActive && !!id) {
+            switch (isTabActive) {
+                case adminTab.users:
+                    const resUser = await getUserById(id);
+                    handleSetDataEdit(resUser);
+                    break;
+                case adminTab.works:
+                    const resWork = await getWorksById(id);
+                    // maChiTietLoaiCongViec
+                    const AllDetailCate = (await getDetailCategoryWorksById()) || [];
+                    if (!!AllDetailCate?.length > 0 && !!resWork?.maChiTietLoaiCongViec) {
+                        const parentItemDetailCategory = AllDetailCate?.filter((detailCate) => {
+                            let isParent = false;
+                            if (!!detailCate?.dsChiTietLoai?.length > 0) {
+                                detailCate?.dsChiTietLoai?.forEach((itemDetailCate) => {
+                                    if (itemDetailCate?.id === resWork?.maChiTietLoaiCongViec) {
+                                        isParent = true;
+                                    }
+                                });
+                            }
+                            if (!!isParent) {
+                                return detailCate;
+                            }
+                        });
+
+                        handleSetDataEdit({
+                            ...resWork,
+                            chaCacLoaiCongViec: parentItemDetailCategory || [],
+                        });
+                    }
+
+                    break;
+                case adminTab.category:
+                    const resCategory = await getCategoryWorksById(id);
+                    handleSetDataEdit(resCategory);
+
+                    break;
+                case adminTab.detailCategory:
+                    const resDetail = await getDetailCategoryWorksById(id);
+                    handleSetDataEdit(resDetail);
+                    break;
+            }
+        }
+    };
+
+    // =========================== PAGINATION ===========================
     const handleChangePagination = (page, pageSize) => {
         updateSearchParams({ ...searchParamObject, pageIndex: page, pageSize: pageSize });
     };
-
-    // handle get data for table
+    //=========================== handle get data for table ===========================
     const handleGetData = useMemo(() => {
         let data = null;
         let pageIndex = Number(searchParamObject?.pageIndex || 1);
@@ -157,12 +313,50 @@ const AdminPage = () => {
         handleChangePagination,
         isTabActive,
         handleSetModalAdmin,
+        handleSetActiveAdd,
+        handleDeleteCategory,
+        handleDeleteDetailCategory,
+        handleDeleteWork,
+        handleDeleteUser,
+        handleSetActiveEdit,
+        handleGetInforItemByid,
+        handleSetAddAdmin,
         ...handleGetData,
     };
 
-    const propsFormAdmin = {
+    // form new admin props
+    const propsFormCreateAdmin = {
         isActiveCreateAdmin,
         handleSetModalAdmin,
+        handleFetchingAPI,
+    };
+
+    // form new admin props
+    const propsFormAddAdmin = {
+        isActiveAddAdmin,
+        handleSetAddAdmin,
+        handleFetchingAPI,
+    };
+
+    //  add form props
+    const propsAddForm = {
+        isTabActive,
+        handleSetActiveAdd,
+        isActiveAdd,
+        handleFetchingAPI,
+        dataCategory: allCategoryData,
+        dataDetailCategory: allDetailCategoryData,
+    };
+
+    //  edit form props
+    const propsEditForm = {
+        isTabActive,
+        handleSetActiveEdit,
+        isActiveEdit,
+        handleFetchingAPI,
+        dataCategory: allCategoryData,
+        dataDetailCategory: allDetailCategoryData,
+        dataEdit,
     };
 
     return (
@@ -171,11 +365,12 @@ const AdminPage = () => {
                 {/* admin tabs */}
                 <AdminTabs {...propsAdminTab} />
                 {/* admin infor */}
-                <ReduxProvider>
-                    <AdminInfor {...propsAdminInfor} />
-                </ReduxProvider>
+                <AdminInfor {...propsAdminInfor} />
             </div>
-            <FormCreateAdmin {...propsFormAdmin} />
+            <FormAddAdmin {...propsFormAddAdmin} />
+            <FormCreateAdmin {...propsFormCreateAdmin} />
+            <PopupAddItemAdmin {...propsAddForm} />
+            <FormEditAdmin {...propsEditForm} />
         </main>
     );
 };

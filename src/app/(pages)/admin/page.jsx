@@ -19,7 +19,7 @@ import { handleSetMessage } from "@/app/store/reducers/messageReducer";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AdminInfor from "./components/AdminInfor";
 import AdminTabs from "./components/AdminTabs";
 import FormAddAdmin from "@/app/components/FormAddAdmin/page";
@@ -30,6 +30,7 @@ const AdminPage = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const searchParamObject = Object.fromEntries(searchParams.entries());
+    const { profile } = useSelector((state) => state.profile);
 
     // active tabs
     const [isTabActive, setisTabActive] = useState(adminTab.users);
@@ -361,16 +362,20 @@ const AdminPage = () => {
 
     return (
         <main className="mainAdmin pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)] relative">
-            <div className="container py-8">
-                {/* admin tabs */}
-                <AdminTabs {...propsAdminTab} />
-                {/* admin infor */}
-                <AdminInfor {...propsAdminInfor} />
-            </div>
-            <FormAddAdmin {...propsFormAddAdmin} />
-            <FormCreateAdmin {...propsFormCreateAdmin} />
-            <PopupAddItemAdmin {...propsAddForm} />
-            <FormEditAdmin {...propsEditForm} />
+            {profile?.role === "ADMIN" && (
+                <>
+                    <div className="container py-8">
+                        {/* admin tabs */}
+                        <AdminTabs {...propsAdminTab} />
+                        {/* admin infor */}
+                        <AdminInfor {...propsAdminInfor} />
+                    </div>
+                    <FormAddAdmin {...propsFormAddAdmin} />
+                    <FormCreateAdmin {...propsFormCreateAdmin} />
+                    <PopupAddItemAdmin {...propsAddForm} />
+                    <FormEditAdmin {...propsEditForm} />
+                </>
+            )}
         </main>
     );
 };

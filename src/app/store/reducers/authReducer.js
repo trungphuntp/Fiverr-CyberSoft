@@ -172,8 +172,43 @@ export const handleRegister = createAsyncThunk(
 
 // handle register admin
 export const handleRegisterAdmin = createAsyncThunk(
-    "auth/handleRegister",
+    "auth/handleRegisterAdmin",
     async (registerData, thunkAPI) => {
+        try {
+            // payload
+            const { email, password, gender, name, phone, role } = registerData || {};
+            const genderPayload = gender === "male" ? true : false;
+
+            const payload = {
+                name: name?.toLowerCase().trim() || "",
+                email: email.toLowerCase().trim() || "",
+                password: password || "",
+                phone: phone.trim() || "",
+                birthday: formatDate("1/1/2000"),
+                gender: genderPayload,
+                role: role || "ADMIN",
+                skill: [],
+                certification: [],
+            };
+            const res = await postUser(payload);
+            if (!!res?.email) {
+                thunkAPI.dispatch(handleSetMessage(["Register success!", "success"]));
+                return res;
+            } else {
+                throw res;
+            }
+        } catch (error) {
+            thunkAPI.dispatch(handleSetMessage(["Email already exists!", "error"]));
+            const errorsInfor = error?.response?.data;
+            return thunkAPI.rejectWithValue(errorsInfor);
+        }
+    }
+);
+
+// handle add user for admin
+export const handleAddUserForAdmin = createAsyncThunk(
+    "auth/handleAddUserForAdmin",
+    async (userData, thunkAPI) => {
         try {
             // payload
             const { email, password, gender, name, phone, role } = registerData || {};

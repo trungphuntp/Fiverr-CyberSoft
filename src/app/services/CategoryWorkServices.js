@@ -9,6 +9,15 @@ const CategoryWorkServices = {
             params: query,
         });
     },
+    postCategoryWork: (payload = {}) => {
+        return axiosInstance.post(`/loai-cong-viec`, payload);
+    },
+    putCategoryWork: (id = "", payload = {}) => {
+        return axiosInstance.put(`/loai-cong-viec/${id}`, payload);
+    },
+    deleteCategoryWork: (id = "") => {
+        return axiosInstance.delete(`/loai-cong-viec/${id}`);
+    },
 };
 
 export default CategoryWorkServices;

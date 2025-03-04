@@ -7,6 +7,11 @@ const UserServices = {
     getUserById: (id = "") => {
         return axiosInstance.get(`/users/${id}`);
     },
+
+    deleteUserById: (id = "") => {
+        return axiosInstance.delete(`/users?id=${id}`);
+    },
+
     postUser: (payload = {}) => {
         return axiosInstance.post(`/users`, payload);
     },

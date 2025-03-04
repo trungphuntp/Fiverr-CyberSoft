@@ -148,15 +148,6 @@ const ScReviews = ({ quantityReviews, star, idWork }) => {
                     </SelectComponent>
                 </div>
                 <div className="scReviews__filters-reviews pt-[30px]">
-                    {/* <ReviewsCard
-                        avt={""}
-                        name={"123"}
-                        starValue={0}
-                        desc={
-                            "lorefaljksdhjflk; ajsdklfj klasjdlk;fjkl;a sdjfkl;jdskjfkldsjlkfjakl ;sjf;lkjasdlk;fjlaks djlfjaldks;jflkjasdkl; fjlkasjdlk fjakls ;djfkldjsl kfjklds jflsjdlkf js ldkjflk; ajskl;fjakls;djfklajsdkljflk"
-                        }
-                        date={"1/1/2000"}
-                    /> */}
                     {reviews?.length > 0 &&
                         reviews?.map((review, index) => {
                             const { tenNguoiBinhLuan, saoBinhLuan, noiDung, ngayBinhLuan, avatar } =

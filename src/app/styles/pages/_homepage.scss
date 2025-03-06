@@ -41,14 +41,23 @@
     // section popular
     .scpopular {
         &__carousels {
-            height: 305px;
+            height: 355px;
+            --item: 5;
+            @include m.md {
+                height: 405px;
+            }
             .swiper {
                 height: 100%;
             }
             .swiper-slide {
-                width: 226px;
+                width: calc(100% / var(--item));
                 height: 100% !important;
-
+                @include m.md {
+                    --item: 2;
+                }
+                @include m.xs {
+                    --item: 1;
+                }
                 img {
                     width: 100%;
                     height: 100%;
@@ -97,6 +106,9 @@
             align-items: center;
             justify-content: space-between;
             gap: 15px;
+            @include m.md {
+                flex-direction: column;
+            }
             &-video {
                 aspect-ratio: 560/315;
                 position: relative;
@@ -132,12 +144,14 @@
                     &__title {
                         font-size: 2rem;
                         color: var(--text-color-body-2);
+                        @include m.md {
+                            font-size: 1.6rem;
+                        }
                     }
                     &__branch {
                         border-left: 1px solid var(--text-color-body-2);
                         height: 36px;
                         margin-left: 10px;
-
                         img {
                             object-fit: contain;
                             width: 100%;
@@ -149,6 +163,9 @@
                     margin-top: 15px;
                     font-size: 2.5rem;
                     font-family: m500i;
+                    @include m.md {
+                        font-size: 1.6rem;
+                    }
                 }
             }
         }

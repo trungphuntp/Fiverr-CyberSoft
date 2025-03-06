@@ -1,3 +1,4 @@
+"use client";
 import { Pagination } from "antd";
 import React from "react";
 

@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, Suspense, useContext, useState } from "react";
 
 const AccordionComponentContext = createContext();
 // context Accordion

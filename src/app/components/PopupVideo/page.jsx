@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 const PopupVideo = ({ srcVideo, closeVideoFunction }) => {
     const _onCloseVideo = () => {

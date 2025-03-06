@@ -1,9 +1,10 @@
+"use client";
 import PATH from "@/app/constants/path";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const NavLoggedAvatar = ({ avatar, name, email, logout }) => {
+const NavLoggedAvatar = ({ avatar, name, email, logout, ...rest }) => {
     const _onLogout = (e) => {
         e?.preventDefault();
         e?.stopPropagation();

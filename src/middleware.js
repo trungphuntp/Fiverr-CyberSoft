@@ -1,9 +1,6 @@
+import PATH from "@/app/constants/path";
+import { STORAGE } from "@/app/constants/storage";
 import { NextResponse } from "next/server";
-import PATH from "./app/constants/path";
-import { STORAGE } from "./app/constants/storage";
-import { getUserById } from "./app/actions/UserActions";
-import environment from "./app/utils/enviroments";
-import { token } from "./app/constants/tokens";
 
 export const middleware = async (request) => {
     const cookies = request.cookies;
@@ -33,5 +30,5 @@ export const middleware = async (request) => {
 };
 
 export const config = {
-    matcher: [PATH.LOGIN, PATH.REGISTER],
+    matcher: ["/profile", "/login", "/register", "/admin"],
 };

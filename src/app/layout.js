@@ -1,4 +1,5 @@
 // src/layouts/RootLayout.jsx
+import { Suspense } from "react";
 import Footer from "./components/Footer/page";
 import Header from "./components/Header/page";
 import Navbar from "./components/Navbar/page";
@@ -22,18 +23,20 @@ export default function RootLayout({ children }) {
             </head>
             <body>
                 <ProviderReactQuery>
-                    <AccordionProvider>
-                        <ReduxProvider>
-                            <NavContextProvider>
-                                {/* <UserProvider> */}
-                                <Header />
-                                <Navbar />
-                                {children}
-                                <Footer />
-                                {/* </UserProvider> */}
-                            </NavContextProvider>
-                        </ReduxProvider>
-                    </AccordionProvider>
+                    <Suspense>
+                        <AccordionProvider>
+                            <ReduxProvider>
+                                <NavContextProvider>
+                                    {/* <UserProvider> */}
+                                    <Header />
+                                    <Navbar />
+                                    {children}
+                                    <Footer />
+                                    {/* </UserProvider> */}
+                                </NavContextProvider>
+                            </ReduxProvider>
+                        </AccordionProvider>
+                    </Suspense>
                 </ProviderReactQuery>
             </body>
         </html>

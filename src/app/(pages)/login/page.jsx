@@ -1,10 +1,8 @@
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import ComponentLoading from "@/app/components/Loading/page";
+import MessageProvider from "@/app/components/MessageProvider/page";
 
-const MessageProvider = dynamic(() => import("@/app/components/MessageProvider/page"), {
-    suspense: true,
-});
 const ReduxProvider = dynamic(() => import("@/app/components/ReduxProvider/page"), {
     suspense: true,
 });
@@ -25,13 +23,9 @@ const LoginPage = () => {
                         <div className="LoginContent__login-form relative">
                             <Suspense fallback={<ComponentLoading />}>
                                 <ReduxProvider>
-                                    <Suspense fallback={<ComponentLoading />}>
-                                        <MessageProvider>
-                                            <Suspense fallback={<ComponentLoading />}>
-                                                <FormLogin />
-                                            </Suspense>
-                                        </MessageProvider>
-                                    </Suspense>
+                                    <MessageProvider>
+                                        <FormLogin />
+                                    </MessageProvider>
                                 </ReduxProvider>
                             </Suspense>
                         </div>

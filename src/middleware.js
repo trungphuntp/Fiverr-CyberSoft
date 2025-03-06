@@ -6,13 +6,13 @@ export const middleware = async (request) => {
     const originPathname = request.nextUrl.origin;
 
     if (urlPathname === "/profile" || urlPathname === "/admin") {
-        if (!cookies.has("tokenuser") && !cookies.has(iduser)) {
-            return NextResponse.redirect(originPathname + "/login");
+        if (!cookies.has("tokenuser") && !cookies.has("iduser")) {
+            return NextResponse.redirect(new URL("/login", request.url));
         }
     }
     if (urlPathname === "/login" || urlPathname === "/register") {
-        if (!!cookies.has("tokenuser") && !!cookies.has(iduser)) {
-            return NextResponse.redirect(originPathname + "/");
+        if (!!cookies.has("tokenuser") && !!cookies.has("iduser")) {
+            return NextResponse.redirect(new URL("/", request.url));
         }
     }
     return NextResponse.next();

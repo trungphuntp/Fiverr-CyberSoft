@@ -123,10 +123,6 @@ const HeaderTop = () => {
         // Gọi dispatch để logout
         dispatch(handleLogout());
 
-        // Xóa thông tin trong Cookies
-        Cookies.remove("tokenuser");
-        Cookies.remove("iduser");
-
         // Chuyển hướng về trang chủ
         router.push(PATH.HOME);
 

@@ -11,7 +11,7 @@ export const middleware = async (request) => {
         }
     }
     if (urlPathname === "/login" || urlPathname === "/register") {
-        if (!!cookies.has("tokenuser") && !!cookies.has("iduser")) {
+        if (cookies.has("tokenuser") && cookies.has("iduser")) {
             return NextResponse.redirect(new URL("/", request.url));
         }
     }

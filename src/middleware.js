@@ -10,7 +10,7 @@ export const middleware = async (request) => {
             return NextResponse.redirect(originPathname + "/login");
         }
     }
-    if (urlPathname === PATH.LOGIN || urlPathname === PATH.REGISTER) {
+    if (urlPathname === "/login" || urlPathname === "/register") {
         if (!!cookies.has("tokenuser") && !!cookies.has(iduser)) {
             return NextResponse.redirect(originPathname + "/");
         }

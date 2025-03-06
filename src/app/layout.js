@@ -29,11 +29,11 @@ export default function RootLayout({ children }) {
                                 <NavContextProvider>
                                     {/* <UserProvider> */}
                                     <Header />
-                                    <Navbar />
-                                    {children}
-                                    <Footer />
-                                    {/* </UserProvider> */}
                                 </NavContextProvider>
+                                <Navbar />
+                                {children}
+                                <Footer />
+                                {/* </UserProvider> */}
                             </ReduxProvider>
                         </AccordionProvider>
                     </Suspense>

@@ -27,11 +27,20 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const { profile } = useSelector((state) => state.profile);
     const { avatar, name, email } = profile || [];
-    const { isActiveNav, handleSetActiveNav, isDropDown, handleSetIsDropDown } = useNavContext();
+    const { isActiveNav, handleSetActiveNav } = useNavContext();
     const [isDropDownItem, setisDropDownItem] = useState([]);
     const [isLogined, setIsLogined] = useState(false);
     const router = useRouter();
-
+    const [isDropDown, setIsDropDown] = useState([]);
+    const handleSetIsDropDown = (id) => {
+        setIsDropDown((prev) => {
+            if (prev.includes(id)) {
+                return prev.filter((itemId) => itemId !== id);
+            } else {
+                return [...prev, id];
+            }
+        });
+    };
     // check login
     useEffect(() => {
         if (methodToken.get(STORAGE.token) && methodToken.get(STORAGE.idUser) && !!profile) {

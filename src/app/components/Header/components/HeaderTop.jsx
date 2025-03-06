@@ -121,10 +121,10 @@ const HeaderTop = () => {
         e?.stopPropagation();
 
         // Gọi dispatch để logout
+        router.push(PATH.HOME);
         dispatch(handleLogout());
 
         // Chuyển hướng về trang chủ
-        router.push(PATH.HOME);
 
         // Hiển thị thông báo logout thành công
         dispatch(handleSetMessage(["Logout success!", "success"]));

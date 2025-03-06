@@ -1,5 +1,3 @@
-import PATH from "@/app/constants/path";
-import { STORAGE } from "@/app/constants/storage";
 import { NextResponse } from "next/server";
 
 export const middleware = async (request) => {
@@ -7,25 +5,16 @@ export const middleware = async (request) => {
     const urlPathname = request.nextUrl.pathname;
     const originPathname = request.nextUrl.origin;
 
-    if (urlPathname === PATH.PROFILE) {
-        if (!cookies.has(STORAGE.token) && !cookies.has(STORAGE.idUser)) {
-            return NextResponse.redirect(originPathname + PATH.LOGIN);
+    if (urlPathname === "/profile" || urlPathname === "/admin") {
+        if (!cookies.has("tokenuser") && !cookies.has(iduser)) {
+            return NextResponse.redirect(originPathname + "/login");
         }
     }
-
     if (urlPathname === PATH.LOGIN || urlPathname === PATH.REGISTER) {
-        if (!!cookies.has(STORAGE.token) && !!cookies.has(STORAGE.idUser)) {
-            return NextResponse.redirect(originPathname + PATH.HOME);
+        if (!!cookies.has("tokenuser") && !!cookies.has(iduser)) {
+            return NextResponse.redirect(originPathname + "/");
         }
     }
-
-    // Admin route protection
-    if (urlPathname === PATH.ADMIN) {
-        if (!cookies.has(STORAGE.token) && !cookies.has(STORAGE.idUser)) {
-            return NextResponse.redirect(originPathname + PATH.LOGIN);
-        }
-    }
-
     return NextResponse.next();
 };
 

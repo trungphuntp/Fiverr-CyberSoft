@@ -12,8 +12,10 @@ const LayoutAdmin = ({ children }) => {
     const router = useRouter();
 
     useEffect(() => {
-        if (!!profile?.id) {
-            if (!!profile?.role !== "ADMIN") {
+        if (!!profile.id) {
+            if (profile?.role !== "ADMIN") {
+                console.log(2);
+
                 router.push(PATH.HOME);
                 dispatch(
                     handleSetMessage([

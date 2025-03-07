@@ -68,12 +68,12 @@ const PopupAddItemAdmin = ({
                     };
 
                     const resPost = await postWorks(payload);
-                    if (resPost?.id) {
+                    if (resPost?.tenCongViec) {
                         const resThumb = await updateThumbWork(
                             resPost?.id,
                             linkThumbnailWorks?.file
                         );
-                        if (resThumb?.id) {
+                        if (resThumb?.tenCongViec) {
                             dispatch(handleSetMessage(["Add new work successfully!", "success"]));
                             handleFetchingAPI?.();
                             handleCancel();

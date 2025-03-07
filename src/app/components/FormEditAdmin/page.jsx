@@ -123,7 +123,8 @@ const FormEditAdmin = ({
                     saoCongViec: star,
                 };
                 const resEditWork = await putWorksById(dataEdit?.id, payloadWork);
-                console.log(resEditWork);
+                console.log(resEditWork?.tenCongViec);
+
                 if (!!resEditWork?.tenCongViec) {
                     dispatch(handleSetMessage(["Edit work successfully!", "success"]));
                 } else {
@@ -137,7 +138,10 @@ const FormEditAdmin = ({
                     );
                     if (resThumb?.tenCongViec) {
                         dispatch(handleSetMessage(["Edit thumbnail successfully!", "success"]));
+                        handleCancel();
                     }
+                } else {
+                    handleCancel();
                 }
 
                 break;

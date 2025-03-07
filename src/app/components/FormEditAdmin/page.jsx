@@ -124,7 +124,7 @@ const FormEditAdmin = ({
                 };
                 const resEditWork = await putWorksById(dataEdit?.id, payloadWork);
                 console.log(resEditWork);
-                if (!!resEditWork?.statusCode === 200) {
+                if (!!resEditWork?.tenCongViec) {
                     dispatch(handleSetMessage(["Edit work successfully!", "success"]));
                 } else {
                     dispatch(handleSetMessage(["Edit work failed!", "error"]));
@@ -135,9 +135,7 @@ const FormEditAdmin = ({
                         resEditWork?.id || dataEdit?.id,
                         linkThumbnailWorks?.file
                     );
-                    console.log(resThumb);
-
-                    if (resThumb?.id) {
+                    if (resThumb?.tenCongViec) {
                         dispatch(handleSetMessage(["Edit thumbnail successfully!", "success"]));
                     }
                 }
@@ -167,7 +165,7 @@ const FormEditAdmin = ({
                     certification: certification?.split(", ") || "",
                 };
                 const resEditUser = await putUserById(dataEdit?.id, payloadUser);
-                if (resEditUser?.statusCode === 200) {
+                if (resEditUser?.id === 200) {
                     dispatch(handleSetMessage(["Edit user successfully!", "success"]));
                     handleFetchingAPI?.();
                     handleCancel();
@@ -182,7 +180,7 @@ const FormEditAdmin = ({
                     tenLoaiCongViec: NameCategory || "",
                 };
                 const res = await putCategoryWork(dataEdit?.id, payloadCategory);
-                if (!!res?.statusCode === 200) {
+                if (!!res?.tenLoaiCongViec) {
                     dispatch(handleSetMessage(["Add new category successfully!", "success"]));
                     handleFetchingAPI?.();
                     handleCancel();

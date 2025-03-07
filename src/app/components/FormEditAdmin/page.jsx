@@ -124,7 +124,7 @@ const FormEditAdmin = ({
                 };
                 const resEditWork = await putWorksById(dataEdit?.id, payloadWork);
                 console.log(resEditWork);
-                if (!!resEditWork?.id) {
+                if (!!resEditWork?.statusCode === 200) {
                     dispatch(handleSetMessage(["Edit work successfully!", "success"]));
                 } else {
                     dispatch(handleSetMessage(["Edit work failed!", "error"]));
@@ -167,7 +167,7 @@ const FormEditAdmin = ({
                     certification: certification?.split(", ") || "",
                 };
                 const resEditUser = await putUserById(dataEdit?.id, payloadUser);
-                if (resEditUser?.email) {
+                if (resEditUser?.statusCode === 200) {
                     dispatch(handleSetMessage(["Edit user successfully!", "success"]));
                     handleFetchingAPI?.();
                     handleCancel();
@@ -182,7 +182,7 @@ const FormEditAdmin = ({
                     tenLoaiCongViec: NameCategory || "",
                 };
                 const res = await putCategoryWork(dataEdit?.id, payloadCategory);
-                if (!!res?.tenLoaiCongViec) {
+                if (!!res?.statusCode === 200) {
                     dispatch(handleSetMessage(["Add new category successfully!", "success"]));
                     handleFetchingAPI?.();
                     handleCancel();
@@ -244,6 +244,10 @@ const FormEditAdmin = ({
     };
     const _onChangeItemForDetailCategory = async (value, option) => {
         setItemDetailCategory(value);
+        setDataFormEdit({
+            ...dataFormEdit,
+            itemDetailCategory: value,
+        });
     };
     const _onChangeDetailCategory = async (value, option) => {
         if (!!value) {
@@ -253,6 +257,11 @@ const FormEditAdmin = ({
                 setValueDetailCategory(res?.dsChiTietLoai);
                 // set Item Detail Cate
                 setItemDetailCategory(null);
+                setDataFormEdit({
+                    ...dataFormEdit,
+                    detailCategory: value,
+                    itemDetailCategory: null,
+                });
             }
         }
     };
@@ -601,7 +610,7 @@ const FormEditAdmin = ({
                                             ? dataDetailCategory?.map((item) => {
                                                   return {
                                                       value: item?.id || "",
-                                                      label: item?.tenNhom || "",
+                                                      label: `${item?.id} ${item?.tenNhom || ""}`,
                                                   };
                                               })
                                             : []
@@ -637,7 +646,9 @@ const FormEditAdmin = ({
                                             ? valueDetailCategory?.map((item) => {
                                                   return {
                                                       value: item?.id || "",
-                                                      label: item?.tenChiTiet || "",
+                                                      label: `${item?.id} ${
+                                                          item?.tenChiTiet || ""
+                                                      }`,
                                                   };
                                               })
                                             : []

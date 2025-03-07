@@ -169,7 +169,7 @@ const FormEditAdmin = ({
                     certification: certification?.split(", ") || "",
                 };
                 const resEditUser = await putUserById(dataEdit?.id, payloadUser);
-                if (resEditUser?.id === 200) {
+                if (resEditUser?.id) {
                     dispatch(handleSetMessage(["Edit user successfully!", "success"]));
                     handleFetchingAPI?.();
                     handleCancel();

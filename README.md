@@ -1,4 +1,8 @@
 # VIDEO YOUTUBE
+link: https://www.youtube.com/watch?v=JP8hhoEdTJM
+
+## Rated by google
+![image](https://github.com/user-attachments/assets/88bd9aaf-31d4-4c8a-ae61-aad8f01e7769)
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 

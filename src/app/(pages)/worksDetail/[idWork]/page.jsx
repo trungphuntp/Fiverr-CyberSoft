@@ -28,6 +28,37 @@ const ReduxProvider = dynamic(() => import("@/app/components/ReduxProvider/page"
     suspense: true,
 });
 
+export async function generateMetadata({ params }) {
+    const idWork = params.idWork;
+    const worksDetail = await getDetailWorkById(idWork);
+    const workData = worksDetail?.[0];
+
+    if (!worksDetail?.length < 0) {
+        return {
+            title: "Product Not Found",
+        };
+    }
+    return {
+        title: workData?.congViec?.tenCongViec || "",
+        description: workData?.congViec?.moTa || "",
+        openGraph: {
+            title: workData?.congViec?.tenCongViec,
+            description: workData?.congViec?.moTaNgan || "",
+            images: [
+                {
+                    url: workData?.congViec?.hinhAnh || "",
+                    alt: "Fiverr Job Image",
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: workData?.congViec?.tenCongViec || "",
+            description: workData?.congViec?.moTa || "",
+            images: [workData?.congViec?.hinhAnh || ""],
+        },
+    };
+}
 const WorksDetailPage = async (props) => {
     const { idWork } = await props.params;
 

@@ -1,0 +1,13 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /admin
+
+# Host
+Host: https://fiverr-cyber-soft.vercel.app
+
+# Sitemaps
+Sitemap: https://fiverr-cyber-soft.vercel.app/sitemap.xml

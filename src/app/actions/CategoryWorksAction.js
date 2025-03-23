@@ -1,3 +1,4 @@
+"use server";
 import CategoryWorkServices from "../services/CategoryWorkServices";
 
 export const getCategoryWorksById = async (id) => {

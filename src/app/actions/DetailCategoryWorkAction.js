@@ -1,3 +1,4 @@
+"use server";
 import DetailCategoryWorkServices from "../services/DetailCategoryWorkServices";
 
 export const getDetailCategoryWorksById = async (id) => {

@@ -1,3 +1,4 @@
+"use server";
 import ReviewsServices from "../services/ReviewsServices";
 
 export const getAllReviews = async () => {

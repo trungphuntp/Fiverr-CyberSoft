@@ -1,3 +1,4 @@
+"use server";
 import UserServices from "../services/UserServices";
 
 export const getUserAll = async () => {

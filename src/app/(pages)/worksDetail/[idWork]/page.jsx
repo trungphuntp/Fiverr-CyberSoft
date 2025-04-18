@@ -10,194 +10,206 @@ import BreadcumbComponent from "@/app/components/Breadcumb/page";
 import ComponentLoading from "@/app/components/Loading/page";
 
 const ScContentWork = dynamic(() => import("../components/scContentWork"), {
-    suspense: true,
+  suspense: true,
 });
 const ScSeller = dynamic(() => import("../components/scSeller"), {
-    suspense: true,
+  suspense: true,
 });
 const ScFAQ = dynamic(() => import("../components/scFAQ"), {
-    suspense: true,
+  suspense: true,
 });
 const ScReviews = dynamic(() => import("../components/scReviews"), {
-    suspense: true,
+  suspense: true,
 });
-const CheckoutDetailWork = dynamic(() => import("../components/CheckoutDetailWork"), {
+const CheckoutDetailWork = dynamic(
+  () => import("../components/CheckoutDetailWork"),
+  {
     suspense: true,
-});
-const ReduxProvider = dynamic(() => import("@/app/components/ReduxProvider/page"), {
+  }
+);
+const ReduxProvider = dynamic(
+  () => import("@/app/components/ReduxProvider/page"),
+  {
     suspense: true,
-});
+  }
+);
 
 export async function generateMetadata({ params }) {
-    const idWork = params.idWork;
-    const worksDetail = await getDetailWorkById(idWork);
-    const workData = worksDetail?.[0];
+  const idWork = params.idWork;
 
-    if (!worksDetail?.length < 0) {
-        return {
-            title: "Product Not Found",
-        };
-    }
+  const worksDetail = await getDetailWorkById(idWork);
+  const workData = worksDetail?.[0];
+
+  if (!worksDetail?.length < 0) {
     return {
-        title: workData?.congViec?.tenCongViec || "",
-        description: workData?.congViec?.moTa || "",
-        openGraph: {
-            title: workData?.congViec?.tenCongViec,
-            description: workData?.congViec?.moTaNgan || "",
-            images: [
-                {
-                    url: workData?.congViec?.hinhAnh || "",
-                    alt: "Fiverr Job Image",
-                },
-            ],
-        },
-        twitter: {
-            card: "summary_large_image",
-            title: workData?.congViec?.tenCongViec || "",
-            description: workData?.congViec?.moTa || "",
-            images: [workData?.congViec?.hinhAnh || ""],
-        },
+      title: "Product Not Found",
     };
+  }
+  return {
+    title: workData?.congViec?.tenCongViec || "",
+    description: workData?.congViec?.moTa || "",
+    openGraph: {
+      title: workData?.congViec?.tenCongViec,
+      description: workData?.congViec?.moTaNgan || "",
+      images: [
+        {
+          url: workData?.congViec?.hinhAnh || "",
+          alt: "Fiverr Job Image",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: workData?.congViec?.tenCongViec || "",
+      description: workData?.congViec?.moTa || "",
+      images: [workData?.congViec?.hinhAnh || ""],
+    },
+  };
 }
 const WorksDetailPage = async (props) => {
-    const { idWork } = await props.params;
+  const { idWork } = await props.params;
 
-    // get work infor
-    let detailWorkData;
-    if (idWork) {
-        detailWorkData = await getDetailWorkById(idWork);
+  // get work infor
+  let detailWorkData;
+  if (idWork) {
+    detailWorkData = await getDetailWorkById(idWork);
+  }
+
+  // get category work
+  const categoryWorkData = await getCategoryWorksById();
+
+  const { congViec, tenLoaiCongViec, id } = detailWorkData?.[0] || {};
+  const {
+    hinhAnh,
+    moTa,
+    nguoiTao,
+    maChiTietLoaiCongViec,
+    tenCongViec,
+    saoCongViec,
+    danhGia,
+    giaTien,
+    moTaNgan,
+  } = congViec || {};
+
+  // get API user
+  let userData = {};
+  if (nguoiTao) {
+    userData = await getUserById(nguoiTao);
+  }
+  const { avatar, name, role, phone } = userData || {};
+
+  // get API detail category works
+  let DetailCateWorks = {};
+  if (maChiTietLoaiCongViec) {
+    DetailCateWorks = await getDetailCategoryWorksById(maChiTietLoaiCongViec);
+  }
+
+  // cache Category Moment
+  const categoryWorkMomentCache = cache(
+    (listCategoryWork, nameCategoryWork) => {
+      let result = {};
+      if (listCategoryWork && nameCategoryWork) {
+        result = listCategoryWork?.filter((cate) => {
+          return cate?.tenLoaiCongViec === nameCategoryWork;
+        });
+      }
+      return result;
     }
+  );
 
-    // get category work
-    const categoryWorkData = await getCategoryWorksById();
-
-    const { congViec, tenLoaiCongViec, id } = detailWorkData?.[0] || {};
-    const {
-        hinhAnh,
-        moTa,
-        nguoiTao,
-        maChiTietLoaiCongViec,
-        tenCongViec,
-        saoCongViec,
-        danhGia,
-        giaTien,
-        moTaNgan,
-    } = congViec || {};
-
-    // get API user
-    let userData = {};
-    if (nguoiTao) {
-        userData = await getUserById(nguoiTao);
-    }
-    const { avatar, name, role, phone } = userData || {};
-
-    // get API detail category works
-    let DetailCateWorks = {};
-    if (maChiTietLoaiCongViec) {
-        DetailCateWorks = await getDetailCategoryWorksById(maChiTietLoaiCongViec);
-    }
-
-    // cache Category Moment
-    const categoryWorkMomentCache = cache((listCategoryWork, nameCategoryWork) => {
-        let result = {};
-        if (listCategoryWork && nameCategoryWork) {
-            result = listCategoryWork?.filter((cate) => {
-                return cate?.tenLoaiCongViec === nameCategoryWork;
-            });
-        }
-        return result;
-    });
-
-    // get API category works
-    let CateWorks = {};
-    if (tenLoaiCongViec) {
-        // get Category Moment
-        CateWorks = await categoryWorkMomentCache(categoryWorkData, tenLoaiCongViec);
-        CateWorks = CateWorks?.[0] || {};
-    }
-
-    // props section content works
-    const propsScContentWorks = {
-        hinhAnh,
-        moTa,
-        avatar,
-        name,
-        role,
-        saoCongViec,
-        danhGia,
-    };
-
-    // props section seller
-    const propsScSeller = {
-        avatar,
-        name,
-        role,
-        saoCongViec,
-        danhGia,
-        phone,
-    };
-
-    // props section reviews
-    const propsReviews = {
-        quantityReviews: danhGia || 0,
-        star: saoCongViec || 0,
-        idWork: id || "",
-    };
-
-    // props asides reviews
-    const propsAside = {
-        price: giaTien || 0,
-        shortDesc: moTaNgan || "",
-        idDetailWork: id || "",
-    };
-
-    return (
-        <main className="mainDetailWork pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)]">
-            <BreadcumbComponent>
-                <BreadcumbComponent.item>
-                    <Link href={"/"}>Home</Link>
-                </BreadcumbComponent.item>
-                <BreadcumbComponent.item>
-                    <Link href={PATH.WORKS_CATEGORY + `/${CateWorks?.id}`}>
-                        {CateWorks?.tenLoaiCongViec || ""}
-                    </Link>
-                </BreadcumbComponent.item>
-                <BreadcumbComponent.item>
-                    <Link href={PATH.WORKS + `/${DetailCateWorks?.id}`}>
-                        {DetailCateWorks?.tenChiTiet || ""}
-                    </Link>
-                </BreadcumbComponent.item>
-                <BreadcumbComponent.item isActive={true}>
-                    {tenCongViec || ""}
-                </BreadcumbComponent.item>
-            </BreadcumbComponent>
-            <div className="container flex justify-between items-stretch">
-                <div className="mainContent">
-                    <Suspense fallback={<ComponentLoading />}>
-                        <ScContentWork {...propsScContentWorks} />
-                    </Suspense>
-                    <Suspense fallback={<ComponentLoading />}>
-                        <ScSeller {...propsScSeller} />
-                    </Suspense>
-                    <Suspense fallback={<ComponentLoading />}>
-                        <ScFAQ />
-                    </Suspense>
-                    <Suspense fallback={<ComponentLoading />}>
-                        <ReduxProvider>
-                            <ScReviews {...propsReviews} />
-                        </ReduxProvider>
-                    </Suspense>
-                </div>
-                <aside className="asideDetailWork">
-                    <Suspense fallback={<ComponentLoading />}>
-                        <ReduxProvider>
-                            <CheckoutDetailWork {...propsAside} />
-                        </ReduxProvider>
-                    </Suspense>
-                </aside>
-            </div>
-        </main>
+  // get API category works
+  let CateWorks = {};
+  if (tenLoaiCongViec) {
+    // get Category Moment
+    CateWorks = await categoryWorkMomentCache(
+      categoryWorkData,
+      tenLoaiCongViec
     );
+    CateWorks = CateWorks?.[0] || {};
+  }
+
+  // props section content works
+  const propsScContentWorks = {
+    hinhAnh,
+    moTa,
+    avatar,
+    name,
+    role,
+    saoCongViec,
+    danhGia,
+  };
+
+  // props section seller
+  const propsScSeller = {
+    avatar,
+    name,
+    role,
+    saoCongViec,
+    danhGia,
+    phone,
+  };
+
+  // props section reviews
+  const propsReviews = {
+    quantityReviews: danhGia || 0,
+    star: saoCongViec || 0,
+    idWork: id || "",
+  };
+
+  // props asides reviews
+  const propsAside = {
+    price: giaTien || 0,
+    shortDesc: moTaNgan || "",
+    idDetailWork: id || "",
+  };
+
+  return (
+    <main className="mainDetailWork pt-[calc(var(--height-header)_+_40px)] max-xl:pt-[var(--height-header)]">
+      <BreadcumbComponent>
+        <BreadcumbComponent.item>
+          <Link href={"/"}>Home</Link>
+        </BreadcumbComponent.item>
+        <BreadcumbComponent.item>
+          <Link href={PATH.WORKS_CATEGORY + `/${CateWorks?.id}`}>
+            {CateWorks?.tenLoaiCongViec || ""}
+          </Link>
+        </BreadcumbComponent.item>
+        <BreadcumbComponent.item>
+          <Link href={PATH.WORKS + `/${DetailCateWorks?.id}`}>
+            {DetailCateWorks?.tenChiTiet || ""}
+          </Link>
+        </BreadcumbComponent.item>
+        <BreadcumbComponent.item isActive={true}>
+          {tenCongViec || ""}
+        </BreadcumbComponent.item>
+      </BreadcumbComponent>
+      <div className="container flex justify-between items-stretch">
+        <div className="mainContent">
+          <Suspense fallback={<ComponentLoading />}>
+            <ScContentWork {...propsScContentWorks} />
+          </Suspense>
+          <Suspense fallback={<ComponentLoading />}>
+            <ScSeller {...propsScSeller} />
+          </Suspense>
+          <Suspense fallback={<ComponentLoading />}>
+            <ScFAQ />
+          </Suspense>
+          <Suspense fallback={<ComponentLoading />}>
+            <ReduxProvider>
+              <ScReviews {...propsReviews} />
+            </ReduxProvider>
+          </Suspense>
+        </div>
+        <aside className="asideDetailWork">
+          <Suspense fallback={<ComponentLoading />}>
+            <ReduxProvider>
+              <CheckoutDetailWork {...propsAside} />
+            </ReduxProvider>
+          </Suspense>
+        </aside>
+      </div>
+    </main>
+  );
 };
 
 export default WorksDetailPage;

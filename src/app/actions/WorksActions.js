@@ -1,4 +1,3 @@
-"use server";
 import WorksServices from "../services/WorksServices";
 
 export const getWorksById = async (id) => {

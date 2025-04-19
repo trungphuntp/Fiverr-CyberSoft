@@ -41,7 +41,7 @@ const BlogDetailPage = () => {
         ) : (
           <p>Hình ảnh không khả dụng</p>
         )}
-          <p className="text-xl blogDetail__text">{blogData.text}</p>
+        <p className="text-xl blogDetail__text">{blogData.text}</p>
         <div>
           <p className="blogDetail__content">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse

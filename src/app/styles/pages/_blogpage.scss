@@ -2,13 +2,22 @@
 .BlogMain {
   .blog {
     // max-width: 800px;
-
+    &__itemPage {
+      margin-top: 60px;
+      @include m.xsWithMd {
+        margin-top: 0px;
+        padding-bottom: 120px;
+      } 
+    }
     &-list {
       display: flex;
       justify-content: center;
       margin: 40px auto 0;
       column-gap: 20px;
       @include m.mdWithLg {
+        display: block;
+      }
+      @include m.xsWithMd {
         display: block;
       }
       @include m.sm {
@@ -18,6 +27,9 @@
     }
     &__image {
       @include m.mdWithLg {
+        width: 100%;
+      }
+      @include m.xsWithMd {
         width: 100%;
       }
     }
@@ -39,13 +51,18 @@
 
     &__text {
       flex: 1;
-
+      @include m.xsWithMd {
+        width: 100%;
+      }
       .blog__paragraph {
         font-size: 1.5rem;
         font-weight: 700;
         line-height: 1.5;
         color: #1dbf73;
-
+        @include m.xsWithMd {
+          @apply text-3xl
+            mt-3;
+        }
         &--author {
           font-weight: bold;
           color: #000;
@@ -65,6 +82,9 @@
         color: #000;
         @include m.mdWithLg {
           max-width: 700px;
+        }
+        @include m.xsWithMd {
+          max-width: 800px;
         }
       }
     }
@@ -86,6 +106,14 @@
       justify-content: center;
       gap: 20px;
       align-items: center;
+      @include m.mdWithLg {
+        @apply mb-20;
+        gap: 30px;
+      }
+      @include m.xsWithMd {
+        display: flex;
+        flex-direction: column;
+      }
       @include m.sm {
         display: flex;
         flex-direction: column;
@@ -97,10 +125,19 @@
 
     &-list__item {
       width: 300px;
-      height: auto;
+      height: 400px;
       @include m.mdWithLg {
         width: 200px;
-        // height: 300px;
+        height: 300px;
+      }
+      @include m.xsWithMd {
+        width: 500px;
+        height: 300px;
+        margin: 40px 0;
+      }
+      @include m.xsWithMd {
+ 
+        margin: 40px 0;
       }
     }
 
@@ -120,14 +157,33 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
       }
-    }
-    &-list__image {
-      width: 300px;
-
-      @include m.mdWithLg {
-        width: 200px;
+      @include m.xsWithMd {
       }
     }
+    &-list__media {
+      width: 300px;
+      height: 200px;
+
+      @include m.mdWithLg {
+        width: 216px;
+        height: 144px;
+      }
+      @include m.xsWithMd {
+        width: 100%;
+        height: 300px;
+      }
+      &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+
+        @include m.mdWithLg {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
     &-list__text {
       @include m.mdWithLg {
         display: -webkit-box;
@@ -143,6 +199,9 @@
       @include m.sm {
         display: flex;
         flex-direction: column;
+      }
+      @include m.xsWithMd {
+        margin-top: 100px;
       }
 
       &__img {

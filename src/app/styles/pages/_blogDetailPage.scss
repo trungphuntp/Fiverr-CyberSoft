@@ -1,0 +1,31 @@
+@use "../core/mixins" as m;
+.BlogDetail{
+  .blogDetail{
+    &__title{
+      margin-top: 20px;
+      font-size: 2rem;
+      font-weight: 900;
+     
+      color: #1dbf73;
+    }
+    &__heading{
+      font-size: 3rem;
+      max-width:700px ;
+      font-weight: 900; 
+      margin: 2rem 0; 
+      line-height: 3.75rem;
+    }
+    &__text{
+      font-size: 1.2rem;
+      line-height: 2.5rem;
+     font-weight: 400;
+    }
+    &__content{
+      font-size: 1.6rem;
+      line-height: 2.5rem;
+      margin: 2rem 0;
+      max-width: 1000px;
+    }
+
+  }
+}

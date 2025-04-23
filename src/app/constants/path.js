@@ -9,6 +9,7 @@ const SEARCH_PATH = "/searchworks";
 const BLOG_PATH = "/blog";
 const BLOG_DETAIL_PATH = "/blogDetail/[id]";
 const ADMIN_PATH = "/admin";
+const NOT_FOUND_PAGE = "/404";
 
 const PATH = {
   HOME: HOME_PATH,
@@ -22,5 +23,6 @@ const PATH = {
   ADMIN: ADMIN_PATH,
   BLOG: BLOG_PATH,
   BLOG_DETAIL: BLOG_DETAIL_PATH,
+  NOT_FOUND: NOT_FOUND_PAGE,
 };
 export default PATH;

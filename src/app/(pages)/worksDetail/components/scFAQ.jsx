@@ -37,20 +37,19 @@ const ScFAQ = () => {
         <AccordionComponentItem
           ref={accordionRefs}
           id={"1"}
-          title={"There are many passages but the majority?"}
+          title={"What is your return policy?"}
         >
-          Voluptates amet earum velit nobis aliquam laboriosam nihil debitis
-          facere
+          We accept returns within 30 days of purchase. Items must be unused and
+          in their original packaging. To start a return, contact our support
+          team with your order details.
         </AccordionComponentItem>
         <AccordionComponentItem
           ref={accordionRefs}
           id={"2"}
-          title={"There are many passages but the majority?"}
+          title={". How long does shipping take?"}
         >
-          Voluptates amet earum velit nobis aliquam laboriosam nihil debitis
-          facere voluptatibus consectetur quae quasi fuga, ad corrupti libero
-          omnis sapiente non assumenda, incidunt officiis eaque iste minima
-          autem.
+          Shipping usually takes between 3–7 business days depending on your
+          location. International orders may take longer.
         </AccordionComponentItem>
         <AccordionComponentItem
           ref={accordionRefs}
@@ -68,38 +67,29 @@ const ScFAQ = () => {
         <AccordionComponentItem
           ref={accordionRefs}
           id={"4"}
-          title={"There are many passages but the majority?"}
+          title={"Do you offer international shipping?"}
         >
-          Voluptates amet earum velit nobis aliquam laboriosam nihil debitis
-          facere voluptatibus consectetur quae quasi fuga, ad corrupti libero
-          omnis sapiente non assumenda, incidunt officiis eaque iste minima
-          autem. Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-          Pariatur blanditiis, veniam quas, quaerat repellat, quam similique
-          cumque libero suscipit repellendus voluptatum distinctio inventore ea
-          nam corrupti incidunt natus minima consequuntur! Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Quasi excepturi a ex recusandae
-          corrupti ab at iure vero quaerat, rerum totam aspernatur numquam,
-          ipsum vitae commodi quibusdam dolorem tempora error?
+          Yes, we ship worldwide! International shipping fees and delivery times
+          vary by destination. Additional customs charges may apply depending on
+          your country’s regulations.
         </AccordionComponentItem>
         <AccordionComponentItem
           ref={accordionRefs}
           id={"5"}
-          title={"There are many passages but the majority?"}
+          title={"Can I change or cancel my order after placing it?"}
         >
-          Voluptates amet earum velit nobis aliquam laboriosam nihil debitis
-          facere voluptatibus consectetur quae quasi fuga, ad corrupti libero
-          omnis sapiente non assumenda, incidunt officiis eaque iste minima
-          autem.
+          We process orders quickly, but if you contact us within 2 hours of
+          placing your order, we may be able to make changes or cancel it. After
+          that, we cannot guarantee modifications.
         </AccordionComponentItem>
         <AccordionComponentItem
           ref={accordionRefs}
           id={"6"}
-          title={"There are many passages but the majority?"}
+          title={"Are your products eco-friendly?"}
         >
-          Voluptates amet earum velit nobis aliquam laboriosam nihil debitis
-          facere voluptatibus consectetur quae quasi fuga, ad corrupti libero
-          omnis sapiente non assumenda, incidunt officiis eaque iste minima
-          autem.
+          Absolutely. Sustainability is one of our core values. We use
+          biodegradable packaging, recyclable materials, and partner with
+          suppliers who follow eco-friendly practices.
         </AccordionComponentItem>
       </AccordionComponent>
     </section>

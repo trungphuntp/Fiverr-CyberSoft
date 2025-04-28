@@ -6,24 +6,64 @@
     @include m.xl {
       flex-direction: column;
     }
+
     .adminTabs {
-      width: 25%;
-      padding: 30px;
+      position: fixed;
+      height: 100%;
+      top: 0;
+      left: 0;
+      width: 20%;
       border-right: 1px solid #000;
+      z-index: 900;
+
+      @include m.transition(0.5s);
+      .opacitynav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: #00000077;
+      }
+      .adminNav {
+        top: 0;
+        width: 100%;
+        left: 0;
+        @include m.transition(0.5s);
+      }
+
+      &.isActive {
+        opacity: 1;
+        visibility: visible;
+        .adminNav {
+          left: 0;
+        }
+      }
       @include m.xl {
+        opacity: 0;
+        visibility: hidden;
         width: 100%;
         border: none;
+        .adminNav {
+          width: 40%;
+          left: -100%;
+        }
       }
+      @include m.sm {
+        .adminNav {
+          width: 80%;
+        }
+      }
+
       &__top {
         &-title {
-          font-size: 42px;
+          font-size: 20px;
           font-family: m700;
           text-transform: uppercase;
         }
       }
 
       &__list {
-        margin-top: 20px;
         .listMenu {
           &__item {
             font-family: m500;
@@ -43,15 +83,21 @@
         }
       }
     }
+    .leftAdmin {
+      width: 80%;
+      padding-left: 5%;
+      @include m.xl {
+        width: 100%;
+        margin-left: 0;
+        padding-left: 0;
+      }
+    }
     .adminInfor {
-      width: 75%;
-      padding: 30px;
-      text-align: center;
       @include m.xl {
         width: 100%;
       }
       &__title {
-        font-size: 20px;
+        font-size: 34px;
         font-family: m700;
         text-transform: uppercase;
       }
@@ -60,65 +106,96 @@
         margin-top: 30px;
         height: 40px;
       }
-      &__list {
-        width: 100%;
-        margin-top: 30px;
-        border: 2px solid black;
-        align-items: center;
-        &-head {
-          background: rgb(147, 142, 142);
-          font-size: 1.6rem;
-          font-family: m600;
-        }
-        &-row:nth-of-type(even) {
-          background: rgb(234, 234, 234);
-        }
-
-        th,
-        td {
-          border-left: 2px solid black;
-          border-right: 2px solid black;
-          padding: 12px 8px;
-          font-family: m500;
-          min-width: 70px;
-          word-break: break-word;
-          .adminrole {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 10px;
-            background: #dd3a33;
-            color: #ffe9ea;
-            word-break: keep-all;
-          }
-          .userrole {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 10px;
-            background: #68bb59;
-            color: #fff;
-            word-break: keep-all;
+      &__actions {
+        @include m.lg {
+          .btn {
+            width: 100%;
           }
         }
       }
+      // desktop admin list
+      &__list {
+        width: 100%;
+        margin-top: 30px;
+        text-align: center;
+        &-head {
+          font-size: 1.6rem;
+          font-family: m700;
+          color: #000;
+          border-bottom: 1px solid #00000020;
+          th {
+            font-family: m700 !important;
+          }
+        }
+        th,
+        td {
+          position: relative;
+          padding: 12px 8px;
+          font-family: m600;
+          min-width: 70px;
+          .avatarUser {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+          .thumbItem {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+          .tagAdmin {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+
+            word-break: keep-all;
+          }
+          .adminrole {
+            background: #dd3a33;
+            color: #ffe9ea;
+          }
+          .userrole {
+            background: #68bb59;
+            color: #fff;
+          }
+          .maleGender {
+            background: #2999ed;
+            color: #fff;
+          }
+          .femaleGender {
+            background: #ffb3df;
+            color: #fff;
+          }
+        }
+        td {
+          word-break: break-word;
+        }
+      }
+      // Mobile admin list
       &__list.mobile {
         .adminInfor__list-row {
           th,
           td {
             border: 2px solid black;
-            .adminrole {
-              display: inline-block;
-              padding: 4px 8px;
-              border-radius: 10px;
-              background: #dd3a33;
-              color: #ffe9ea;
-            }
-            .userrole {
-              display: inline-block;
-              padding: 4px 8px;
-              border-radius: 10px;
-              background: #68bb59;
-              color: #fff;
-            }
           }
           .title {
             font-family: m700;

@@ -1,4 +1,3 @@
-"use client";
 import PATH from "@/app/constants/path";
 import { useNavContext } from "@/app/contexts/NavContext/page";
 import Link from "next/link";
@@ -268,7 +267,7 @@ const HeaderTop = () => {
                   }`}
                 >
                   <Link href={PATH.PROFILE}>Account Details</Link>
-                  {role === "Admin" && role === "ADMIN" && (
+                  {role !== "USER" && (
                     <Link href={PATH.ADMIN}>Access Admin Page</Link>
                   )}
                   <a onClick={_OnclickLogout} href="#">

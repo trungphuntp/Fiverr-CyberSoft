@@ -3,13 +3,11 @@ import ReduxProvider from "@/app/components/ReduxProvider/page";
 import PATH from "@/app/constants/path";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const LayoutAdmin = ({ children }) => {
   const { profile } = useSelector((state) => state.profile);
-  const dispatch = useDispatch();
   const router = useRouter();
-
   useEffect(() => {
     if (!!profile?.id) {
       if (profile?.role !== "ADMIN") {

@@ -1,3 +1,4 @@
+"use client";
 import { postCategoryWork } from "@/app/actions/CategoryWorksAction";
 import { getDetailCategoryWorksById } from "@/app/actions/DetailCategoryWorkAction";
 import { postUser } from "@/app/actions/UserActions";
@@ -12,9 +13,9 @@ import { formatDateDayjs } from "@/app/utils/format";
 import { DatePicker, Form, Input, Modal, Radio, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import Image from "next/image";
-import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../Button/page";
+import { useRef, useState } from "react";
 
 const PopupAddItemAdmin = ({
   isActiveAdd,

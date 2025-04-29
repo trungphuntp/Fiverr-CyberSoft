@@ -1,3 +1,4 @@
+"use client";
 import { putCategoryWork } from "@/app/actions/CategoryWorksAction";
 import { getDetailCategoryWorksById } from "@/app/actions/DetailCategoryWorkAction";
 import { putUserById } from "@/app/actions/UserActions";

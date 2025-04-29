@@ -9,7 +9,7 @@ const CardPerformance = ({
 }) => {
   return (
     <div className="cardPerformance p-[20px] flex justify-center items-center gap-[20px]">
-      {icon()}
+      {!!icon && icon()}
       <div className="cardPerformance__content">
         <p className="cardPerformance__content-title text-[#495057] font-[m500]">
           {title}

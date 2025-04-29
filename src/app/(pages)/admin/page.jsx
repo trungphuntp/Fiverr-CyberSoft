@@ -19,8 +19,6 @@ import {
   getSearchWorks,
   getWorksById,
 } from "@/app/actions/WorksActions";
-import FormAddAdmin from "@/app/components/FormAddAdmin/page";
-import FormCreateAdmin from "@/app/components/FormCreateAdmin/page";
 import FormEditAdmin from "@/app/components/FormEditAdmin/page";
 import PopupAddItemAdmin from "@/app/components/PopupAddItemAdmin/page";
 import { adminTab } from "@/app/constants/general";
@@ -32,8 +30,6 @@ import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AdminInfor from "./components/AdminInfor";
 import AdminTabs from "./components/AdminTabs";
-import Link from "next/link";
-import PATH from "@/app/constants/path";
 import HeaderAdminPage from "./components/HeaderAdminPage";
 
 const LIMIT_ITEM = 9;
@@ -78,18 +74,6 @@ const AdminPage = () => {
   const [isTabActive, setisTabActive] = useState(adminTab.users);
   const handleSetTabActive = (activeTab) => {
     setisTabActive(activeTab);
-  };
-
-  // modal create admin active
-  const [isActiveCreateAdmin, setisActiveCreateAdmin] = useState(false);
-  const handleSetModalAdmin = (active) => {
-    setisActiveCreateAdmin(active);
-  };
-
-  // modal add admin active
-  const [isActiveAddAdmin, setisActiveAddAdmin] = useState(false);
-  const handleSetAddAdmin = (active) => {
-    setisActiveAddAdmin(active);
   };
 
   // modal add new item
@@ -398,20 +382,6 @@ const AdminPage = () => {
     handleSetAddAdmin,
     ...handleInforDataAll,
     ...handleGetData,
-  };
-
-  // form new admin props
-  const propsFormCreateAdmin = {
-    isActiveCreateAdmin,
-    handleSetModalAdmin,
-    handleFetchingAPI,
-  };
-
-  // form new admin props
-  const propsFormAddAdmin = {
-    isActiveAddAdmin,
-    handleSetAddAdmin,
-    handleFetchingAPI,
   };
 
   //  add form props

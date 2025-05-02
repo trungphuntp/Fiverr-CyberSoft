@@ -1,3 +1,4 @@
+"use client";
 import Button from "@/app/components/Button/page";
 import CardPerformance from "@/app/components/CardPerformance/page";
 import HeaderAdmin from "@/app/components/HeaderAdmin/page";
@@ -39,7 +40,6 @@ const AdminInfor = ({
   pageSize,
   totalRow,
   handleChangePagination,
-  handleSetModalAdmin,
   handleSetActiveAdd,
   handleDeleteCategory,
   handleDeleteDetailCategory,
@@ -47,7 +47,6 @@ const AdminInfor = ({
   handleDeleteUser,
   handleSetActiveEdit,
   handleGetInforItemByid,
-  handleSetAddAdmin,
   totalUser,
   totalWork,
   totalCash,
@@ -395,20 +394,6 @@ const AdminInfor = ({
       }
     }
   }, [isTabActive]);
-
-  // form create admin
-  const handleShowCreateAdmin = (e) => {
-    e?.stopPropagation();
-    e?.preventDefault();
-    handleSetModalAdmin?.(true);
-  };
-
-  // form add admin
-  const handleShowAddAdmin = (e) => {
-    e?.stopPropagation();
-    e?.preventDefault();
-    handleSetAddAdmin?.(true);
-  };
 
   // form add item
   const handleShowAddItem = (e) => {

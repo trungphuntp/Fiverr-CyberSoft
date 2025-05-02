@@ -35,9 +35,9 @@ const HeaderTop = () => {
   const [avatarDropdown, setAvatarDropdown] = useState(false);
   const { handleSetActiveNav } = useNavContext();
 
-  const { profile, role } = useSelector((state) => state.profile);
+  const { profile } = useSelector((state) => state.profile);
 
-  const { avatar } = profile || {};
+  const { avatar, role } = profile || {};
   const [isLogined, setIsLogined] = useState(false);
 
   const { message, typeMessage } = useSelector((state) => state.message);
@@ -267,7 +267,9 @@ const HeaderTop = () => {
                   }`}
                 >
                   <Link href={PATH.PROFILE}>Account Details</Link>
-                  {role !== "USER" && (
+                  {(role === "Admin" ||
+                    role === "admin" ||
+                    role === "ADMIN") && (
                     <Link href={PATH.ADMIN}>Access Admin Page</Link>
                   )}
                   <a onClick={_OnclickLogout} href="#">

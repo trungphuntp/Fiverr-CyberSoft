@@ -371,7 +371,6 @@ const AdminPage = () => {
   const propsAdminInfor = {
     handleChangePagination,
     isTabActive,
-    handleSetModalAdmin,
     handleSetActiveAdd,
     handleDeleteCategory,
     handleDeleteDetailCategory,
@@ -379,7 +378,6 @@ const AdminPage = () => {
     handleDeleteUser,
     handleSetActiveEdit,
     handleGetInforItemByid,
-    handleSetAddAdmin,
     ...handleInforDataAll,
     ...handleGetData,
   };

@@ -26,7 +26,7 @@ const Navbar = () => {
   const searchParam = useSearchParams();
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.profile);
-  const { avatar, name, email } = profile || [];
+  const { avatar, name, email, role } = profile || [];
   const { isActiveNav, handleSetActiveNav } = useNavContext();
   const [isDropDownItem, setisDropDownItem] = useState([]);
   const [isLogined, setIsLogined] = useState(false);
@@ -41,6 +41,7 @@ const Navbar = () => {
       }
     });
   };
+
   // check login
   useEffect(() => {
     if (
@@ -282,12 +283,14 @@ const Navbar = () => {
         <div className="navbar__content-search h-[42px] mt-[20px] ">
           <InputSearch placeholder="Find Services" />
         </div>
-        <Link
-          href={PATH.ADMIN}
-          className="mt-4 text-[20px] text-red-400 font-[m700] block text-center hover:opacity-70"
-        >
-          Access Admin Page
-        </Link>
+        {(role === "Admin" || role === "admin" || role === "ADMIN") && (
+          <Link
+            href={PATH.ADMIN}
+            className="mt-4 text-[20px] text-red-400 font-[m700] block text-center hover:opacity-70"
+          >
+            Access Admin Page
+          </Link>
+        )}
         {/* close */}
         <svg
           className="navbar__content-close text-black"

@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <footer
       ref={refFooter}
-      className="footer pt-[65px] border border-[#e4e5e7] border-solid"
+      className="footer pt-[65px] border-[#e4e5e7] border-t-[1px] border-solid"
     >
       <div className="container">
         <div className="footer__content grid grid-cols-5 pb-[55px] max-lg:grid-cols-3 max-xs:grid-cols-2 max-xs:gap-8 max-xxs:grid-cols-1">
@@ -243,7 +243,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="footer__bottom flex justify-between items-center max-lg:flex-col">
-          <div className="footer__bottom-left flex items-center gap-10 pt-[20px] pb-[40px] border border-solid border-[#e4e5e7] max-lg:flex-col">
+          <div className="footer__bottom-left flex items-center gap-10 pt-[20px] pb-[40px] max-lg:flex-col">
             <Link href={PATH.HOME}>
               <img className="w-[90px]" src="/logo.svg" alt="logo fiverr" />
             </Link>

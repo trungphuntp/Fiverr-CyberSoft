@@ -127,12 +127,13 @@ const FormEditAdmin = ({
           danhGia: Number(rate || 1),
           giaTien: Number(price || 1),
           nguoiTao: profile?.id || "",
-          hinhAnh: "",
+          hinhAnh: linkThumbnailWorks?.urlImg || "",
           moTa: description || "",
           maChiTietLoaiCongViec: itemDetailCategory,
           moTaNgan: shortDescription || "",
           saoCongViec: star,
         };
+
         const resEditWork = await putWorksById(dataEdit?.id, payloadWork);
 
         if (!!resEditWork?.tenCongViec) {
@@ -140,7 +141,6 @@ const FormEditAdmin = ({
         } else {
           dispatch(handleSetMessage(["Edit work failed!", "error"]));
         }
-
         if (!!linkThumbnailWorks?.file) {
           const resThumb = await updateThumbWork(
             resEditWork?.id || dataEdit?.id,
@@ -151,9 +151,11 @@ const FormEditAdmin = ({
               handleSetMessage(["Edit thumbnail successfully!", "success"])
             );
             handleCancel();
+            handleFetchingAPI?.();
           }
         } else {
           handleCancel();
+          handleFetchingAPI?.();
         }
 
         break;
@@ -189,6 +191,7 @@ const FormEditAdmin = ({
           handleCancel();
         } else {
           dispatch(handleSetMessage(["Something wrong!", "error"]));
+          handleFetchingAPI?.();
         }
 
         break;
